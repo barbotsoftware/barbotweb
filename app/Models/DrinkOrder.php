@@ -6,6 +6,16 @@ class DrinkOrder extends Eloquent
 
 	protected $fillable = array('id', 'uid', 'barbot_id', 'recipe_id', 'user_id');
 
+	public static function boot()
+	{
+		parent::boot();
+
+		DrinkOrder::creating(function($drinkOrder)
+		{
+			$drinkOrder->uid = 'drinkorder_' . bin2hex(openssl_random_pseudo_bytes(3));
+		});
+	}
+
 	public function recipe()
 	{
 		return $this->belongsTo("Recipe");

@@ -1,0 +1,65 @@
+html, body{
+    background: #696969;
+    height: 100%;
+    width: 100%;
+}
+
+body {
+    /*width: 100%;
+    height: 100%;*/
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#pageWrapper{
+    /*margin-left: auto;
+    margin-right: auto;
+    padding: 20px;
+    width: 50%;
+    height: 100%;
+    position: absolute;*/
+    width: 55%;
+    height: 100%;
+    background: #3a3a3b;
+    color: white;
+}
+
+.pageTitle{
+    font-size: 20pt;
+}
+
+#drinkSelectorCntnr{
+    margin-top: 15px;
+}
+
+#drinkSelector{
+    padding: 5px;
+    border-radius: 5px;
+}
+
+#drinkSelectButton{
+    background: #268FFB;
+    color: white;
+    border: none;
+    padding: 5px;
+    width: 50px;
+    font-size: 14pt;
+    margin: 5px 0px;
+}
+
+#recipeList{
+    height: 80%;
+}
+
+.recipeEntry{
+    background: #4c4c4c;
+    /*border: 1px solid white;*/
+    border-radius: 5px;
+    padding: 5px;
+    margin: 5px;
+}
+
+.recipeEntry:hover{
+    cursor: pointer;
+    background: #717171;
+}
