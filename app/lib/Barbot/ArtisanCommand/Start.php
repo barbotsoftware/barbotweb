@@ -36,22 +36,14 @@ class Start extends Command
             $wsport = 8000;
         }
 
-        $loop = \React\EventLoop\Factory::create();
+        $ws = new WsServer($this->barbotController);
+        $ws->disableVersion(0);
 
-        $webSock = new \React\Socket\Server($loop);
-        $webSock->listen($wsport, '0.0.0.0');
-        $webServer = new \Ratchet\Server\IoServer(
-            new \Ratchet\Http\HttpServer(
-                new \Ratchet\Websocket\WsServer(
-                    $this->barbotController
-                )
-            ),
-            $webSock
-        );
+        $server = IoServer::factory(new HttpServer($ws), $wsport);
 
         print("Starting server on port " . $wsport . "\n");
         // Start everything
-        $loop->run();
+        $server->run();
     }
     protected function getOptions()
     {

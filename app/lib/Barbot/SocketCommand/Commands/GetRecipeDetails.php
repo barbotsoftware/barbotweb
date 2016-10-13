@@ -25,18 +25,22 @@ class GetRecipeDetails extends Command
                     if($step->recipe_action_id == 1)
                     {
                         $obj['ingredient_id'] = $step->ingredients[0]->uid;
-                        $obj['amount'] = $step->ingredients[0]->pivot->amount;
+                        $obj['quantity'] = $step->ingredients[0]->pivot->amount;
                     }
 
                     $arr[] = $obj;
                 }
 
                 return array(
-                    'recipe' => array(
-                        'name'  => $recipe->name,
-                        'id'    => $recipe->uid,
-                        'img'   => $recipe->image_url,
-                        'steps' => $arr
+                    'type' => 'response',
+                    'command' => 'get_recipe_details',
+                    'data' => array(
+                        'recipe' => array(
+                            'name'  => $recipe->name,
+                            'id'    => $recipe->uid,
+                            'img'   => $recipe->image_url,
+                            'steps' => $arr
+                        )
                     )
                 );
             }
