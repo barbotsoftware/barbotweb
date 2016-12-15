@@ -19,7 +19,9 @@ class OrderDrink extends Command
 				$drinkOrder = \DrinkOrder::create(array(
 					'barbot_id' => $barbot->id,
 					'recipe_id' => $recipe->id,
-					'user_id'   => $user->id
+					'user_id'   => $user->id,
+					'ice'       => $this->args['ice'],
+					'garnish'   => $this->args['garnish']
 				));
 
 				\Event::fire("barbot.metrics.drinkorder", array(
@@ -31,8 +33,12 @@ class OrderDrink extends Command
 
 				print("Created drink order for recipe " . $recipe->name . " and barbot " . $barbot->uid . "\n");
 
-				return array(
-					'drink_order_id' => $drinkOrder->uid
+				return array (
+					'type' => 'response',
+					'command' => 'order_drink',
+					'data' => array (
+						'drink_order_id' => $drinkOrder->uid
+					)
 				);
 			}
 			else

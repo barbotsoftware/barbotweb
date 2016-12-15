@@ -7,7 +7,9 @@ return array(
 		'command' => '\Barbot\SocketCommand\Commands\OrderDrink',
 		'args'    => array(
 			'barbot_id' => 'string|required',
-			'recipe_id' => 'string|required'
+			'recipe_id' => 'string|required',
+			'ice'       => 'integer|required',
+			'garnish'   => 'integer|required'
 		)
 	),
 	'get_recipes_for_barbot' => array(

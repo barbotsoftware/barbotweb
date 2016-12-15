@@ -4,7 +4,7 @@ class DrinkOrder extends Eloquent
 {
 	protected $table = "drink_orders";
 
-	protected $fillable = array('id', 'uid', 'barbot_id', 'recipe_id', 'user_id');
+	protected $fillable = array('id', 'uid', 'barbot_id', 'recipe_id', 'user_id', 'ice', 'garnish');
 
 	public static function boot()
 	{
