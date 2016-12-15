@@ -97,32 +97,24 @@ Request:
 Response:
 ```
 {
-	"recipe": {
-		"name": "Cuba Libre",
-		"id": "recipe_8a4d7a",
-		"img": "http:\/\/192.168.1.41\/barbot\/public\/images\/term.jpg",
-		"steps": [{
-			"step_number": 1,
-			"type": 1,
-			"ingredient_id": "ingredient_1b4549",
-			"amount": 1.1
-		}, {
-			"step_number": 2,
-			"type": 1,
-			"ingredient_id": "ingredient_f8b566",
-			"amount": 2.3
-		}, {
-			"step_number": 3,
-			"type": 1,
-			"ingredient_id": "ingredient_b87666",
-			"amount": 1.5
-		}, {
-			"step_number": 4,
-			"type": 2
-		}, {
-			"step_number": 5,
-			"type": 5
-		}]
+	"type": "response",
+	"command": "get_recipe_details",
+	"data": {
+		"recipe": {
+			"name": "The Sour",
+			"id": "recipe_9aa19a",
+			"img": "http:\/\/farm8.staticflickr.com\/7252\/7594170156_46bf574865_o.jpg",
+			"ingredients": [{
+				"ingredient_id": "ingredient_d300cc",
+				"quantity": 3.43
+			}, {
+				"ingredient_id": "ingredient_f8fb11",
+				"quantity": 0.86
+			}, {
+				"ingredient_id": "ingredient_8ec6eb",
+				"quantity": 1.71
+			}]
+		}
 	}
 }
 ```
@@ -156,26 +148,20 @@ Response:
 Request:
 ```
 {
-	"type": "command",
-	"command": "create_custom_drink",
-	"data": {
-		"recipe": {
-			"name": "peniscake",
-			"steps": [{
-				"type": 1,
-				"ingredient_id": "ingredient_08459c",
-				"amount": 2
-			}, {
-				"type": 1,
-				"ingredient_id": "ingredient_d62d25",
-				"amount": 1
-			}, {
-				"type": 4
-			}, {
-				"type": 5
-			}]
-		}
-	}
+    "type": "command",
+    "command": "create_custom_drink",
+    "data": {
+        "recipe": {
+            "name": "peniscake",
+            "ingredients": [{
+                "ingredient_id": "ingredient_8ec6eb",
+                "amount": 2
+            }, {
+                "ingredient_id": "ingredient_315ea6",
+                "amount": 1
+            }]
+        }
+    }
 }
 ```
 Response:
