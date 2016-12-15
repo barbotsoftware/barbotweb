@@ -21,7 +21,7 @@ All commands must be valid JSON and have the same basic structure:
 {
     "type": "command",
     "command": "[command]",
-    "args": {
+    "data": {
         ...
     }
 }
@@ -48,9 +48,11 @@ Request:
 {
 	"type": "command",
 	"command": "order_drink",
-	"args": {
+	"data": {
 		"barbot_id": "barbot_1db433",
-        "recipe_id": "recipe_ee1236"
+        "recipe_id": "recipe_ee1236",
+	"ice": 1,
+	"garnish": 0
 	}
 }
 ```
@@ -66,7 +68,7 @@ Request:
 {
 	"type": "command",
 	"command": "get_recipes_for_barbot",
-	"args": {
+	"data": {
 		"barbot_id": "barbot_1db433"
 	}
 }
@@ -87,7 +89,7 @@ Request:
 {
 	"type": "command",
 	"command": "get_recipe_details",
-	"args": {
+	"data": {
 		"recipe_id": "recipe_ee1236"
 	}
 }
@@ -130,7 +132,7 @@ Request:
 {
 	"type": "command",
 	"command": "get_ingredients_for_barbot",
-	"args": {
+	"data": {
 		"barbot_id": "barbot_1db433"
 	}
 }
@@ -156,7 +158,7 @@ Request:
 {
 	"type": "command",
 	"command": "create_custom_drink",
-	"args": {
+	"data": {
 		"recipe": {
 			"name": "peniscake",
 			"steps": [{
@@ -188,7 +190,7 @@ Request:
 {
 	"type": "command",
 	"command": "pour_drink",
-	"args": {
+	"data": {
 		"drink_order_id": "drinkorder_5e0f58"
 	}
 }
