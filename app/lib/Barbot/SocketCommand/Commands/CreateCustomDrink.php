@@ -14,34 +14,27 @@ class CreateCustomDrink extends Command
             "image_url" => "http://192.168.1.41/barbot/public/img/recipe_images/custom.png"
         ));
 
-        $count = 1;
-        for($i = 0; $i < count($recipe["steps"]); $i++)
+        for($i = 0; $i < count($recipe["ingredients"]); $i++)
         {
             $recipeStep = \RecipeStep::create(array(
                 'recipe_id'        => $newRecipe->id,
                 'step_number'      => $i + 1,
-                'recipe_action_id' => $recipe['steps'][$i]['type']
+                'recipe_action_id' => 1
             ));
 
-            if($recipe['steps'][$i]['type'] == '1')
-            {
-                \DB::table("recipe_step_ingredient")->insert(array(
-                    'recipe_step_id' => $recipeStep->id,
-                    'ingredient_id'  => \Ingredient::where("uid", $recipe['steps'][$i]['ingredient_id'])->first()->id,
-                    'amount'         => $recipe['steps'][$i]['amount']
-                ));
-            }
-            $count++;
+            \DB::table("recipe_step_ingredient")->insert(array(
+                'recipe_step_id' => $recipeStep->id,
+                'ingredient_id'  => \Ingredient::where("uid", $recipe['ingredients'][$i]['ingredient_id'])->first()->id,
+                'amount'         => $recipe['ingredients'][$i]['amount']
+            ));
         }
 
-        \RecipeStep::create(array(
-            'recipe_id' => $newRecipe->id,
-            'step_number' => $count + 1,
-            'recipe_action_id' => 5
-        ));
-
-        return array(
-            'recipe_id' => $newRecipe->uid
+        return array (
+            'type' => 'response',
+            'command' => 'order_drink',
+            'data' => array (
+                'recipe_id' => $newRecipe->uid
+            )
         );
     }
 }

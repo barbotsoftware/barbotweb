@@ -17,18 +17,15 @@ class GetRecipeDetails extends Command
                 $arr = array();
                 foreach($steps as $step)
                 {
-                    $obj = array(
-                        'step_number' => $step->step_number,
-                        'type'        => $step->recipe_action_id
-                    );
-
                     if($step->recipe_action_id == 1)
                     {
+                        $obj = array();
+
                         $obj['ingredient_id'] = $step->ingredients[0]->uid;
                         $obj['quantity'] = $step->ingredients[0]->pivot->amount;
-                    }
 
-                    $arr[] = $obj;
+                        $arr[] = $obj;
+                    }
                 }
 
                 return array(
@@ -36,10 +33,10 @@ class GetRecipeDetails extends Command
                     'command' => 'get_recipe_details',
                     'data' => array(
                         'recipe' => array(
-                            'name'  => $recipe->name,
-                            'id'    => $recipe->uid,
-                            'img'   => $recipe->image_url,
-                            'steps' => $arr
+                            'name'        => $recipe->name,
+                            'id'          => $recipe->uid,
+                            'img'         => $recipe->image_url,
+                            'ingredients' => $arr
                         )
                     )
                 );
