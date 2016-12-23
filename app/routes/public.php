@@ -39,3 +39,20 @@ Route::post("/login", function()
         return $validator->messages();
     }
 });
+
+Route::post("/register", function()
+{
+    $validator = Validator::make (
+        Input::get(),
+        array(
+            'name' => 'required|string|unique:users'
+        )
+    );
+
+    if($validator->passes()) {
+        $user = User::create(array('email' => '', 'name' => Input::get("name")));
+        return $user;
+    } else {
+        return $validator->messages();
+    }
+});

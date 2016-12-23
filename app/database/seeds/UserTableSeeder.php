@@ -6,8 +6,8 @@ class UserTableSeeder extends Seeder {
     {
     	DB::table("users")->truncate();
     	
-        User::create(array('email' => 'alexhorstmann@hotmail.com'));
-        User::create(array('email' => 'tcote9194@gmail.com'));
+        User::create(array('email' => 'alexhorstmann@hotmail.com', 'name' => 'tchabz'));
+        User::create(array('email' => 'tcote9194@gmail.com', 'name' => 'term'));
     }
 
 }
