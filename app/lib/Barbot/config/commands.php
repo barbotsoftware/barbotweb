@@ -49,9 +49,12 @@ return array(
 			'barbot_id' => 'required|string'
 		)
 	),
-	'update_config' => array(
-		'command' => '',
-		'args'    => array()
+	'update_containers' => array(
+		'command' => '\Barbot\SocketCommand\Commands\UpdateContainers',
+		'args'    => array(
+			'barbot_id'  => 'required',
+			'containers' => 'required'
+		)
 	),
 	'start_serving' => array(
 		'command' => '',
