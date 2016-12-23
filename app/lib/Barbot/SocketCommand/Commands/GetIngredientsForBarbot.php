@@ -27,7 +27,11 @@ class GetIngredientsForBarbot extends Command
             }
 
             return array(
-                'ingredients' => $arr
+                'type' => 'response',
+                'command' => 'get_ingredients_for_barbot',
+                'data' => array(
+                    'ingredients' => $arr
+                )
             );
         }
         else

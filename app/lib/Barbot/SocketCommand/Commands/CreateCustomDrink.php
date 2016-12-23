@@ -31,7 +31,7 @@ class CreateCustomDrink extends Command
 
         return array (
             'type' => 'response',
-            'command' => 'order_drink',
+            'command' => 'create_custom_drink',
             'data' => array (
                 'recipe_id' => $newRecipe->uid
             )
