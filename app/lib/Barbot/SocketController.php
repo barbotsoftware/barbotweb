@@ -369,7 +369,7 @@ class SocketController implements MessageComponentInterface
 	{
 		foreach (self::$connections as $conn)
 		{
-			if(get_class($conn) === "Barbot\SocketConnection\UserConnection")
+			if(get_class($conn) === "Barbot\SocketConnection\BarbotConnection")
 			{
 				$conn->sendCommand(array(
 					"event" => $event,
