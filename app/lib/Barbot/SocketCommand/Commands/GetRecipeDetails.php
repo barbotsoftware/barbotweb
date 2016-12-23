@@ -34,7 +34,7 @@ class GetRecipeDetails extends Command
                     'data' => array(
                         'recipe' => array(
                             'name'        => $recipe->name,
-                            'id'          => $recipe->uid,
+                            'recipe_id'   => $recipe->uid,
                             'img'         => $recipe->image_url,
                             'ingredients' => $arr
                         )

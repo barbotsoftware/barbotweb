@@ -21,8 +21,8 @@ class GetIngredientsForBarbot extends Command
             foreach($ingredients as $ingredient)
             {
                 $arr[] = array(
-                    'name' => $ingredient->name,
-                    'id'   => $ingredient->uid
+                    'name'          => $ingredient->name,
+                    'ingredient_id' => $ingredient->uid
                 );
             }
 

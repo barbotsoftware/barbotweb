@@ -40,9 +40,9 @@ class GetRecipesForBarbot extends Command
                     if(count(array_intersect($ingredients, $barbotIngredients)) === count($ingredients))
                     {
                         $recipes[] = array(
-                            'name' => $recipe->name,
-                            'id'   => $recipe->recipe_id,
-                            'img'  => $recipe->image_url
+                            'name'      => $recipe->name,
+                            'recipe_id' => $recipe->recipe_id,
+                            'img'       => $recipe->image_url
                         );
                     }
                 }

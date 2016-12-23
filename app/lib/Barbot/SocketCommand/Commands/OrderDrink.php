@@ -24,13 +24,6 @@ class OrderDrink extends Command
 					'garnish'   => $this->args['garnish']
 				));
 
-				\Event::fire("barbot.metrics.drinkorder", array(
-					array(
-					"drink_order" => $drinkOrder,
-					"recipe"      => $recipe,
-					"user"        => $user
-				)));
-
 				print("Created drink order for recipe " . $recipe->name . " and barbot " . $barbot->uid . "\n");
 
 				\Event::fire('barbot.drinkordered', array(
