@@ -132,16 +132,20 @@ Request:
 Response:
 ```
 {
-	"ingredients": [{
-		"name": "dark rum",
-		"id": "ingredient_772b74"
-	}, {
-		"name": "cola",
-		"id": "ingredient_65ae33"
-	}, {
-		"name": "vodka",
-		"id": "ingredient_d62d25"
-	}]
+	"type": "response",
+	"command": "get_ingredients_for_barbot",
+	"data": {
+		"ingredients": [{
+			"name": "Gin",
+			"id": "ingredient_1b4549"
+		}, {
+			"name": "White Rum",
+			"id": "ingredient_f8b566"
+		}, {
+			"name": "Tequila",
+			"id": "ingredient_b87666"
+		}]
+	}
 }
 ```
 ##### create_custom_drink
