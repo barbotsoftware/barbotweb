@@ -372,8 +372,9 @@ class SocketController implements MessageComponentInterface
 			if(get_class($conn) === "Barbot\SocketConnection\BarbotConnection")
 			{
 				$conn->sendCommand(array(
-					"event" => $event,
-					"data" => $data
+					"type"    => "event",
+					"command" => $event,
+					"data"    => $data
 				));
 			}
 		}

@@ -26,7 +26,7 @@ class OrderDrink extends Command
 
 				print("Created drink order for recipe " . $recipe->name . " and barbot " . $barbot->uid . "\n");
 
-				\Event::fire('barbot.drinkordered', array(
+				\Event::fire('barbot.drink_ordered', array(
 						'drink_order' => array (
 							'barbot_id'   => $barbot->uid,
 							'user_id'     => $user->uid,

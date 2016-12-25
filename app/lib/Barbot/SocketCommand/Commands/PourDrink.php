@@ -67,9 +67,5 @@ class PourDrink extends Command
     private function updateContainerLevels($barbot, $ingredient, $amount)
     {
         \DB::table("barbot_containers")->where("barbot_id", $barbot)->where("ingredient_id", $ingredient)->decrement("fluid_level", $amount);
-
-        \DB::table("metrics")->increment("ounces_poured", $amount);
-
-        \Event::fire("barbot.metrics.containerlevels", \BarbotContainer::where("barbot_id", 1)->where("ingredient_id", 1)->with("Ingredient")->first());
     }
 }
