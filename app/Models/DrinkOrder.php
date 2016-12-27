@@ -25,4 +25,9 @@ class DrinkOrder extends Eloquent
 	{
 		return $this->belongsTo("Barbot");
 	}
+
+	public function getDates()
+	{
+		return array();
+	}
 }

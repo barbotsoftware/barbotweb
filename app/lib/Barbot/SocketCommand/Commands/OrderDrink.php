@@ -27,15 +27,18 @@ class OrderDrink extends Command
 				print("Created drink order for recipe " . $recipe->name . " and barbot " . $barbot->uid . "\n");
 
 				\Event::fire('barbot.drink_ordered', array(
-						'drink_order' => array (
-							'barbot_id'   => $barbot->uid,
-							'user_id'     => $user->uid,
-							'user_name'   => $user->name,
-							'recipe_id'   => $recipe->uid,
-							'recipe_name' => $recipe->name,
-							'ice'         => $this->args['ice'],
-							'garnish'     => $this->args['garnish'],
-							'timestamp'   => $drinkOrder->created_at
+						'data' => array (
+							'drink_order' => array (
+								'id'          => $drinkOrder->uid,
+								'barbot_id'   => $barbot->uid,
+								'user_id'     => $user->uid,
+								'user_name'   => $user->name,
+								'recipe_id'   => $recipe->uid,
+								'recipe_name' => $recipe->name,
+								'ice'         => $this->args['ice'],
+								'garnish'     => $this->args['garnish'],
+								'timestamp'   => $drinkOrder->created_at->toDateTimeString()
+							)
 						)
 					)
 				);
