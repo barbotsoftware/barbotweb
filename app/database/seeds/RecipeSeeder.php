@@ -319,6 +319,37 @@ class RecipeSeeder extends Seeder {
         ));
         $recipeStep39->ingredients()->attach(12, array("amount" => 2.67));
 
+         // -- Tequila Sunrisse  --
+
+        $recipe11 = Recipe::create(array("name" => "Tequila Sunrise"));
+
+        $recipeStep40 = RecipeStep::create(array(
+            'recipe_id' => $recipe11->id,
+            'recipe_action_id' => 4,
+            'step_number' => 1
+        ));
+
+        $recipeStep41 = RecipeStep::create(array(
+            'recipe_id' => $recipe11->id,
+            'recipe_action_id' => 1,
+            'step_number' => 2
+        ));
+        $recipeStep41->ingredients()->attach(1, array("amount" => 2.67));
+
+        $recipeStep42 = RecipeStep::create(array(
+            'recipe_id' => $recipe11->id,
+            'recipe_action_id' => 1,
+            'step_number' => 3
+        ));
+        $recipeStep42->ingredients()->attach(8, array("amount" => 0.67));
+
+        $recipeStep43 = RecipeStep::create(array(
+            'recipe_id' => $recipe11->id,
+            'recipe_action_id' => 1,
+            'step_number' => 4
+        ));
+        $recipeStep43->ingredients()->attach(12, array("amount" => 2.67));
+
         // -- Gin Rickey  --
         // -- Muddy Water  --
         // -- Leprechaun  --
