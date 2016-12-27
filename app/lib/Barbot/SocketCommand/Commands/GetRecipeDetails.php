@@ -21,6 +21,7 @@ class GetRecipeDetails extends Command
                     {
                         $obj = array();
 
+                        $obj['name'] = $step->ingredients[0]->name;
                         $obj['ingredient_id'] = $step->ingredients[0]->uid;
                         $obj['quantity'] = $step->ingredients[0]->pivot->amount;
 
