@@ -55,7 +55,7 @@ class ImportRecipes extends Command {
 
 			$recipe = \Recipe::create(array(
 				"name"       => $contentArr[1],
-				"image_url"  => 'http://192.168.1.41/barbot/public/img/recipe_images/' . strtolower(str_replace(" ", "_", $contentArr[1])) . '.png'
+				"image_url"  => 'barbotweb/public/img/recipe_images/' . $contentArr[13]
 			));
 
 			\RecipeStep::create(array(
@@ -65,7 +65,7 @@ class ImportRecipes extends Command {
 			));
 
 			$steps = 1;
-			for($i = 3; $i < sizeof($contentArr); $i+=3)
+			for($i = 3; $i < 3 + (intval($contentArr[2]) * 2); $i+=2)
 			{
 				if($contentArr[$i] != "")
 				{
@@ -81,6 +81,8 @@ class ImportRecipes extends Command {
 					if($ingredient)
 					{
 						$recipeStep->ingredients()->attach($ingredient->id, array("amount" => $contentArr[$i + 1]));
+					} else {
+						print("Ingredient " . $contentArr[$i] . " not found.\n");
 					}
 				}
 			}
