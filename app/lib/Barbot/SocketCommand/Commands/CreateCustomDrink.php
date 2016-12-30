@@ -12,7 +12,7 @@ class CreateCustomDrink extends Command
             "name"       => $recipe["name"],
             "custom"     => 1,
             "created_by" => $user->id,
-            "image_url"  => "http://192.168.1.41/barbot/public/img/recipe_images/custom.png"
+            "image_url"  => "barbotweb/public/img/recipe_images/custom_recipe.png"
         ));
 
         for($i = 0; $i < count($recipe["ingredients"]); $i++)
