@@ -4,7 +4,7 @@ class Recipe extends Eloquent
 {
 	protected $table = 'recipes';
 
-	protected $fillable = array('id', 'name', "image_url", "custom");
+	protected $fillable = array('id', 'name', "image_url", "custom", "created_by");
 
 	public static function boot()
     {

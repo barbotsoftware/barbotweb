@@ -26,7 +26,7 @@ class CreateCustomDrink extends Command
             \DB::table("recipe_step_ingredient")->insert(array(
                 'recipe_step_id' => $recipeStep->id,
                 'ingredient_id'  => \Ingredient::where("uid", $recipe['ingredients'][$i]['ingredient_id'])->first()->id,
-                'amount'         => $recipe['ingredients'][$i]['amount']
+                'amount'         => $recipe['ingredients'][$i]['quantity']
             ));
         }
 
