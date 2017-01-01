@@ -64,7 +64,7 @@ function DashboardController($scope, $http, webSocket, notifyService, dataServic
 
         // Get Metric requests 
         // $http.get('http://192.168.1.41/barbot/public/metrics')
-        $http.get(baseUrl + '/barbot/public/metrics')
+        $http.get(baseUrl + '/barbotweb/public/metrics')
             .then(function (response) {
                 console.log(response);
 
@@ -75,7 +75,7 @@ function DashboardController($scope, $http, webSocket, notifyService, dataServic
             });
 
         // Get Fluid container levels
-        $http.get(baseUrl + '/barbot/public/container?barbot_id=1')
+        $http.get(baseUrl + '/barbotweb/public/container?barbot_id=1')
             .then(function (response) {
                 if (response.status === 200) {
                     processFluidLevels(response.data);
