@@ -91,7 +91,7 @@ function DashboardController($scope, $http, webSocket, notifyService, dataServic
         var fluidGrid = [[], [], [], []];
         
         // set up fluid grid
-        if (data.length === 16) {
+        if (data.length > 0) {
             for (var i = 0; i < data.length; i++) {
                 var currentCont = data[i];
                 var containerRow = (i) / 4;
