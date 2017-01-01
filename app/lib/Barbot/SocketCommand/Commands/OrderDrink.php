@@ -26,16 +26,41 @@ class OrderDrink extends Command
 
 				print("Created drink order for recipe " . $recipe->name . " and barbot " . $barbot->uid . "\n");
 
+				// Build ingredient list for recipe
+				$steps = $recipe->recipeSteps()->with("Ingredients")->orderBy('step_number', 'asc')->get();
+
+				$arr = array();
+				foreach($steps as $step)
+				{
+					if($step->recipe_action_id == 1)
+					{
+						$obj = array();
+
+						$obj['name'] = $step->ingredients[0]->name;
+						$obj['ingredient_id'] = $step->ingredients[0]->uid;
+						$obj['quantity'] = $step->ingredients[0]->pivot->amount;
+
+						$arr[] = $obj;
+					}
+				}
+
 				\Event::fire('barbot.drink_ordered', array(
-						'drink_order' => array (
-							'barbot_id'   => $barbot->uid,
-							'user_id'     => $user->uid,
-							'user_name'   => $user->name,
-							'recipe_id'   => $recipe->uid,
-							'recipe_name' => $recipe->name,
-							'ice'         => $this->args['ice'],
-							'garnish'     => $this->args['garnish'],
-							'timestamp'   => $drinkOrder->created_at
+						'data' => array (
+							'drink_order' => array (
+								'id'          => $drinkOrder->uid,
+								'barbot_id'   => $barbot->uid,
+								'user_id'     => $user->uid,
+								'user_name'   => $user->name,
+								'recipe' => array(
+									'name'        => $recipe->name,
+									'recipe_id'   => $recipe->uid,
+									'img'         => $recipe->image_url,
+									'ingredients' => $arr
+								),
+								'ice'         => $this->args['ice'],
+								'garnish'     => $this->args['garnish'],
+								'timestamp'   => $drinkOrder->created_at->toDateTimeString()
+							)
 						)
 					)
 				);

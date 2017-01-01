@@ -6,12 +6,13 @@ class CreateCustomDrink extends Command
     {
         $recipe = $this->args['recipe'];
 
-        //TODO: make this a sql transaction
+        $user = \User::where("uid", $this->conn->getId())->first();
 
         $newRecipe = \Recipe::create(array(
-            "name"      => $recipe["name"],
-            "custom"    => 1,
-            "image_url" => "http://192.168.1.41/barbot/public/img/recipe_images/custom.png"
+            "name"       => $recipe["name"],
+            "custom"     => 1,
+            "created_by" => $user->id,
+            "image_url"  => "barbotweb/public/img/recipe_images/custom_recipe.png"
         ));
 
         for($i = 0; $i < count($recipe["ingredients"]); $i++)
@@ -25,7 +26,7 @@ class CreateCustomDrink extends Command
             \DB::table("recipe_step_ingredient")->insert(array(
                 'recipe_step_id' => $recipeStep->id,
                 'ingredient_id'  => \Ingredient::where("uid", $recipe['ingredients'][$i]['ingredient_id'])->first()->id,
-                'amount'         => $recipe['ingredients'][$i]['amount']
+                'amount'         => $recipe['ingredients'][$i]['quantity']
             ));
         }
 

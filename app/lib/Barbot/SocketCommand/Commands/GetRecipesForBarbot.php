@@ -8,6 +8,10 @@ class GetRecipesForBarbot extends Command
 
         $barbot = \Barbot::where('uid', $barbotId)->first();
 
+        if($this->conn != null) {
+            $user = \User::where("uid", $this->conn->getId())->first();
+        }
+
         if($barbot)
         {
             if($this->conn)
@@ -31,7 +35,13 @@ class GetRecipesForBarbot extends Command
                     )
                     ->orderBy('recipes.id')
                     ->groupBy('recipes.id')
-                    ->get();
+                    ->where("recipes.custom", 0);
+
+                if($user != null) {
+                    $allrecipes = $allrecipes->where("recipes.created_by", $user->id)->orWhere("recipes.created_by", 0);
+                }
+
+                $allrecipes = $allrecipes->get();
 
                 $recipes = array();
                 foreach($allrecipes as $recipe)
