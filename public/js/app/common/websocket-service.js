@@ -4,7 +4,8 @@ angular.module('barbot')
 function WebSocketService(notifyService, dataService){
     // var webSocket = new WebSocket('ws://localhost:8080?id=user_878410');
     // var webSocket = new WebSocket('ws://localhost:8080?id=user_af3707');
-    var webSocket = new WebSocket('ws://192.168.1.41:8000?id=user_3328ce');
+    // var webSocket = new WebSocket('ws://192.168.1.41:8000?id=user_3328ce');
+    var webSocket = new WebSocket('ws://barbotweb:8000?id=user_1e1e46');
     
     
     webSocket.onmessage = eventHandler;

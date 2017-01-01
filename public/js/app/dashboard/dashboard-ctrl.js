@@ -4,7 +4,7 @@ angular.module('barbot')
 function DashboardController($scope, $http, webSocket, notifyService, dataService) {
     vm = this;
     
-    var baseUrl = "http://192.168.1.41";
+    var baseUrl = "http://barbotweb";
     // var baseUrl = ""; // for local testing
     
     console.log('Loaded Dashboard Controller!');
