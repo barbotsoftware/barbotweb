@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <property name="connection.url">jdbc:mysql://localhost:3306/barbot</property>
+        <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+        <mapping class="barbot.model.BarbotContainersEntity"/>
+        <mapping class="barbot.model.BarbotIoDeviceTypesEntity"/>
+        <mapping class="barbot.model.BarbotIoDevicesEntity"/>
+        <mapping class="barbot.model.BarbotPumpsEntity"/>
+        <mapping class="barbot.model.BarbotValvesEntity"/>
+        <mapping class="barbot.model.BarbotsEntity"/>
+        <mapping class="barbot.model.DrinkOrdersEntity"/>
+        <mapping class="barbot.model.IngredientsEntity"/>
+        <mapping class="barbot.model.MetricsEntity"/>
+        <mapping class="barbot.model.MigrationsEntity"/>
+        <mapping class="barbot.model.RecipeActionsEntity"/>
+        <mapping class="barbot.model.RecipeStepIngredientEntity"/>
+        <mapping class="barbot.model.RecipeStepsEntity"/>
+        <mapping class="barbot.model.RecipesEntity"/>
+        <mapping class="barbot.model.SocketMessagesEntity"/>
+        <mapping class="barbot.model.UsersEntity"/>
+        <!-- <property name="connection.username"/> -->
+        <!-- <property name="connection.password"/> -->
+
+        <!-- DB schema will be updated if needed -->
+        <!-- <property name="hbm2ddl.auto">update</property> -->
+    </session-factory>
+</hibernate-configuration>
