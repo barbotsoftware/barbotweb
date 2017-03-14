@@ -1,24 +1,23 @@
-package barbot.model;
+package barbot.database.model;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.Table;
 import java.sql.Timestamp;
 
 /**
- * Created by naveen on 3/12/17.
+ * Created by naveen on 3/13/17.
  */
 @Entity
-@Table(name = "barbot_valves", schema = "barbot", catalog = "")
-public class BarbotValvesEntity {
+public class Ingredients {
     private int id;
-    private int barbotIoDeviceId;
-    private Integer barbotContainerId;
+    private String name;
+    private String uid;
     private Timestamp createdAt;
     private Timestamp updatedAt;
     private Timestamp deletedAt;
+    private int abv;
 
     @Id
     @Column(name = "id")
@@ -31,23 +30,23 @@ public class BarbotValvesEntity {
     }
 
     @Basic
-    @Column(name = "barbot_io_device_id")
-    public int getBarbotIoDeviceId() {
-        return barbotIoDeviceId;
+    @Column(name = "name")
+    public String getName() {
+        return name;
     }
 
-    public void setBarbotIoDeviceId(int barbotIoDeviceId) {
-        this.barbotIoDeviceId = barbotIoDeviceId;
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Basic
-    @Column(name = "barbot_container_id")
-    public Integer getBarbotContainerId() {
-        return barbotContainerId;
+    @Column(name = "uid")
+    public String getUid() {
+        return uid;
     }
 
-    public void setBarbotContainerId(Integer barbotContainerId) {
-        this.barbotContainerId = barbotContainerId;
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 
     @Basic
@@ -80,17 +79,27 @@ public class BarbotValvesEntity {
         this.deletedAt = deletedAt;
     }
 
+    @Basic
+    @Column(name = "abv")
+    public int getAbv() {
+        return abv;
+    }
+
+    public void setAbv(int abv) {
+        this.abv = abv;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        BarbotValvesEntity that = (BarbotValvesEntity) o;
+        Ingredients that = (Ingredients) o;
 
         if (id != that.id) return false;
-        if (barbotIoDeviceId != that.barbotIoDeviceId) return false;
-        if (barbotContainerId != null ? !barbotContainerId.equals(that.barbotContainerId) : that.barbotContainerId != null)
-            return false;
+        if (abv != that.abv) return false;
+        if (name != null ? !name.equals(that.name) : that.name != null) return false;
+        if (uid != null ? !uid.equals(that.uid) : that.uid != null) return false;
         if (createdAt != null ? !createdAt.equals(that.createdAt) : that.createdAt != null) return false;
         if (updatedAt != null ? !updatedAt.equals(that.updatedAt) : that.updatedAt != null) return false;
         if (deletedAt != null ? !deletedAt.equals(that.deletedAt) : that.deletedAt != null) return false;
@@ -101,11 +110,12 @@ public class BarbotValvesEntity {
     @Override
     public int hashCode() {
         int result = id;
-        result = 31 * result + barbotIoDeviceId;
-        result = 31 * result + (barbotContainerId != null ? barbotContainerId.hashCode() : 0);
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (uid != null ? uid.hashCode() : 0);
         result = 31 * result + (createdAt != null ? createdAt.hashCode() : 0);
         result = 31 * result + (updatedAt != null ? updatedAt.hashCode() : 0);
         result = 31 * result + (deletedAt != null ? deletedAt.hashCode() : 0);
+        result = 31 * result + abv;
         return result;
     }
 }

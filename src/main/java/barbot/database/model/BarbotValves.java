@@ -1,4 +1,4 @@
-package barbot.model;
+package barbot.database.model;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -8,17 +8,14 @@ import javax.persistence.Table;
 import java.sql.Timestamp;
 
 /**
- * Created by naveen on 3/12/17.
+ * Created by naveen on 3/13/17.
  */
 @Entity
-@Table(name = "barbot_containers", schema = "barbot", catalog = "")
-public class BarbotContainersEntity {
+@Table(name = "barbot_valves", schema = "barbot", catalog = "")
+public class BarbotValves {
     private int id;
-    private int barbotId;
-    private int number;
-    private int ingredientId;
-    private int size;
-    private int fluidLevel;
+    private int barbotIoDeviceId;
+    private Integer barbotContainerId;
     private Timestamp createdAt;
     private Timestamp updatedAt;
     private Timestamp deletedAt;
@@ -34,53 +31,23 @@ public class BarbotContainersEntity {
     }
 
     @Basic
-    @Column(name = "barbot_id")
-    public int getBarbotId() {
-        return barbotId;
+    @Column(name = "barbot_io_device_id")
+    public int getBarbotIoDeviceId() {
+        return barbotIoDeviceId;
     }
 
-    public void setBarbotId(int barbotId) {
-        this.barbotId = barbotId;
-    }
-
-    @Basic
-    @Column(name = "number")
-    public int getNumber() {
-        return number;
-    }
-
-    public void setNumber(int number) {
-        this.number = number;
+    public void setBarbotIoDeviceId(int barbotIoDeviceId) {
+        this.barbotIoDeviceId = barbotIoDeviceId;
     }
 
     @Basic
-    @Column(name = "ingredient_id")
-    public int getIngredientId() {
-        return ingredientId;
+    @Column(name = "barbot_container_id")
+    public Integer getBarbotContainerId() {
+        return barbotContainerId;
     }
 
-    public void setIngredientId(int ingredientId) {
-        this.ingredientId = ingredientId;
-    }
-
-    @Basic
-    @Column(name = "size")
-    public int getSize() {
-        return size;
-    }
-
-    public void setSize(int size) {
-        this.size = size;
-    }
-
-    @Basic
-    @Column(name = "fluid_level")
-    public int getFluidLevel() {
-        return fluidLevel;
-    }
-
-    public void setFluidLevel(int fluidLevel) {
-        this.fluidLevel = fluidLevel;
+    public void setBarbotContainerId(Integer barbotContainerId) {
+        this.barbotContainerId = barbotContainerId;
     }
 
     @Basic
@@ -118,14 +85,12 @@ public class BarbotContainersEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        BarbotContainersEntity that = (BarbotContainersEntity) o;
+        BarbotValves that = (BarbotValves) o;
 
         if (id != that.id) return false;
-        if (barbotId != that.barbotId) return false;
-        if (number != that.number) return false;
-        if (ingredientId != that.ingredientId) return false;
-        if (size != that.size) return false;
-        if (fluidLevel != that.fluidLevel) return false;
+        if (barbotIoDeviceId != that.barbotIoDeviceId) return false;
+        if (barbotContainerId != null ? !barbotContainerId.equals(that.barbotContainerId) : that.barbotContainerId != null)
+            return false;
         if (createdAt != null ? !createdAt.equals(that.createdAt) : that.createdAt != null) return false;
         if (updatedAt != null ? !updatedAt.equals(that.updatedAt) : that.updatedAt != null) return false;
         if (deletedAt != null ? !deletedAt.equals(that.deletedAt) : that.deletedAt != null) return false;
@@ -136,11 +101,8 @@ public class BarbotContainersEntity {
     @Override
     public int hashCode() {
         int result = id;
-        result = 31 * result + barbotId;
-        result = 31 * result + number;
-        result = 31 * result + ingredientId;
-        result = 31 * result + size;
-        result = 31 * result + fluidLevel;
+        result = 31 * result + barbotIoDeviceId;
+        result = 31 * result + (barbotContainerId != null ? barbotContainerId.hashCode() : 0);
         result = 31 * result + (createdAt != null ? createdAt.hashCode() : 0);
         result = 31 * result + (updatedAt != null ? updatedAt.hashCode() : 0);
         result = 31 * result + (deletedAt != null ? deletedAt.hashCode() : 0);

@@ -1,4 +1,4 @@
-package barbot.model;
+package barbot.database.model;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -8,21 +8,17 @@ import javax.persistence.Table;
 import java.sql.Timestamp;
 
 /**
- * Created by naveen on 3/12/17.
+ * Created by naveen on 3/13/17.
  */
 @Entity
-@Table(name = "drink_orders", schema = "barbot", catalog = "")
-public class DrinkOrdersEntity {
+@Table(name = "barbot_pumps", schema = "barbot", catalog = "")
+public class BarbotPumps {
     private int id;
-    private String uid;
-    private int userId;
-    private int recipeId;
-    private int barbotId;
+    private int barbotIoDeviceId;
+    private Integer barbotContainerId;
     private Timestamp createdAt;
     private Timestamp updatedAt;
     private Timestamp deletedAt;
-    private int ice;
-    private int garnish;
 
     @Id
     @Column(name = "id")
@@ -35,43 +31,23 @@ public class DrinkOrdersEntity {
     }
 
     @Basic
-    @Column(name = "uid")
-    public String getUid() {
-        return uid;
+    @Column(name = "barbot_io_device_id")
+    public int getBarbotIoDeviceId() {
+        return barbotIoDeviceId;
     }
 
-    public void setUid(String uid) {
-        this.uid = uid;
-    }
-
-    @Basic
-    @Column(name = "user_id")
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setBarbotIoDeviceId(int barbotIoDeviceId) {
+        this.barbotIoDeviceId = barbotIoDeviceId;
     }
 
     @Basic
-    @Column(name = "recipe_id")
-    public int getRecipeId() {
-        return recipeId;
+    @Column(name = "barbot_container_id")
+    public Integer getBarbotContainerId() {
+        return barbotContainerId;
     }
 
-    public void setRecipeId(int recipeId) {
-        this.recipeId = recipeId;
-    }
-
-    @Basic
-    @Column(name = "barbot_id")
-    public int getBarbotId() {
-        return barbotId;
-    }
-
-    public void setBarbotId(int barbotId) {
-        this.barbotId = barbotId;
+    public void setBarbotContainerId(Integer barbotContainerId) {
+        this.barbotContainerId = barbotContainerId;
     }
 
     @Basic
@@ -104,40 +80,17 @@ public class DrinkOrdersEntity {
         this.deletedAt = deletedAt;
     }
 
-    @Basic
-    @Column(name = "ice")
-    public int getIce() {
-        return ice;
-    }
-
-    public void setIce(int ice) {
-        this.ice = ice;
-    }
-
-    @Basic
-    @Column(name = "garnish")
-    public int getGarnish() {
-        return garnish;
-    }
-
-    public void setGarnish(int garnish) {
-        this.garnish = garnish;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        DrinkOrdersEntity that = (DrinkOrdersEntity) o;
+        BarbotPumps that = (BarbotPumps) o;
 
         if (id != that.id) return false;
-        if (userId != that.userId) return false;
-        if (recipeId != that.recipeId) return false;
-        if (barbotId != that.barbotId) return false;
-        if (ice != that.ice) return false;
-        if (garnish != that.garnish) return false;
-        if (uid != null ? !uid.equals(that.uid) : that.uid != null) return false;
+        if (barbotIoDeviceId != that.barbotIoDeviceId) return false;
+        if (barbotContainerId != null ? !barbotContainerId.equals(that.barbotContainerId) : that.barbotContainerId != null)
+            return false;
         if (createdAt != null ? !createdAt.equals(that.createdAt) : that.createdAt != null) return false;
         if (updatedAt != null ? !updatedAt.equals(that.updatedAt) : that.updatedAt != null) return false;
         if (deletedAt != null ? !deletedAt.equals(that.deletedAt) : that.deletedAt != null) return false;
@@ -148,15 +101,11 @@ public class DrinkOrdersEntity {
     @Override
     public int hashCode() {
         int result = id;
-        result = 31 * result + (uid != null ? uid.hashCode() : 0);
-        result = 31 * result + userId;
-        result = 31 * result + recipeId;
-        result = 31 * result + barbotId;
+        result = 31 * result + barbotIoDeviceId;
+        result = 31 * result + (barbotContainerId != null ? barbotContainerId.hashCode() : 0);
         result = 31 * result + (createdAt != null ? createdAt.hashCode() : 0);
         result = 31 * result + (updatedAt != null ? updatedAt.hashCode() : 0);
         result = 31 * result + (deletedAt != null ? deletedAt.hashCode() : 0);
-        result = 31 * result + ice;
-        result = 31 * result + garnish;
         return result;
     }
 }

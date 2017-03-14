@@ -1,4 +1,4 @@
-package barbot.model;
+package barbot.database.model;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -8,20 +8,20 @@ import javax.persistence.Table;
 import java.sql.Timestamp;
 
 /**
- * Created by naveen on 3/12/17.
+ * Created by naveen on 3/13/17.
  */
 @Entity
-@Table(name = "users", schema = "barbot", catalog = "")
-public class UsersEntity {
+@Table(name = "barbot_containers", schema = "barbot", catalog = "")
+public class BarbotContainers {
     private int id;
-    private String email;
-    private String password;
-    private String uid;
+    private int barbotId;
+    private int number;
+    private int ingredientId;
+    private int size;
+    private int fluidLevel;
     private Timestamp createdAt;
     private Timestamp updatedAt;
     private Timestamp deletedAt;
-    private String rememberToken;
-    private String name;
 
     @Id
     @Column(name = "id")
@@ -34,33 +34,53 @@ public class UsersEntity {
     }
 
     @Basic
-    @Column(name = "email")
-    public String getEmail() {
-        return email;
+    @Column(name = "barbot_id")
+    public int getBarbotId() {
+        return barbotId;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    @Basic
-    @Column(name = "password")
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
+    public void setBarbotId(int barbotId) {
+        this.barbotId = barbotId;
     }
 
     @Basic
-    @Column(name = "uid")
-    public String getUid() {
-        return uid;
+    @Column(name = "number")
+    public int getNumber() {
+        return number;
     }
 
-    public void setUid(String uid) {
-        this.uid = uid;
+    public void setNumber(int number) {
+        this.number = number;
+    }
+
+    @Basic
+    @Column(name = "ingredient_id")
+    public int getIngredientId() {
+        return ingredientId;
+    }
+
+    public void setIngredientId(int ingredientId) {
+        this.ingredientId = ingredientId;
+    }
+
+    @Basic
+    @Column(name = "size")
+    public int getSize() {
+        return size;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
+    }
+
+    @Basic
+    @Column(name = "fluid_level")
+    public int getFluidLevel() {
+        return fluidLevel;
+    }
+
+    public void setFluidLevel(int fluidLevel) {
+        this.fluidLevel = fluidLevel;
     }
 
     @Basic
@@ -93,43 +113,22 @@ public class UsersEntity {
         this.deletedAt = deletedAt;
     }
 
-    @Basic
-    @Column(name = "remember_token")
-    public String getRememberToken() {
-        return rememberToken;
-    }
-
-    public void setRememberToken(String rememberToken) {
-        this.rememberToken = rememberToken;
-    }
-
-    @Basic
-    @Column(name = "name")
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        UsersEntity that = (UsersEntity) o;
+        BarbotContainers that = (BarbotContainers) o;
 
         if (id != that.id) return false;
-        if (email != null ? !email.equals(that.email) : that.email != null) return false;
-        if (password != null ? !password.equals(that.password) : that.password != null) return false;
-        if (uid != null ? !uid.equals(that.uid) : that.uid != null) return false;
+        if (barbotId != that.barbotId) return false;
+        if (number != that.number) return false;
+        if (ingredientId != that.ingredientId) return false;
+        if (size != that.size) return false;
+        if (fluidLevel != that.fluidLevel) return false;
         if (createdAt != null ? !createdAt.equals(that.createdAt) : that.createdAt != null) return false;
         if (updatedAt != null ? !updatedAt.equals(that.updatedAt) : that.updatedAt != null) return false;
         if (deletedAt != null ? !deletedAt.equals(that.deletedAt) : that.deletedAt != null) return false;
-        if (rememberToken != null ? !rememberToken.equals(that.rememberToken) : that.rememberToken != null)
-            return false;
-        if (name != null ? !name.equals(that.name) : that.name != null) return false;
 
         return true;
     }
@@ -137,14 +136,14 @@ public class UsersEntity {
     @Override
     public int hashCode() {
         int result = id;
-        result = 31 * result + (email != null ? email.hashCode() : 0);
-        result = 31 * result + (password != null ? password.hashCode() : 0);
-        result = 31 * result + (uid != null ? uid.hashCode() : 0);
+        result = 31 * result + barbotId;
+        result = 31 * result + number;
+        result = 31 * result + ingredientId;
+        result = 31 * result + size;
+        result = 31 * result + fluidLevel;
         result = 31 * result + (createdAt != null ? createdAt.hashCode() : 0);
         result = 31 * result + (updatedAt != null ? updatedAt.hashCode() : 0);
         result = 31 * result + (deletedAt != null ? deletedAt.hashCode() : 0);
-        result = 31 * result + (rememberToken != null ? rememberToken.hashCode() : 0);
-        result = 31 * result + (name != null ? name.hashCode() : 0);
         return result;
     }
 }

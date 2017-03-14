@@ -1,16 +1,14 @@
-package barbot.model;
+package barbot.database.model;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Table;
 
 /**
- * Created by naveen on 3/12/17.
+ * Created by naveen on 3/13/17.
  */
 @Entity
-@Table(name = "metrics", schema = "barbot", catalog = "")
-public class MetricsEntity {
+public class Metrics {
     private int barbotId;
     private int ouncesPoured;
     private int users;
@@ -61,12 +59,12 @@ public class MetricsEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        MetricsEntity that = (MetricsEntity) o;
+        Metrics metrics = (Metrics) o;
 
-        if (barbotId != that.barbotId) return false;
-        if (ouncesPoured != that.ouncesPoured) return false;
-        if (users != that.users) return false;
-        if (drinksPoured != that.drinksPoured) return false;
+        if (barbotId != metrics.barbotId) return false;
+        if (ouncesPoured != metrics.ouncesPoured) return false;
+        if (users != metrics.users) return false;
+        if (drinksPoured != metrics.drinksPoured) return false;
 
         return true;
     }

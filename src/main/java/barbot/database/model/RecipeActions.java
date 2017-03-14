@@ -1,4 +1,4 @@
-package barbot.model;
+package barbot.database.model;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -8,15 +8,13 @@ import javax.persistence.Table;
 import java.sql.Timestamp;
 
 /**
- * Created by naveen on 3/12/17.
+ * Created by naveen on 3/13/17.
  */
 @Entity
-@Table(name = "recipe_steps", schema = "barbot", catalog = "")
-public class RecipeStepsEntity {
+@Table(name = "recipe_actions", schema = "barbot", catalog = "")
+public class RecipeActions {
     private int id;
-    private int recipeId;
-    private int recipeActionId;
-    private int stepNumber;
+    private String name;
     private Timestamp deletedAt;
     private Timestamp createdAt;
     private Timestamp updatedAt;
@@ -32,33 +30,13 @@ public class RecipeStepsEntity {
     }
 
     @Basic
-    @Column(name = "recipe_id")
-    public int getRecipeId() {
-        return recipeId;
+    @Column(name = "name")
+    public String getName() {
+        return name;
     }
 
-    public void setRecipeId(int recipeId) {
-        this.recipeId = recipeId;
-    }
-
-    @Basic
-    @Column(name = "recipe_action_id")
-    public int getRecipeActionId() {
-        return recipeActionId;
-    }
-
-    public void setRecipeActionId(int recipeActionId) {
-        this.recipeActionId = recipeActionId;
-    }
-
-    @Basic
-    @Column(name = "step_number")
-    public int getStepNumber() {
-        return stepNumber;
-    }
-
-    public void setStepNumber(int stepNumber) {
-        this.stepNumber = stepNumber;
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Basic
@@ -96,12 +74,10 @@ public class RecipeStepsEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        RecipeStepsEntity that = (RecipeStepsEntity) o;
+        RecipeActions that = (RecipeActions) o;
 
         if (id != that.id) return false;
-        if (recipeId != that.recipeId) return false;
-        if (recipeActionId != that.recipeActionId) return false;
-        if (stepNumber != that.stepNumber) return false;
+        if (name != null ? !name.equals(that.name) : that.name != null) return false;
         if (deletedAt != null ? !deletedAt.equals(that.deletedAt) : that.deletedAt != null) return false;
         if (createdAt != null ? !createdAt.equals(that.createdAt) : that.createdAt != null) return false;
         if (updatedAt != null ? !updatedAt.equals(that.updatedAt) : that.updatedAt != null) return false;
@@ -112,9 +88,7 @@ public class RecipeStepsEntity {
     @Override
     public int hashCode() {
         int result = id;
-        result = 31 * result + recipeId;
-        result = 31 * result + recipeActionId;
-        result = 31 * result + stepNumber;
+        result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (deletedAt != null ? deletedAt.hashCode() : 0);
         result = 31 * result + (createdAt != null ? createdAt.hashCode() : 0);
         result = 31 * result + (updatedAt != null ? updatedAt.hashCode() : 0);
