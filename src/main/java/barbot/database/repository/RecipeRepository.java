@@ -1,7 +1,6 @@
 package barbot.database.repository;
 
 import barbot.database.model.Recipes;
-import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 
