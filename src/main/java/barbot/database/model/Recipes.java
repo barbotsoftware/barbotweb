@@ -4,7 +4,9 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import java.sql.Timestamp;
+import java.util.Collection;
 
 /**
  * Created by naveen on 3/13/17.
@@ -20,6 +22,8 @@ public class Recipes {
     private Timestamp deletedAt;
     private String imageUrl;
     private int createdBy;
+    private Collection<DrinkOrders> drinkOrderssById;
+    private Collection<RecipeIngredient> recipeIngredientsById;
 
     @Id
     @Column(name = "id")
@@ -143,5 +147,23 @@ public class Recipes {
         result = 31 * result + (imageUrl != null ? imageUrl.hashCode() : 0);
         result = 31 * result + createdBy;
         return result;
+    }
+
+    @OneToMany(mappedBy = "recipesByRecipeId")
+    public Collection<DrinkOrders> getDrinkOrderssById() {
+        return drinkOrderssById;
+    }
+
+    public void setDrinkOrderssById(Collection<DrinkOrders> drinkOrderssById) {
+        this.drinkOrderssById = drinkOrderssById;
+    }
+
+    @OneToMany(mappedBy = "recipesByRecipeId")
+    public Collection<RecipeIngredient> getRecipeIngredientsById() {
+        return recipeIngredientsById;
+    }
+
+    public void setRecipeIngredientsById(Collection<RecipeIngredient> recipeIngredientsById) {
+        this.recipeIngredientsById = recipeIngredientsById;
     }
 }

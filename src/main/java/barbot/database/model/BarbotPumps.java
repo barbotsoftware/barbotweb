@@ -4,6 +4,8 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.sql.Timestamp;
 
@@ -19,6 +21,8 @@ public class BarbotPumps {
     private Timestamp createdAt;
     private Timestamp updatedAt;
     private Timestamp deletedAt;
+    private BarbotIoDevices barbotIoDevicesByBarbotIoDeviceId;
+    private BarbotContainers barbotContainersByBarbotContainerId;
 
     @Id
     @Column(name = "id")
@@ -107,5 +111,25 @@ public class BarbotPumps {
         result = 31 * result + (updatedAt != null ? updatedAt.hashCode() : 0);
         result = 31 * result + (deletedAt != null ? deletedAt.hashCode() : 0);
         return result;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "barbot_io_device_id", referencedColumnName = "id", nullable = false)
+    public BarbotIoDevices getBarbotIoDevicesByBarbotIoDeviceId() {
+        return barbotIoDevicesByBarbotIoDeviceId;
+    }
+
+    public void setBarbotIoDevicesByBarbotIoDeviceId(BarbotIoDevices barbotIoDevicesByBarbotIoDeviceId) {
+        this.barbotIoDevicesByBarbotIoDeviceId = barbotIoDevicesByBarbotIoDeviceId;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "barbot_container_id", referencedColumnName = "id")
+    public BarbotContainers getBarbotContainersByBarbotContainerId() {
+        return barbotContainersByBarbotContainerId;
+    }
+
+    public void setBarbotContainersByBarbotContainerId(BarbotContainers barbotContainersByBarbotContainerId) {
+        this.barbotContainersByBarbotContainerId = barbotContainersByBarbotContainerId;
     }
 }

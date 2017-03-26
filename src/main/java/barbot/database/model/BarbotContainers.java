@@ -4,8 +4,12 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.sql.Timestamp;
+import java.util.Collection;
 
 /**
  * Created by naveen on 3/13/17.
@@ -22,6 +26,11 @@ public class BarbotContainers {
     private Timestamp createdAt;
     private Timestamp updatedAt;
     private Timestamp deletedAt;
+    private int currentVolume;
+    private int maxVolume;
+    private Barbots barbotsByBarbotId;
+    private Ingredients ingredientsByIngredientId;
+    private Collection<BarbotPumps> barbotPumpssById;
 
     @Id
     @Column(name = "id")
@@ -145,5 +154,54 @@ public class BarbotContainers {
         result = 31 * result + (updatedAt != null ? updatedAt.hashCode() : 0);
         result = 31 * result + (deletedAt != null ? deletedAt.hashCode() : 0);
         return result;
+    }
+
+    @Basic
+    @Column(name = "current_volume")
+    public int getCurrentVolume() {
+        return currentVolume;
+    }
+
+    public void setCurrentVolume(int currentVolume) {
+        this.currentVolume = currentVolume;
+    }
+
+    @Basic
+    @Column(name = "max_volume")
+    public int getMaxVolume() {
+        return maxVolume;
+    }
+
+    public void setMaxVolume(int maxVolume) {
+        this.maxVolume = maxVolume;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "barbot_id", referencedColumnName = "id", nullable = false)
+    public Barbots getBarbotsByBarbotId() {
+        return barbotsByBarbotId;
+    }
+
+    public void setBarbotsByBarbotId(Barbots barbotsByBarbotId) {
+        this.barbotsByBarbotId = barbotsByBarbotId;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "ingredient_id", referencedColumnName = "id", nullable = false)
+    public Ingredients getIngredientsByIngredientId() {
+        return ingredientsByIngredientId;
+    }
+
+    public void setIngredientsByIngredientId(Ingredients ingredientsByIngredientId) {
+        this.ingredientsByIngredientId = ingredientsByIngredientId;
+    }
+
+    @OneToMany(mappedBy = "barbotContainersByBarbotContainerId")
+    public Collection<BarbotPumps> getBarbotPumpssById() {
+        return barbotPumpssById;
+    }
+
+    public void setBarbotPumpssById(Collection<BarbotPumps> barbotPumpssById) {
+        this.barbotPumpssById = barbotPumpssById;
     }
 }

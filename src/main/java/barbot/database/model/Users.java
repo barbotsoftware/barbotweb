@@ -4,7 +4,9 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import java.sql.Timestamp;
+import java.util.Collection;
 
 /**
  * Created by naveen on 3/13/17.
@@ -20,6 +22,7 @@ public class Users {
     private Timestamp deletedAt;
     private String rememberToken;
     private String name;
+    private Collection<DrinkOrders> drinkOrderssById;
 
     @Id
     @Column(name = "id")
@@ -144,5 +147,14 @@ public class Users {
         result = 31 * result + (rememberToken != null ? rememberToken.hashCode() : 0);
         result = 31 * result + (name != null ? name.hashCode() : 0);
         return result;
+    }
+
+    @OneToMany(mappedBy = "usersByUserId")
+    public Collection<DrinkOrders> getDrinkOrderssById() {
+        return drinkOrderssById;
+    }
+
+    public void setDrinkOrderssById(Collection<DrinkOrders> drinkOrderssById) {
+        this.drinkOrderssById = drinkOrderssById;
     }
 }

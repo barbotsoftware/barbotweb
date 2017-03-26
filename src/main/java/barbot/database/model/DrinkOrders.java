@@ -4,6 +4,8 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.sql.Timestamp;
 
@@ -23,6 +25,9 @@ public class DrinkOrders {
     private Timestamp deletedAt;
     private int ice;
     private int garnish;
+    private Users usersByUserId;
+    private Recipes recipesByRecipeId;
+    private Barbots barbotsByBarbotId;
 
     @Id
     @Column(name = "id")
@@ -158,5 +163,35 @@ public class DrinkOrders {
         result = 31 * result + ice;
         result = 31 * result + garnish;
         return result;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
+    public Users getUsersByUserId() {
+        return usersByUserId;
+    }
+
+    public void setUsersByUserId(Users usersByUserId) {
+        this.usersByUserId = usersByUserId;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "recipe_id", referencedColumnName = "id", nullable = false)
+    public Recipes getRecipesByRecipeId() {
+        return recipesByRecipeId;
+    }
+
+    public void setRecipesByRecipeId(Recipes recipesByRecipeId) {
+        this.recipesByRecipeId = recipesByRecipeId;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "barbot_id", referencedColumnName = "id", nullable = false)
+    public Barbots getBarbotsByBarbotId() {
+        return barbotsByBarbotId;
+    }
+
+    public void setBarbotsByBarbotId(Barbots barbotsByBarbotId) {
+        this.barbotsByBarbotId = barbotsByBarbotId;
     }
 }

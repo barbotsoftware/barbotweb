@@ -3,6 +3,7 @@ package barbot.database.model;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import java.sql.Timestamp;
 
 /**
  * Created by naveen on 3/13/17.
@@ -11,6 +12,9 @@ import javax.persistence.Entity;
 public class Migrations {
     private String migration;
     private int batch;
+    private String version;
+    private Timestamp createdAt;
+    private Timestamp runAt;
 
     @Basic
     @Column(name = "migration")
@@ -50,5 +54,35 @@ public class Migrations {
         int result = migration != null ? migration.hashCode() : 0;
         result = 31 * result + batch;
         return result;
+    }
+
+    @Basic
+    @Column(name = "version")
+    public String getVersion() {
+        return version;
+    }
+
+    public void setVersion(String version) {
+        this.version = version;
+    }
+
+    @Basic
+    @Column(name = "created_at")
+    public Timestamp getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Timestamp createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    @Basic
+    @Column(name = "run_at")
+    public Timestamp getRunAt() {
+        return runAt;
+    }
+
+    public void setRunAt(Timestamp runAt) {
+        this.runAt = runAt;
     }
 }

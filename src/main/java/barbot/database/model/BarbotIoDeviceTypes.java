@@ -4,8 +4,10 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.sql.Timestamp;
+import java.util.Collection;
 
 /**
  * Created by naveen on 3/13/17.
@@ -18,6 +20,7 @@ public class BarbotIoDeviceTypes {
     private Timestamp createdAt;
     private Timestamp updatedAt;
     private Timestamp deletedAt;
+    private Collection<BarbotIoDevices> barbotIoDevicesById;
 
     @Id
     @Column(name = "id")
@@ -93,5 +96,14 @@ public class BarbotIoDeviceTypes {
         result = 31 * result + (updatedAt != null ? updatedAt.hashCode() : 0);
         result = 31 * result + (deletedAt != null ? deletedAt.hashCode() : 0);
         return result;
+    }
+
+    @OneToMany(mappedBy = "barbotIoDeviceTypesByBarbotIoDeviceTypeId")
+    public Collection<BarbotIoDevices> getBarbotIoDevicesById() {
+        return barbotIoDevicesById;
+    }
+
+    public void setBarbotIoDevicesById(Collection<BarbotIoDevices> barbotIoDevicesById) {
+        this.barbotIoDevicesById = barbotIoDevicesById;
     }
 }

@@ -9,19 +9,18 @@
             org.hibernate.dialect.MySQLDialect
         </property>
         <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
-        <property name="connection.username">root</property>
         <!-- <property name="connection.password"/> -->
         <mapping class="barbot.database.model.BarbotContainers"/>
         <mapping class="barbot.database.model.BarbotIoDeviceTypes"/>
         <mapping class="barbot.database.model.BarbotIoDevices"/>
         <mapping class="barbot.database.model.BarbotPumps"/>
-        <mapping class="barbot.database.model.BarbotValves"/>
         <mapping class="barbot.database.model.Barbots"/>
         <mapping class="barbot.database.model.DrinkOrders"/>
         <mapping class="barbot.database.model.Ingredients"/>
-        <!--<mapping class="barbot.database.model.Migrations"/>-->
         <mapping class="barbot.database.model.Recipes"/>
         <mapping class="barbot.database.model.Users"/>
+        <mapping class="barbot.database.model.Migrations"/>
+        <mapping class="barbot.database.model.RecipeIngredient"/>
 
         <!-- DB schema will be updated if needed -->
         <!-- <property name="hbm2ddl.auto">update</property> -->

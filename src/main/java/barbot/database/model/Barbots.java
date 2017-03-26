@@ -4,7 +4,9 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import java.sql.Timestamp;
+import java.util.Collection;
 
 /**
  * Created by naveen on 3/13/17.
@@ -18,6 +20,9 @@ public class Barbots {
     private Timestamp updatedAt;
     private Timestamp deletedAt;
     private String status;
+    private Collection<BarbotContainers> barbotContainerssById;
+    private Collection<BarbotIoDevices> barbotIoDevicesById;
+    private Collection<DrinkOrders> drinkOrderssById;
 
     @Id
     @Column(name = "id")
@@ -117,5 +122,32 @@ public class Barbots {
         result = 31 * result + (deletedAt != null ? deletedAt.hashCode() : 0);
         result = 31 * result + (status != null ? status.hashCode() : 0);
         return result;
+    }
+
+    @OneToMany(mappedBy = "barbotsByBarbotId")
+    public Collection<BarbotContainers> getBarbotContainerssById() {
+        return barbotContainerssById;
+    }
+
+    public void setBarbotContainerssById(Collection<BarbotContainers> barbotContainerssById) {
+        this.barbotContainerssById = barbotContainerssById;
+    }
+
+    @OneToMany(mappedBy = "barbotsByBarbotId")
+    public Collection<BarbotIoDevices> getBarbotIoDevicesById() {
+        return barbotIoDevicesById;
+    }
+
+    public void setBarbotIoDevicesById(Collection<BarbotIoDevices> barbotIoDevicesById) {
+        this.barbotIoDevicesById = barbotIoDevicesById;
+    }
+
+    @OneToMany(mappedBy = "barbotsByBarbotId")
+    public Collection<DrinkOrders> getDrinkOrderssById() {
+        return drinkOrderssById;
+    }
+
+    public void setDrinkOrderssById(Collection<DrinkOrders> drinkOrderssById) {
+        this.drinkOrderssById = drinkOrderssById;
     }
 }

@@ -4,8 +4,12 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.sql.Timestamp;
+import java.util.Collection;
 
 /**
  * Created by naveen on 3/13/17.
@@ -21,6 +25,9 @@ public class BarbotIoDevices {
     private Timestamp createdAt;
     private Timestamp updatedAt;
     private Timestamp deletedAt;
+    private Barbots barbotsByBarbotId;
+    private BarbotIoDeviceTypes barbotIoDeviceTypesByBarbotIoDeviceTypeId;
+    private Collection<BarbotPumps> barbotPumpssById;
 
     @Id
     @Column(name = "id")
@@ -132,5 +139,34 @@ public class BarbotIoDevices {
         result = 31 * result + (updatedAt != null ? updatedAt.hashCode() : 0);
         result = 31 * result + (deletedAt != null ? deletedAt.hashCode() : 0);
         return result;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "barbot_id", referencedColumnName = "id", nullable = false)
+    public Barbots getBarbotsByBarbotId() {
+        return barbotsByBarbotId;
+    }
+
+    public void setBarbotsByBarbotId(Barbots barbotsByBarbotId) {
+        this.barbotsByBarbotId = barbotsByBarbotId;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "barbot_io_device_type_id", referencedColumnName = "id", nullable = false)
+    public BarbotIoDeviceTypes getBarbotIoDeviceTypesByBarbotIoDeviceTypeId() {
+        return barbotIoDeviceTypesByBarbotIoDeviceTypeId;
+    }
+
+    public void setBarbotIoDeviceTypesByBarbotIoDeviceTypeId(BarbotIoDeviceTypes barbotIoDeviceTypesByBarbotIoDeviceTypeId) {
+        this.barbotIoDeviceTypesByBarbotIoDeviceTypeId = barbotIoDeviceTypesByBarbotIoDeviceTypeId;
+    }
+
+    @OneToMany(mappedBy = "barbotIoDevicesByBarbotIoDeviceId")
+    public Collection<BarbotPumps> getBarbotPumpssById() {
+        return barbotPumpssById;
+    }
+
+    public void setBarbotPumpssById(Collection<BarbotPumps> barbotPumpssById) {
+        this.barbotPumpssById = barbotPumpssById;
     }
 }

@@ -4,7 +4,9 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import java.sql.Timestamp;
+import java.util.Collection;
 
 /**
  * Created by naveen on 3/13/17.
@@ -18,6 +20,8 @@ public class Ingredients {
     private Timestamp updatedAt;
     private Timestamp deletedAt;
     private int abv;
+    private Collection<BarbotContainers> barbotContainerssById;
+    private Collection<RecipeIngredient> recipeIngredientsById;
 
     @Id
     @Column(name = "id")
@@ -117,5 +121,23 @@ public class Ingredients {
         result = 31 * result + (deletedAt != null ? deletedAt.hashCode() : 0);
         result = 31 * result + abv;
         return result;
+    }
+
+    @OneToMany(mappedBy = "ingredientsByIngredientId")
+    public Collection<BarbotContainers> getBarbotContainerssById() {
+        return barbotContainerssById;
+    }
+
+    public void setBarbotContainerssById(Collection<BarbotContainers> barbotContainerssById) {
+        this.barbotContainerssById = barbotContainerssById;
+    }
+
+    @OneToMany(mappedBy = "ingredientsByIngredientId")
+    public Collection<RecipeIngredient> getRecipeIngredientsById() {
+        return recipeIngredientsById;
+    }
+
+    public void setRecipeIngredientsById(Collection<RecipeIngredient> recipeIngredientsById) {
+        this.recipeIngredientsById = recipeIngredientsById;
     }
 }
