@@ -17,18 +17,18 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `barbot`
+-- Database: `barbotdb`
 --
-CREATE DATABASE IF NOT EXISTS `barbot` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
-USE `barbot`;
+CREATE DATABASE IF NOT EXISTS `barbotdb` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `barbotdb`;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `barbots`
+-- Table structure for table `barbot`
 --
 
-CREATE TABLE `barbots` (
+CREATE TABLE `barbot` (
   `id` int(10) UNSIGNED NOT NULL,
   `uid` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
@@ -41,10 +41,10 @@ CREATE TABLE `barbots` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `barbot_containers`
+-- Table structure for table `barbot_container`
 --
 
-CREATE TABLE `barbot_containers` (
+CREATE TABLE `barbot_container` (
   `id` int(10) UNSIGNED NOT NULL,
   `barbot_id` int(10) UNSIGNED NOT NULL,
   `ingredient_id` int(10) UNSIGNED NOT NULL,
@@ -59,10 +59,10 @@ CREATE TABLE `barbot_containers` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `barbot_io_devices`
+-- Table structure for table `barbot_io_device`
 --
 
-CREATE TABLE `barbot_io_devices` (
+CREATE TABLE `barbot_io_device` (
   `id` int(10) UNSIGNED NOT NULL,
   `barbot_id` int(10) UNSIGNED NOT NULL,
   `barbot_io_device_type_id` int(10) UNSIGNED NOT NULL,
@@ -76,10 +76,10 @@ CREATE TABLE `barbot_io_devices` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `barbot_io_device_types`
+-- Table structure for table `barbot_io_device_type`
 --
 
-CREATE TABLE `barbot_io_device_types` (
+CREATE TABLE `barbot_io_device_type` (
   `id` int(10) UNSIGNED NOT NULL,
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
@@ -90,10 +90,10 @@ CREATE TABLE `barbot_io_device_types` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `barbot_pumps`
+-- Table structure for table `barbot_pump`
 --
 
-CREATE TABLE `barbot_pumps` (
+CREATE TABLE `barbot_pump` (
   `id` int(10) UNSIGNED NOT NULL,
   `barbot_io_device_id` int(10) UNSIGNED NOT NULL,
   `barbot_container_id` int(10) UNSIGNED DEFAULT NULL,
@@ -105,10 +105,10 @@ CREATE TABLE `barbot_pumps` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `drink_orders`
+-- Table structure for table `drink_order`
 --
 
-CREATE TABLE `drink_orders` (
+CREATE TABLE `drink_order` (
   `id` int(10) UNSIGNED NOT NULL,
   `uid` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `user_id` int(10) UNSIGNED NOT NULL,
@@ -124,10 +124,10 @@ CREATE TABLE `drink_orders` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ingredients`
+-- Table structure for table `ingredient`
 --
 
-CREATE TABLE `ingredients` (
+CREATE TABLE `ingredient` (
   `id` int(10) UNSIGNED NOT NULL,
   `uid` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
@@ -140,10 +140,11 @@ CREATE TABLE `ingredients` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `migrations`
+-- Table structure for table `migration`
 --
 
-CREATE TABLE `migrations` (
+CREATE TABLE `migration` (
+  `id` int(10) UNSIGNED NOT NULL,
   `migration` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `version` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `created_at` datetime NOT NULL,
@@ -153,10 +154,10 @@ CREATE TABLE `migrations` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `recipes`
+-- Table structure for table `recipe`
 --
 
-CREATE TABLE `recipes` (
+CREATE TABLE `recipe` (
   `id` int(10) UNSIGNED NOT NULL,
   `uid` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
@@ -183,10 +184,10 @@ CREATE TABLE `recipe_ingredient` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `users`
+-- Table structure for table `user`
 --
 
-CREATE TABLE `users` (
+CREATE TABLE `user` (
   `id` int(10) UNSIGNED NOT NULL,
   `uid` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
@@ -203,60 +204,60 @@ CREATE TABLE `users` (
 --
 
 --
--- Indexes for table `barbots`
+-- Indexes for table `barbot`
 --
-ALTER TABLE `barbots`
+ALTER TABLE `barbot`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `barbot_containers`
+-- Indexes for table `barbot_container`
 --
-ALTER TABLE `barbot_containers`
+ALTER TABLE `barbot_container`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `barbot_containers_barbots_id_fk` (`barbot_id`),
-  ADD KEY `barbot_containers_ingredients_id_fk` (`ingredient_id`);
+  ADD KEY `barbot_container_barbot_id_fk` (`barbot_id`),
+  ADD KEY `barbot_container_ingredient_id_fk` (`ingredient_id`);
 
 --
--- Indexes for table `barbot_io_devices`
+-- Indexes for table `barbot_io_device`
 --
-ALTER TABLE `barbot_io_devices`
+ALTER TABLE `barbot_io_device`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `barbot_io_devices_barbots_id_fk` (`barbot_id`),
-  ADD KEY `barbot_io_devices_barbot_io_device_types_id_fk` (`barbot_io_device_type_id`);
+  ADD KEY `barbot_io_device_barbots_id_fk` (`barbot_id`),
+  ADD KEY `barbot_io_device_barbot_io_device_type_id_fk` (`barbot_io_device_type_id`);
 
 --
--- Indexes for table `barbot_io_device_types`
+-- Indexes for table `barbot_io_device_type`
 --
-ALTER TABLE `barbot_io_device_types`
+ALTER TABLE `barbot_io_device_type`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `barbot_pumps`
+-- Indexes for table `barbot_pump`
 --
-ALTER TABLE `barbot_pumps`
+ALTER TABLE `barbot_pump`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `barbot_pumps_barbot_containers_id_fk` (`barbot_container_id`),
-  ADD KEY `barbot_pumps_barbot_io_devices_id_fk` (`barbot_io_device_id`);
+  ADD KEY `barbot_pump_barbot_container_id_fk` (`barbot_container_id`),
+  ADD KEY `barbot_pump_barbot_io_device_id_fk` (`barbot_io_device_id`);
 
 --
--- Indexes for table `drink_orders`
+-- Indexes for table `drink_order`
 --
-ALTER TABLE `drink_orders`
+ALTER TABLE `drink_order`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `drink_orders_users_id_fk` (`user_id`),
-  ADD KEY `drink_orders_recipes_id_fk` (`recipe_id`),
-  ADD KEY `drink_orders_barbots_id_fk` (`barbot_id`);
+  ADD KEY `drink_order_user_id_fk` (`user_id`),
+  ADD KEY `drink_order_recipe_id_fk` (`recipe_id`),
+  ADD KEY `drink_order_barbot_id_fk` (`barbot_id`);
 
 --
--- Indexes for table `ingredients`
+-- Indexes for table `ingredient`
 --
-ALTER TABLE `ingredients`
+ALTER TABLE `ingredient`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `recipes`
+-- Indexes for table `recipe`
 --
-ALTER TABLE `recipes`
+ALTER TABLE `recipe`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -264,13 +265,19 @@ ALTER TABLE `recipes`
 --
 ALTER TABLE `recipe_ingredient`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `recipe_ingredient_recipes_id_fk` (`recipe_id`),
-  ADD KEY `recipe_ingredient_ingredients_id_fk` (`ingredient_id`);
+  ADD KEY `recipe_ingredient_recipe_id_fk` (`recipe_id`),
+  ADD KEY `recipe_ingredient_ingredient_id_fk` (`ingredient_id`);
 
 --
--- Indexes for table `users`
+-- Indexes for table `user`
 --
-ALTER TABLE `users`
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `migration`
+--
+ALTER TABLE `migration`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -278,44 +285,44 @@ ALTER TABLE `users`
 --
 
 --
--- AUTO_INCREMENT for table `barbots`
+-- AUTO_INCREMENT for table `barbot`
 --
-ALTER TABLE `barbots`
+ALTER TABLE `barbot`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT for table `barbot_containers`
+-- AUTO_INCREMENT for table `barbot_container`
 --
-ALTER TABLE `barbot_containers`
+ALTER TABLE `barbot_container`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT for table `barbot_io_devices`
+-- AUTO_INCREMENT for table `barbot_io_device`
 --
-ALTER TABLE `barbot_io_devices`
+ALTER TABLE `barbot_io_device`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT for table `barbot_io_device_types`
+-- AUTO_INCREMENT for table `barbot_io_device_type`
 --
-ALTER TABLE `barbot_io_device_types`
+ALTER TABLE `barbot_io_device_type`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT for table `barbot_pumps`
+-- AUTO_INCREMENT for table `barbot_pump`
 --
-ALTER TABLE `barbot_pumps`
+ALTER TABLE `barbot_pump`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT for table `drink_orders`
+-- AUTO_INCREMENT for table `drink_order`
 --
-ALTER TABLE `drink_orders`
+ALTER TABLE `drink_order`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT for table `ingredients`
+-- AUTO_INCREMENT for table `ingredient`
 --
-ALTER TABLE `ingredients`
+ALTER TABLE `ingredient`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT for table `recipes`
+-- AUTO_INCREMENT for table `recipe`
 --
-ALTER TABLE `recipes`
+ALTER TABLE `recipe`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `recipe_ingredient`
@@ -323,54 +330,59 @@ ALTER TABLE `recipes`
 ALTER TABLE `recipe_ingredient`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT for table `users`
+-- AUTO_INCREMENT for table `user`
 --
-ALTER TABLE `users`
+ALTER TABLE `user`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `migration`
+--
+ALTER TABLE `migration`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 --
 -- Constraints for dumped tables
 --
 
 --
--- Constraints for table `barbot_containers`
+-- Constraints for table `barbot_container`
 --
-ALTER TABLE `barbot_containers`
-  ADD CONSTRAINT `barbot_containers_barbots_id_fk` FOREIGN KEY (`barbot_id`) REFERENCES `barbots` (`id`),
-  ADD CONSTRAINT `barbot_containers_ingredients_id_fk` FOREIGN KEY (`ingredient_id`) REFERENCES `ingredients` (`id`);
+ALTER TABLE `barbot_container`
+  ADD CONSTRAINT `barbot_container_barbot_id_fk` FOREIGN KEY (`barbot_id`) REFERENCES `barbot` (`id`),
+  ADD CONSTRAINT `barbot_container_ingredient_id_fk` FOREIGN KEY (`ingredient_id`) REFERENCES `ingredient` (`id`);
 
 --
--- Constraints for table `barbot_io_devices`
+-- Constraints for table `barbot_io_device`
 --
-ALTER TABLE `barbot_io_devices`
-  ADD CONSTRAINT `barbot_io_devices_barbot_io_device_types_id_fk` FOREIGN KEY (`barbot_io_device_type_id`) REFERENCES `barbot_io_device_types` (`id`),
-  ADD CONSTRAINT `barbot_io_devices_barbots_id_fk` FOREIGN KEY (`barbot_id`) REFERENCES `barbots` (`id`);
+ALTER TABLE `barbot_io_device`
+  ADD CONSTRAINT `barbot_io_device_barbot_io_device_type_id_fk` FOREIGN KEY (`barbot_io_device_type_id`) REFERENCES `barbot_io_device_type` (`id`),
+  ADD CONSTRAINT `barbot_io_device_barbot_id_fk` FOREIGN KEY (`barbot_id`) REFERENCES `barbot` (`id`);
 
 --
--- Constraints for table `barbot_pumps`
+-- Constraints for table `barbot_pump`
 --
-ALTER TABLE `barbot_pumps`
-  ADD CONSTRAINT `barbot_pumps_barbot_containers_id_fk` FOREIGN KEY (`barbot_container_id`) REFERENCES `barbot_containers` (`id`),
-  ADD CONSTRAINT `barbot_pumps_barbot_io_devices_id_fk` FOREIGN KEY (`barbot_io_device_id`) REFERENCES `barbot_io_devices` (`id`);
+ALTER TABLE `barbot_pump`
+  ADD CONSTRAINT `barbot_pump_barbot_container_id_fk` FOREIGN KEY (`barbot_container_id`) REFERENCES `barbot_container` (`id`),
+  ADD CONSTRAINT `barbot_pump_barbot_io_device_id_fk` FOREIGN KEY (`barbot_io_device_id`) REFERENCES `barbot_io_device` (`id`);
 
 --
--- Constraints for table `drink_orders`
+-- Constraints for table `drink_order`
 --
-ALTER TABLE `drink_orders`
-  ADD CONSTRAINT `drink_orders_barbots_id_fk` FOREIGN KEY (`barbot_id`) REFERENCES `barbots` (`id`),
-  ADD CONSTRAINT `drink_orders_recipes_id_fk` FOREIGN KEY (`recipe_id`) REFERENCES `recipes` (`id`),
-  ADD CONSTRAINT `drink_orders_users_id_fk` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+ALTER TABLE `drink_order`
+  ADD CONSTRAINT `drink_order_barbot_id_fk` FOREIGN KEY (`barbot_id`) REFERENCES `barbot` (`id`),
+  ADD CONSTRAINT `drink_order_recipe_id_fk` FOREIGN KEY (`recipe_id`) REFERENCES `recipe` (`id`),
+  ADD CONSTRAINT `drink_order_user_id_fk` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
 
 --
 -- Constraints for table `recipe_ingredient`
 --
 ALTER TABLE `recipe_ingredient`
-  ADD CONSTRAINT `recipe_ingredient_ingredients_id_fk` FOREIGN KEY (`ingredient_id`) REFERENCES `ingredients` (`id`),
-  ADD CONSTRAINT `recipe_ingredient_recipes_id_fk` FOREIGN KEY (`recipe_id`) REFERENCES `recipes` (`id`);
+  ADD CONSTRAINT `recipe_ingredient_ingredient_id_fk` FOREIGN KEY (`ingredient_id`) REFERENCES `ingredient` (`id`),
+  ADD CONSTRAINT `recipe_ingredient_recipe_id_fk` FOREIGN KEY (`recipe_id`) REFERENCES `recipe` (`id`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 
 /* Update Migration Table */
-INSERT INTO migrations(migration, version, created_at, run_at) VALUES ('create_db', '1.000', '2017-03-25', NOW());
+INSERT INTO migration(migration, version, created_at, run_at) VALUES ('create_db', '1.000', '2017-03-25', NOW());
 /* End Update Migration Table */
