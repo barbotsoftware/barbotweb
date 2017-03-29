@@ -1,17 +1,18 @@
 package barbot.database.repository;
 
-import barbot.database.model.Ingredients;
-import org.springframework.data.jpa.repository.Query;
-
 import java.util.List;
 
-public interface IngredientRepository extends BaseRepository<Ingredients, Long> {
+import org.springframework.data.jpa.repository.Query;
 
-    @Query("SELECT i FROM Ingredients i"
-        + " JOIN BarbotContainers bc ON bc.ingredientId = i.id"
+import barbot.database.model.Ingredient;
+
+public interface IngredientRepository extends BaseRepository<Ingredient, Long> {
+
+    @Query("SELECT i FROM Ingredient i"
+        + " JOIN BarbotContainer bc ON bc.ingredientId = i.id"
         + " WHERE bc.barbotId = ?1")
-    List<Ingredients> findByBarbotId(String barbotId);
+    List<Ingredient> findByBarbotId(String barbotId);
 
-    Ingredients findByUid(String uid);
-    Ingredients findByName(String name);
+    Ingredient findByUid(String uid);
+    Ingredient findByName(String name);
 }

@@ -4,23 +4,23 @@
         "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
     <session-factory>
-        <property name="connection.url">jdbc:mysql://localhost:3306/barbot</property>
+        <property name="connection.url">jdbc:mysql://localhost:3306/barbotdb</property>
         <property name="hibernate.dialect">
             org.hibernate.dialect.MySQLDialect
         </property>
         <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
-        <!-- <property name="connection.password"/> -->
-        <mapping class="barbot.database.model.BarbotContainers"/>
-        <mapping class="barbot.database.model.BarbotIoDeviceTypes"/>
-        <mapping class="barbot.database.model.BarbotIoDevices"/>
-        <mapping class="barbot.database.model.BarbotPumps"/>
-        <mapping class="barbot.database.model.Barbots"/>
-        <mapping class="barbot.database.model.DrinkOrders"/>
-        <mapping class="barbot.database.model.Ingredients"/>
-        <mapping class="barbot.database.model.Recipes"/>
-        <mapping class="barbot.database.model.Users"/>
-        <mapping class="barbot.database.model.Migrations"/>
+        <mapping class="barbot.database.model.Barbot"/>
+        <mapping class="barbot.database.model.BarbotContainer"/>
+        <mapping class="barbot.database.model.BarbotIoDevice"/>
+        <mapping class="barbot.database.model.BarbotIoDeviceType"/>
+        <mapping class="barbot.database.model.BarbotPump"/>
+        <mapping class="barbot.database.model.DrinkOrder"/>
+        <mapping class="barbot.database.model.Ingredient"/>
+        <mapping class="barbot.database.model.Migration"/>
+        <mapping class="barbot.database.model.Recipe"/>
         <mapping class="barbot.database.model.RecipeIngredient"/>
+        <mapping class="barbot.database.model.User"/>
+        <!-- <property name="connection.password"/> -->
 
         <!-- DB schema will be updated if needed -->
         <!-- <property name="hbm2ddl.auto">update</property> -->

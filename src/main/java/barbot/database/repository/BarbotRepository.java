@@ -1,8 +1,8 @@
 package barbot.database.repository;
 
-import barbot.database.model.Barbots;
+import barbot.database.model.Barbot;
 
-public interface BarbotRepository extends BaseRepository<Barbots, Long> {
+public interface BarbotRepository extends BaseRepository<Barbot, Long> {
 
-    Barbots findByUid(String uid);
+    Barbot findByUid(String uid);
 }

@@ -1,16 +1,16 @@
 package barbot.database.repository;
 
-import barbot.database.model.Recipes;
-
 import java.util.List;
 
-public interface RecipeRepository extends BaseRepository<Recipes, Long> {
+import barbot.database.model.Recipe;
 
-    List<Recipes> findByName(String name);
+public interface RecipeRepository extends BaseRepository<Recipe, Long> {
 
-    Recipes findByUid(String uid);
+    List<Recipe> findByName(String name);
 
-    List<Recipes> findByCustomTrue();
+    Recipe findByUid(String uid);
 
-    List<Recipes> findByCustomFalse();
+    List<Recipe> findByCustomTrue();
+
+    List<Recipe> findByCustomFalse();
 }

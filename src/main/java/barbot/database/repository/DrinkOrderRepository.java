@@ -1,8 +1,8 @@
 package barbot.database.repository;
 
-import barbot.database.model.DrinkOrders;
+import barbot.database.model.DrinkOrder;
 
-public interface DrinkOrderRepository extends BaseRepository<DrinkOrders, Long> {
+public interface DrinkOrderRepository extends BaseRepository<DrinkOrder, Long> {
 
-    DrinkOrders findByUid(String uid);
+    DrinkOrder findByUid(String uid);
 }

@@ -1,8 +1,8 @@
 package barbot.database.repository;
 
-import barbot.database.model.BarbotContainers;
+import barbot.database.model.BarbotContainer;
 
-public interface ContainerRepository extends BaseRepository<BarbotContainers, Long> {
+public interface ContainerRepository extends BaseRepository<BarbotContainer, Long> {
 
-    BarbotContainers findByBarbotIdAndIngredient(String barbotId, String ingredientId);
+    BarbotContainer findByBarbotIdAndIngredient(String barbotId, String ingredientId);
 }

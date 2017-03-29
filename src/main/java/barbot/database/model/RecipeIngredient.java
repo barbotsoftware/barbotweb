@@ -1,53 +1,48 @@
 package barbot.database.model;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
- * Created by Naveen on 3/26/17.
+ * Created by Naveen on 3/27/17.
  */
 @Entity
-@Table(name = "recipe_ingredient", schema = "barbot", catalog = "")
-public class RecipeIngredient {
-    private int id;
-    private int recipeId;
-    private int ingredientId;
-    private Recipes recipesByRecipeId;
-    private Ingredients ingredientsByIngredientId;
+@Table(name = "recipe_ingredient", schema = "barbotdb")
+public class RecipeIngredient extends BaseEntity {
 
-    @Id
-    @Column(name = "id")
-    public int getId() {
-        return id;
+    @ManyToOne
+    @JoinColumn(name = "recipe_id", referencedColumnName = "id", nullable = false)
+    private Recipe recipe;
+
+    @ManyToOne
+    @JoinColumn(name = "ingredient_id", referencedColumnName = "id", nullable = false)
+    private Ingredient ingredient;
+
+    public Recipe getRecipe() {
+        return recipe;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setRecipe(Recipe recipe) {
+        this.recipe = recipe;
     }
 
-    @Basic
-    @Column(name = "recipe_id")
-    public int getRecipeId() {
-        return recipeId;
+    public Ingredient getIngredient() {
+        return ingredient;
     }
 
-    public void setRecipeId(int recipeId) {
-        this.recipeId = recipeId;
+    public void setIngredient(Ingredient ingredient) {
+        this.ingredient = ingredient;
     }
 
-    @Basic
-    @Column(name = "ingredient_id")
-    public int getIngredientId() {
-        return ingredientId;
+    public RecipeIngredient() {
+
     }
 
-    public void setIngredientId(int ingredientId) {
-        this.ingredientId = ingredientId;
+    public RecipeIngredient(Recipe recipe, Ingredient ingredient) {
+        this.recipe = recipe;
+        this.ingredient = ingredient;
     }
 
     @Override
@@ -57,38 +52,14 @@ public class RecipeIngredient {
 
         RecipeIngredient that = (RecipeIngredient) o;
 
-        if (id != that.id) return false;
-        if (recipeId != that.recipeId) return false;
-        if (ingredientId != that.ingredientId) return false;
+        if (id != null ? !id.equals(that.id) : that.id != null) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = id;
-        result = 31 * result + recipeId;
-        result = 31 * result + ingredientId;
+        int result = id != null ? id.hashCode() : 0;
         return result;
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "recipe_id", referencedColumnName = "id", nullable = false)
-    public Recipes getRecipesByRecipeId() {
-        return recipesByRecipeId;
-    }
-
-    public void setRecipesByRecipeId(Recipes recipesByRecipeId) {
-        this.recipesByRecipeId = recipesByRecipeId;
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "ingredient_id", referencedColumnName = "id", nullable = false)
-    public Ingredients getIngredientsByIngredientId() {
-        return ingredientsByIngredientId;
-    }
-
-    public void setIngredientsByIngredientId(Ingredients ingredientsByIngredientId) {
-        this.ingredientsByIngredientId = ingredientsByIngredientId;
     }
 }

@@ -2,15 +2,13 @@ package barbot.database.repository;
 
 import java.util.List;
 
-import org.springframework.data.repository.CrudRepository;
+import barbot.database.model.User;
 
-import barbot.database.model.Users;
+public interface UserRepository extends BaseRepository<User, Long> {
 
-public interface UserRepository extends BaseRepository<Users, Long> {
+    List<User> findByName(String name);
 
-    List<Users> findByName(String name);
+    User findByEmail(String email);
 
-    Users findByEmail(String email);
-
-    Users findByUid(String uid);
+    User findByUid(String uid);
 }
