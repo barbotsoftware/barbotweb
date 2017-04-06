@@ -35,8 +35,6 @@ public class BarbotIoDevice extends BaseEntity {
     @Column(name = "name")
     private String name;
 
-//    private Collection<BarbotPump> barbotPumpsById;
-
     public BarbotIoDevice() {
 
     }
@@ -97,13 +95,4 @@ public class BarbotIoDevice extends BaseEntity {
         result = 31 * result + (deletedAt != null ? deletedAt.hashCode() : 0);
         return result;
     }
-
-//    @OneToMany(mappedBy = "barbotIoDeviceByBarbotIoDeviceId")
-//    public Collection<BarbotPump> getBarbotPumpsById() {
-//        return barbotPumpsById;
-//    }
-//
-//    public void setBarbotPumpsById(Collection<BarbotPump> barbotPumpsById) {
-//        this.barbotPumpsById = barbotPumpsById;
-//    }
 }

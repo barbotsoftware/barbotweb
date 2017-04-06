@@ -34,8 +34,6 @@ public class BarbotContainer extends BaseEntity {
     @Column(name = "max_volume")
     private Integer maxVolume;
 
-//    private Collection<BarbotPump> barbotPumpsById;
-
     public BarbotContainer() {
 
     }
@@ -111,14 +109,4 @@ public class BarbotContainer extends BaseEntity {
         result = 31 * result + (deletedAt != null ? deletedAt.hashCode() : 0);
         return result;
     }
-
-//
-//    @OneToMany(mappedBy = "barbotContainerByBarbotContainerId")
-//    public Collection<BarbotPump> getBarbotPumpsById() {
-//        return barbotPumpsById;
-//    }
-//
-//    public void setBarbotPumpsById(Collection<BarbotPump> barbotPumpsById) {
-//        this.barbotPumpsById = barbotPumpsById;
-//    }
 }
