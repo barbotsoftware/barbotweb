@@ -33,7 +33,7 @@ public class WebSocketHandler extends TextWebSocketHandler {
         try {
             msg = mapper.readValue(message.getPayload(), new TypeReference<HashMap<String,Object>>(){});
         } catch (IOException e) {
-            sendError(session, "Failed to parse message");
+            sendError(session, Constants.ERROR_PARSE_ERROR, Constants.ERROR_MSG_PARSE_ERROR);
             e.printStackTrace();
         }
 
@@ -44,11 +44,11 @@ public class WebSocketHandler extends TextWebSocketHandler {
                     if(getRecipesForBarbot.validate()) {
                         sendMessage(session, getRecipesForBarbot.execute());
                     } else {
-                        sendError(session, "Invalid command parameters");
+                        sendError(session, getRecipesForBarbot.getError());
                     }
                     break;
                 default:
-                    sendMessage(session, "Command not recognized");
+                    sendError(session, Constants.ERROR_COMMAND_NOT_RECOGNIZED, Constants.ERROR_MSG_COMMAND_NOT_RECOGNIZED);
                     break;
             }
         }
@@ -64,19 +64,25 @@ public class WebSocketHandler extends TextWebSocketHandler {
         sessionMap.put(session.getId(), session);
     }
 
-    private void sendMessage(WebSocketSession session, Object response) {
+    private void sendMessage(WebSocketSession session, Object message) {
         HashMap responseMap = new HashMap();
         responseMap.put(Constants.KEY_RESULT, Constants.KEY_SUCCESS);
-        responseMap.put(Constants.KEY_DATA, response);
+        responseMap.put(Constants.KEY_DATA, message);
         try {
             session.sendMessage(new TextMessage(mapper.writeValueAsString(responseMap)));
         } catch (IOException e) {
-            sendError(session, "Failed to create message");
+            sendError(session, Constants.ERROR_CREATE_ERROR, Constants.ERROR_MSG_CREATE_ERROR);
             e.printStackTrace();
         }
     }
 
-    private void sendError(WebSocketSession session, String error) {
+    private void sendError(WebSocketSession session, int errorCode, String error) {
+        Map errorMap = new HashMap();
+        errorMap.put(errorCode, error);
+        sendError(session, errorMap);
+    }
+
+    private void sendError(WebSocketSession session, Map error) {
         try {
             HashMap responseMap = new HashMap();
             responseMap.put(Constants.KEY_RESULT, Constants.KEY_ERROR);

@@ -13,6 +13,18 @@ public class Constants {
 
 
     /* Web Socket Commands */
-    //public static final int CMD_GET_RECIPES_FOR_BARBOT = 1;
     public static final String CMD_GET_RECIPES_FOR_BARBOT = "get_recipes_for_barbot";
+    public static final String CMD_AUTHENTICATE = "authenticate";
+
+    /* Error Codes */
+    public static final int ERROR_INVALID_COMMAND = 1;
+    public static final int ERROR_PARSE_ERROR = 2;
+    public static final int ERROR_CREATE_ERROR = 3;
+    public static final int ERROR_COMMAND_NOT_RECOGNIZED = 4;
+
+    /* Error Messages */
+    public static final String ERROR_MSG_INVALID_COMMAND = "Invalid command";
+    public static final String ERROR_MSG_PARSE_ERROR = "Failed to parse message";
+    public static final String ERROR_MSG_CREATE_ERROR = "Failed to create message";
+    public static final String ERROR_MSG_COMMAND_NOT_RECOGNIZED = "Command not recognized";
 }
