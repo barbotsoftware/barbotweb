@@ -3,11 +3,11 @@ package barbot.websocket.command;
 import java.util.HashMap;
 
 /**
- * Created by alexh on 4/6/2017.
+ * Created by Naveen on 4/11/17.
  */
-public class GetRecipesForBarbot extends BaseCommand {
+public class GetIngredientsForBarbot extends BaseCommand {
 
-    public GetRecipesForBarbot(HashMap msg) {
+    public GetIngredientsForBarbot(HashMap msg) {
         message = msg;
     }
 

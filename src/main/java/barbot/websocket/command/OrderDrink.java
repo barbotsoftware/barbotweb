@@ -3,11 +3,11 @@ package barbot.websocket.command;
 import java.util.HashMap;
 
 /**
- * Created by alexh on 4/6/2017.
+ * Created by Naveen on 4/11/17.
  */
-public class GetRecipesForBarbot extends BaseCommand {
+public class OrderDrink extends BaseCommand {
 
-    public GetRecipesForBarbot(HashMap msg) {
+    public OrderDrink(HashMap msg) {
         message = msg;
     }
 
@@ -18,7 +18,7 @@ public class GetRecipesForBarbot extends BaseCommand {
 
     @Override
     public boolean validate() {
-        // TODO: Validate BarbotID
+        // TODO: Validate BarbotID, RecipeID, Ice, Garnish
 
         return super.validate();
     }

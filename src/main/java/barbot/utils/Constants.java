@@ -14,6 +14,11 @@ public class Constants {
 
     /* Web Socket Commands */
     public static final String CMD_GET_RECIPES_FOR_BARBOT = "get_recipes_for_barbot";
+    public static final String CMD_GET_RECIPE_DETAILS = "get_recipe_details";
+    public static final String CMD_GET_INGREDIENTS_FOR_BARBOT = "get_ingredients_for_barbot";
+    public static final String CMD_CREATE_CUSTOM_DRINK = "create_custom_drink";
+    public static final String CMD_ORDER_DRINK = "order_drink";
+    public static final String CMD_POUR_DRINK = "pour_drink";
     public static final String CMD_AUTHENTICATE = "authenticate";
 
     /* Error Codes */

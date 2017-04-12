@@ -1,7 +1,14 @@
 package barbot.websocket;
 
 import barbot.utils.Constants;
+import barbot.websocket.command.BaseCommand;
+import barbot.websocket.command.Command;
+import barbot.websocket.command.CreateCustomDrink;
+import barbot.websocket.command.GetIngredientsForBarbot;
+import barbot.websocket.command.GetRecipeDetails;
 import barbot.websocket.command.GetRecipesForBarbot;
+import barbot.websocket.command.OrderDrink;
+import barbot.websocket.command.PourDrink;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.web.socket.CloseStatus;
@@ -38,20 +45,44 @@ public class WebSocketHandler extends TextWebSocketHandler {
         }
 
         if(msg.containsKey(Constants.KEY_COMMAND)) {
-            switch(msg.get(Constants.KEY_COMMAND).toString()) {
-                case Constants.CMD_GET_RECIPES_FOR_BARBOT:
-                    GetRecipesForBarbot getRecipesForBarbot = new GetRecipesForBarbot(msg);
-                    if(getRecipesForBarbot.validate()) {
-                        sendMessage(session, getRecipesForBarbot.execute());
-                    } else {
-                        sendError(session, getRecipesForBarbot.getError());
-                    }
-                    break;
-                default:
-                    sendError(session, Constants.ERROR_COMMAND_NOT_RECOGNIZED, Constants.ERROR_MSG_COMMAND_NOT_RECOGNIZED);
-                    break;
+            Command command = getCommand(msg, session);
+
+            if(command.validate()) {
+                sendMessage(session, command.execute());
+            } else {
+                sendError(session, command.getError());
             }
         }
+    }
+
+    private Command getCommand(HashMap<String, Object> msg, WebSocketSession session) {
+        Command command;
+        switch(msg.get(Constants.KEY_COMMAND).toString()) {
+            case Constants.CMD_GET_RECIPES_FOR_BARBOT:
+                command = new GetRecipesForBarbot(msg);
+                break;
+            case Constants.CMD_GET_RECIPE_DETAILS:
+                command = new GetRecipeDetails(msg);
+                break;
+            case Constants.CMD_GET_INGREDIENTS_FOR_BARBOT:
+                command = new GetIngredientsForBarbot(msg);
+                break;
+            case Constants.CMD_CREATE_CUSTOM_DRINK:
+                command = new CreateCustomDrink(msg);
+                break;
+            case Constants.CMD_ORDER_DRINK:
+                command = new OrderDrink(msg);
+                break;
+            case Constants.CMD_POUR_DRINK:
+                command = new PourDrink(msg);
+                break;
+            default:
+                command = new BaseCommand(msg);
+                sendError(session, Constants.ERROR_COMMAND_NOT_RECOGNIZED, Constants.ERROR_MSG_COMMAND_NOT_RECOGNIZED);
+                break;
+        }
+
+        return command;
     }
 
     @Override
