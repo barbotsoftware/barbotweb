@@ -3,18 +3,17 @@ package barbot.database.model;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import java.io.Serializable;
-import java.sql.Timestamp;
+
+import barbot.utils.Constants;
 
 /**
  * Created by Naveen on 3/27/17.
  */
 @Entity
-@Table(name = "drink_order", schema = "barbotdb")
+@Table(name = Constants.TABLE_DRINK_ORDER, schema = Constants.DB_SCHEMA)
 public class DrinkOrder extends BaseEntity {
 
     @Basic

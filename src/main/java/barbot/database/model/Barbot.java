@@ -5,11 +5,13 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import barbot.utils.Constants;
+
 /**
  * Created by Naveen on 3/27/17.
  */
 @Entity
-@Table(name = "barbot", schema = "barbotdb")
+@Table(name = Constants.TABLE_BARBOT, schema = Constants.DB_SCHEMA)
 public class Barbot extends BaseEntity {
 
     @Basic

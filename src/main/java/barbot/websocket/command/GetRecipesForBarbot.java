@@ -1,10 +1,11 @@
 package barbot.websocket.command;
 
-import barbot.database.model.Barbot;
-import barbot.database.service.BarbotService;
+import java.util.HashMap;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.HashMap;
+import barbot.database.model.Barbot;
+import barbot.database.service.BarbotService;
 
 /**
  * Created by alexh on 4/6/2017.
@@ -22,7 +23,7 @@ public class GetRecipesForBarbot extends BaseCommand {
     public Object execute() {
         String barbotId = (String) message.get("barbot_id");
 
-        Barbot barbot = barbotService.getBarbot(barbotId);
+        Barbot barbot = barbotService.findById(barbotId);
 
         return "response";
     }

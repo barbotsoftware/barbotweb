@@ -6,11 +6,13 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import barbot.utils.Constants;
+
 /**
  * Created by Naveen on 3/27/17.
  */
 @Entity
-@Table(name = "ingredient", schema = "barbotdb")
+@Table(name = Constants.TABLE_INGREDIENT, schema = Constants.DB_SCHEMA)
 public class Ingredient extends BaseEntity {
 
     @Basic

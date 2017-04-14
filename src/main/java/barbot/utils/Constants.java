@@ -4,7 +4,27 @@ package barbot.utils;
  * Created by alexh on 4/6/2017.
  */
 public class Constants {
+
+    /* Database Schema Name */
+    public static final String DB_SCHEMA = "barbotdb";
+
+    /* Database Table Names */
+    public static final String TABLE_BARBOT = "barbot";
+    public static final String TABLE_BARBOT_CONTAINER = "barbot_container";
+    public static final String TABLE_BARBOT_IO_DEVICE = "barbot_io_device";
+    public static final String TABLE_BARBOT_IO_DEVICE_TYPE = "barbot_io_device_type";
+    public static final String TABLE_BARBOT_PUMP = "barbot_pump";
+    public static final String TABLE_DRINK_ORDER = "drink_order";
+    public static final String TABLE_INGREDIENT = "ingredient";
+    public static final String TABLE_MIGRATION = "migration";
+    public static final String TABLE_RECIPE = "recipe";
+    public static final String TABLE_RECIPE_INGREDIENT = "recipe_ingredient";
+    public static final String TABLE_USER = "user";
+
     /* Web Socket JSON Keys */
+    public static final String KEY_TYPE = "type";
+    public static final String KEY_REQUEST = "request";
+    public static final String KEY_RESPONSE = "response";
     public static final String KEY_COMMAND = "command";
     public static final String KEY_RESULT = "result";
     public static final String KEY_SUCCESS = "success";

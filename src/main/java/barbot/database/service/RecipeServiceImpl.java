@@ -1,18 +1,24 @@
 package barbot.database.service;
 
-import barbot.database.model.Recipe;
-import barbot.database.repository.RecipeRepository;
+import java.util.List;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
-import java.util.List;
+import barbot.database.model.Recipe;
+import barbot.database.repository.RecipeRepository;
 
 /**
  * Created by Naveen on 4/12/17.
  */
+@Service
 public class RecipeServiceImpl implements RecipeService {
 
-    private final RecipeRepository recipeRepository;
+    @Resource
+    private RecipeRepository recipeRepository;
 
     public RecipeServiceImpl(RecipeRepository recipeRepository) {
         this.recipeRepository = recipeRepository;

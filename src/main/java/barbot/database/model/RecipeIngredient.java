@@ -5,11 +5,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import barbot.utils.Constants;
+
 /**
  * Created by Naveen on 3/27/17.
  */
 @Entity
-@Table(name = "recipe_ingredient", schema = "barbotdb")
+@Table(name = Constants.TABLE_RECIPE_INGREDIENT, schema = Constants.DB_SCHEMA)
 public class RecipeIngredient extends BaseEntity {
 
     @ManyToOne

@@ -1,12 +1,13 @@
 package barbot.database.model;
 
+import java.io.Serializable;
+import java.sql.Timestamp;
+
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
-import java.io.Serializable;
-import java.sql.Timestamp;
 
 /**
  * Created by Naveen on 3/28/17.

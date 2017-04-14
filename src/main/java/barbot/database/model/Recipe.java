@@ -1,18 +1,21 @@
 package barbot.database.model;
 
+import java.util.Set;
+
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import java.util.Set;
+
+import barbot.utils.Constants;
 
 /**
  * Created by Naveen on 3/27/17.
  */
 @Entity
-@Table(name = "recipe", schema = "barbotdb")
+@Table(name = Constants.TABLE_RECIPE, schema = Constants.DB_SCHEMA)
 public class Recipe extends BaseEntity {
 
     @Basic

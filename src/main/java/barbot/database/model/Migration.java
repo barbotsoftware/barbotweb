@@ -1,17 +1,22 @@
 package barbot.database.model;
 
+import java.io.Serializable;
+import java.sql.Timestamp;
+
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import java.io.Serializable;
-import java.sql.Timestamp;
+import javax.persistence.Table;
+
+import barbot.utils.Constants;
 
 /**
  * Created by Naveen on 3/27/17.
  */
 @Entity
+@Table(name = Constants.TABLE_MIGRATION, schema = Constants.DB_SCHEMA)
 public class Migration implements Serializable {
 
     private static final long serialVersionUID = 1L;

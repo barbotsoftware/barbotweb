@@ -1,5 +1,17 @@
 package barbot.websocket;
 
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.springframework.web.socket.CloseStatus;
+import org.springframework.web.socket.TextMessage;
+import org.springframework.web.socket.WebSocketSession;
+import org.springframework.web.socket.handler.TextWebSocketHandler;
+
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import barbot.utils.Constants;
 import barbot.websocket.command.BaseCommand;
 import barbot.websocket.command.Command;
@@ -9,16 +21,6 @@ import barbot.websocket.command.GetRecipeDetails;
 import barbot.websocket.command.GetRecipesForBarbot;
 import barbot.websocket.command.OrderDrink;
 import barbot.websocket.command.PourDrink;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.web.socket.CloseStatus;
-import org.springframework.web.socket.TextMessage;
-import org.springframework.web.socket.WebSocketSession;
-import org.springframework.web.socket.handler.TextWebSocketHandler;
-
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by alexh on 4/6/2017.
