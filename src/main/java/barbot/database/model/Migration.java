@@ -3,7 +3,6 @@ package barbot.database.model;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -26,19 +25,15 @@ public class Migration implements Serializable {
     @Column(name = "id")
     private Integer id;
 
-    @Basic
     @Column(name = "migration")
     private String migration;
 
-    @Basic
     @Column(name = "version")
     private String version;
 
-    @Basic
     @Column(name = "created_at")
     private Timestamp createdAt;
 
-    @Basic
     @Column(name = "run_at")
     private Timestamp runAt;
 

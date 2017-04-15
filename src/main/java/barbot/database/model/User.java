@@ -1,6 +1,5 @@
 package barbot.database.model;
 
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -14,23 +13,18 @@ import barbot.utils.Constants;
 @Table(name = Constants.TABLE_USER, schema = Constants.DB_SCHEMA)
 public class User extends BaseEntity {
 
-    @Basic
     @Column(name = "uid")
     private String uid;
 
-    @Basic
     @Column(name = "name")
     private String name;
 
-    @Basic
     @Column(name = "email")
     private String email;
 
-    @Basic
     @Column(name = "password")
     private String password;
 
-    @Basic
     @Column(name = "remember_token")
     private String rememberToken;
 

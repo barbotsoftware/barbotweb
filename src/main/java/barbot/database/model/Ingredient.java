@@ -1,10 +1,14 @@
 package barbot.database.model;
 
-import javax.persistence.Basic;
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonView;
 
 import barbot.utils.Constants;
 
@@ -15,23 +19,19 @@ import barbot.utils.Constants;
 @Table(name = Constants.TABLE_INGREDIENT, schema = Constants.DB_SCHEMA)
 public class Ingredient extends BaseEntity {
 
-    @Basic
     @Column(name = "uid")
+    @JsonView(View.Summary.class)
     private String uid;
 
-    @Basic
     @Column(name = "name")
+    @JsonView(View.Summary.class)
     private String name;
 
-    @Basic
     @Column(name = "abv")
     private Integer abv;
 
-    @ManyToOne(optional = false)
-    private Recipe recipe;
-
-//    private Collection<BarbotContainer> barbotContainersById;
-//    private Collection<RecipeIngredient> recipeIngredientsById;
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "ingredients")
+    private Set<Recipe> recipes;
 
     public Ingredient() {
 
@@ -66,9 +66,9 @@ public class Ingredient extends BaseEntity {
         this.abv = abv;
     }
 
-    public Recipe getRecipe() { return recipe; }
+    public Set<Recipe> getRecipes() { return recipes; }
 
-    public void setRecipe(Recipe recipe) { this.recipe = recipe; }
+    public void setRecipe(Set<Recipe> recipes) { this.recipes = recipes; }
 
     @Override
     public boolean equals(Object o) {
@@ -99,22 +99,4 @@ public class Ingredient extends BaseEntity {
         result = 31 * result + (deletedAt != null ? deletedAt.hashCode() : 0);
         return result;
     }
-
-//    @OneToMany(mappedBy = "ingredientByIngredientId")
-//    public Collection<BarbotContainer> getBarbotContainersById() {
-//        return barbotContainersById;
-//    }
-//
-//    public void setBarbotContainersById(Collection<BarbotContainer> barbotContainersById) {
-//        this.barbotContainersById = barbotContainersById;
-//    }
-//
-//    @OneToMany(mappedBy = "ingredientByIngredientId")
-//    public Collection<RecipeIngredient> getRecipeIngredientsById() {
-//        return recipeIngredientsById;
-//    }
-//
-//    public void setRecipeIngredientsById(Collection<RecipeIngredient> recipeIngredientsById) {
-//        this.recipeIngredientsById = recipeIngredientsById;
-//    }
 }

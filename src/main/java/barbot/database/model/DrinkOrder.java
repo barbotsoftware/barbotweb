@@ -1,6 +1,5 @@
 package barbot.database.model;
 
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -16,7 +15,6 @@ import barbot.utils.Constants;
 @Table(name = Constants.TABLE_DRINK_ORDER, schema = Constants.DB_SCHEMA)
 public class DrinkOrder extends BaseEntity {
 
-    @Basic
     @Column(name = "uid")
     private String uid;
 
@@ -32,11 +30,9 @@ public class DrinkOrder extends BaseEntity {
     @JoinColumn(name = "barbot_id", referencedColumnName = "id", nullable = false)
     private Barbot barbot;
 
-    @Basic
     @Column(name = "ice")
     private Integer ice;
 
-    @Basic
     @Column(name = "garnish")
     private Integer garnish;
 

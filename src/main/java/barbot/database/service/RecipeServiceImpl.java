@@ -1,6 +1,7 @@
 package barbot.database.service;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.annotation.Resource;
 
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import barbot.database.model.Ingredient;
 import barbot.database.model.Recipe;
 import barbot.database.repository.RecipeRepository;
 
@@ -42,5 +44,12 @@ public class RecipeServiceImpl implements RecipeService {
     @Transactional
     public List<Recipe> findAll() {
         return recipeRepository.findAll();
+    }
+
+    @Override
+    @Transactional
+    public Set<Ingredient> getIngredients(Recipe recipe) {
+        Assert.notNull(recipe, "Recipe must not be null");
+        return recipeRepository.findIngredients(recipe);
     }
 }

@@ -5,12 +5,16 @@ import barbot.utils.Constants;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.fasterxml.jackson.databind.MapperFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationConfig;
+
 /**
  * Created by Naveen on 4/11/17.
  */
 public class BaseCommand implements Command {
     protected HashMap message;
-
+    protected ObjectMapper mapper;
     protected Map error;
 
     @Override
@@ -22,6 +26,8 @@ public class BaseCommand implements Command {
 
     public BaseCommand(HashMap msg) {
         message = msg;
+        mapper = new ObjectMapper();
+        mapper.disable(MapperFeature.DEFAULT_VIEW_INCLUSION);
     }
 
     public Object execute() {

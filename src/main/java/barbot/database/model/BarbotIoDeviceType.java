@@ -1,6 +1,5 @@
 package barbot.database.model;
 
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -14,10 +13,8 @@ import barbot.utils.Constants;
 @Table(name = Constants.TABLE_BARBOT_IO_DEVICE_TYPE, schema = Constants.DB_SCHEMA)
 public class BarbotIoDeviceType extends BaseEntity {
 
-    @Basic
     @Column(name = "name")
     private String name;
-//    private Collection<BarbotIoDevice> barbotIoDevicesById;
 
     public BarbotIoDeviceType() {
 
@@ -60,13 +57,4 @@ public class BarbotIoDeviceType extends BaseEntity {
         result = 31 * result + (deletedAt != null ? deletedAt.hashCode() : 0);
         return result;
     }
-
-//    @OneToMany(mappedBy = "barbotIoDeviceTypeByBarbotIoDeviceTypeId")
-//    public Collection<BarbotIoDevice> getBarbotIoDevicesById() {
-//        return barbotIoDevicesById;
-//    }
-//
-//    public void setBarbotIoDevicesById(Collection<BarbotIoDevice> barbotIoDevicesById) {
-//        this.barbotIoDevicesById = barbotIoDevicesById;
-//    }
 }

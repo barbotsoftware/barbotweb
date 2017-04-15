@@ -1,6 +1,5 @@
 package barbot.database.model;
 
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -24,11 +23,9 @@ public class BarbotIoDevice extends BaseEntity {
     @JoinColumn(name = "barbot_io_device_type_id", referencedColumnName = "id", nullable = false)
     private BarbotIoDeviceType barbotIoDeviceType;
 
-    @Basic
     @Column(name = "gpio_port")
     private Integer gpioPort;
 
-    @Basic
     @Column(name = "name")
     private String name;
 

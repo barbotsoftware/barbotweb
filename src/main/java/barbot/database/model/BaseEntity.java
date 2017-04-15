@@ -3,7 +3,6 @@ package barbot.database.model;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -22,15 +21,12 @@ public abstract class BaseEntity implements Serializable {
     @Column(name = "id")
     protected Integer id;
 
-    @Basic
     @Column(name = "created_at")
     protected Timestamp createdAt;
 
-    @Basic
     @Column(name = "updated_at")
     protected Timestamp updatedAt;
 
-    @Basic
     @Column(name = "deleted_at")
     protected Timestamp deletedAt;
 

@@ -1,6 +1,5 @@
 package barbot.database.model;
 
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -24,15 +23,12 @@ public class BarbotContainer extends BaseEntity {
     @JoinColumn(name = "ingredient_id", referencedColumnName = "id", nullable = false)
     private Ingredient ingredient;
 
-    @Basic
     @Column(name = "number")
     private Integer number;
 
-    @Basic
     @Column(name = "current_volume")
     private Integer currentVolume;
 
-    @Basic
     @Column(name = "max_volume")
     private Integer maxVolume;
 

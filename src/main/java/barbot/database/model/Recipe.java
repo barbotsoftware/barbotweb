@@ -2,12 +2,16 @@ package barbot.database.model;
 
 import java.util.Set;
 
-import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonView;
 
 import barbot.utils.Constants;
 
@@ -18,27 +22,29 @@ import barbot.utils.Constants;
 @Table(name = Constants.TABLE_RECIPE, schema = Constants.DB_SCHEMA)
 public class Recipe extends BaseEntity {
 
-    @Basic
     @Column(name = "uid")
+    @JsonView(View.Summary.class)
     private String uid;
 
-    @Basic
     @Column(name = "name")
+    @JsonView(View.Summary.class)
     private String name;
 
-    @Basic
     @Column(name = "created_by")
     private Integer createdBy;
 
-    @Basic
     @Column(name = "custom")
     private Integer custom;
 
-    @Basic
     @Column(name = "image_url")
+    @JsonView(View.Summary.class)
     private String imageUrl;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(name = Constants.TABLE_RECIPE_INGREDIENT, schema = Constants.DB_SCHEMA,
+            joinColumns = @JoinColumn(name = "recipe_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "ingredient_id", referencedColumnName = "id"))
+    @JsonView(View.Detail.class)
     private Set<Ingredient> ingredients;
 
     public Recipe() {
@@ -90,6 +96,14 @@ public class Recipe extends BaseEntity {
         this.imageUrl = imageUrl;
     }
 
+    public Set<Ingredient> getIngredients() {
+        return ingredients;
+    }
+
+    public void setIngredients(Set<Ingredient> ingredients) {
+        this.ingredients = ingredients;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -123,22 +137,4 @@ public class Recipe extends BaseEntity {
         result = 31 * result + (deletedAt != null ? deletedAt.hashCode() : 0);
         return result;
     }
-
-//    @OneToMany(mappedBy = "recipeByRecipeId")
-//    public Collection<DrinkOrder> getDrinkOrdersById() {
-//        return drinkOrdersById;
-//    }
-//
-//    public void setDrinkOrdersById(Collection<DrinkOrder> drinkOrdersById) {
-//        this.drinkOrdersById = drinkOrdersById;
-//    }
-//
-//    @OneToMany(mappedBy = "recipeByRecipeId")
-//    public Collection<RecipeIngredient> getRecipeIngredientsById() {
-//        return recipeIngredientsById;
-//    }
-//
-//    public void setRecipeIngredientsById(Collection<RecipeIngredient> recipeIngredientsById) {
-//        this.recipeIngredientsById = recipeIngredientsById;
-//    }
 }
