@@ -8,6 +8,7 @@ import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import barbot.utils.Constants;
@@ -20,6 +21,7 @@ import barbot.utils.Constants;
 public class Ingredient extends BaseEntity {
 
     @Column(name = "uid")
+    @JsonProperty("id")
     @JsonView(View.Summary.class)
     private String uid;
 

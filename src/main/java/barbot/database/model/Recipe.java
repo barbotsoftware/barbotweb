@@ -11,6 +11,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import barbot.utils.Constants;
@@ -23,6 +24,7 @@ import barbot.utils.Constants;
 public class Recipe extends BaseEntity {
 
     @Column(name = "uid")
+    @JsonProperty("id")
     @JsonView(View.Summary.class)
     private String uid;
 
@@ -37,6 +39,7 @@ public class Recipe extends BaseEntity {
     private Integer custom;
 
     @Column(name = "image_url")
+    @JsonProperty("img")
     @JsonView(View.Summary.class)
     private String imageUrl;
 
@@ -51,9 +54,10 @@ public class Recipe extends BaseEntity {
 
     }
 
-    public Recipe(String uid, String name) {
+    public Recipe(String uid, String name, String imageUrl) {
         this.uid = uid;
         this.name = name;
+        this.imageUrl = imageUrl;
     }
 
     public String getUid() {
