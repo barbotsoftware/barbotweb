@@ -55,9 +55,14 @@ public class Recipe extends BaseEntity {
     }
 
     public Recipe(String uid, String name, String imageUrl) {
+        this(uid, name, imageUrl, null);
+    }
+
+    public Recipe(String uid, String name, String imageUrl, Set<Ingredient> ingredients) {
         this.uid = uid;
         this.name = name;
         this.imageUrl = imageUrl;
+        this.ingredients = ingredients;
     }
 
     public String getUid() {

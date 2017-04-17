@@ -21,7 +21,7 @@ import barbot.utils.Constants;
 public class Ingredient extends BaseEntity {
 
     @Column(name = "uid")
-    @JsonProperty("id")
+    @JsonProperty("ingredient_id")
     @JsonView(View.Summary.class)
     private String uid;
 
