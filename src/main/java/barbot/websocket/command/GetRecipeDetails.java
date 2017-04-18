@@ -26,13 +26,14 @@ public class GetRecipeDetails extends BaseCommand {
 
     public GetRecipeDetails(HashMap msg) {
         super(msg);
+        setJsonView(View.Detail.class);
     }
 
     @Override
     public Object execute() {
 
         // Get Recipe ID from request
-        String recipeId = (String) message.get("recipe_id");
+        String recipeId = (String) data.get("recipe_id");
 
         // Get Recipe from DB
         Recipe recipe = recipeService.findById(recipeId);
@@ -43,26 +44,7 @@ public class GetRecipeDetails extends BaseCommand {
         // Set Ingredients
         recipe.setIngredients(ingredients);
 
-        String recipeJSON = "";
-
-        try {
-            recipeJSON = mapper.writerWithView(View.Detail.class).writeValueAsString(recipe);
-        } catch (JsonGenerationException e) {
-            e.printStackTrace();
-        } catch (JsonMappingException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        Map response = new HashMap<String, Object>();
-
-        response.put(Constants.KEY_TYPE, Constants.KEY_RESPONSE);
-        response.put(Constants.KEY_COMMAND, Constants.CMD_GET_RECIPE_DETAILS);
-        response.put(Constants.KEY_DATA, recipeJSON);
-
-        // TODO: Return as map or string?
-        return response;
+        return recipe;
     }
 
     @Override

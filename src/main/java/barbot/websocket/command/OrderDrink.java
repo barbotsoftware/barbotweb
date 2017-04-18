@@ -2,18 +2,60 @@ package barbot.websocket.command;
 
 import java.util.HashMap;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
+import barbot.database.model.Barbot;
+import barbot.database.model.DrinkOrder;
+import barbot.database.model.Recipe;
+import barbot.database.model.User;
+import barbot.database.model.View;
+import barbot.database.service.BarbotService;
+import barbot.database.service.DrinkOrderService;
+import barbot.database.service.RecipeService;
+
 /**
  * Created by Naveen on 4/11/17.
  */
 public class OrderDrink extends BaseCommand {
 
+    @Autowired
+    RecipeService recipeService;
+
+    @Autowired
+    BarbotService barbotService;
+
+    @Autowired
+    DrinkOrderService drinkOrderService;
+
     public OrderDrink(HashMap msg) {
-        message = msg;
+        super(msg);
+        setJsonView(View.Id.class);
     }
 
     @Override
     public Object execute() {
-        return "response";
+
+        // TODO: generate uid
+        String uid = "";
+
+        // Get Barbot
+        String barbotId = (String) data.get("barbot_id");
+        Barbot barbot = barbotService.findById(barbotId);
+
+        // Get Recipe
+        String recipeId = (String) data.get("recipe_id");
+        Recipe recipe = recipeService.findById(recipeId);
+
+        // Get User
+        User user = new User();
+
+        // get Ice and Garnish
+        Integer ice = Integer.valueOf((int) data.get("ice"));
+        Integer garnish = Integer.valueOf((int) data.get("garnish"));
+
+        DrinkOrder drinkOrder = new DrinkOrder(uid, user, recipe, barbot, ice, garnish);
+
+        return drinkOrderService.create(drinkOrder);
     }
 
     @Override

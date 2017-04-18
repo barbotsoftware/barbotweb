@@ -25,7 +25,7 @@ public class Recipe extends BaseEntity {
 
     @Column(name = "uid")
     @JsonProperty("id")
-    @JsonView(View.Summary.class)
+    @JsonView(View.Id.class)
     private String uid;
 
     @Column(name = "name")

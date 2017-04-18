@@ -22,7 +22,7 @@ public class Ingredient extends BaseEntity {
 
     @Column(name = "uid")
     @JsonProperty("ingredient_id")
-    @JsonView(View.Summary.class)
+    @JsonView(View.Id.class)
     private String uid;
 
     @Column(name = "name")

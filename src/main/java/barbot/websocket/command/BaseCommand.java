@@ -3,9 +3,6 @@ package barbot.websocket.command;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.fasterxml.jackson.databind.MapperFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import barbot.utils.Constants;
 
 /**
@@ -13,20 +10,38 @@ import barbot.utils.Constants;
  */
 public class BaseCommand implements Command {
     HashMap message;
-    ObjectMapper mapper;
+    Map data;
     private Map error;
+    private Class<?> jsonView;
+
+    BaseCommand() { }
+
+    public BaseCommand(HashMap msg) {
+        message = msg;
+
+        if (message.containsKey(Constants.KEY_DATA)) {
+            data = (Map) message.get(Constants.KEY_DATA);
+        }
+    }
+
+    @Override
+    public Map getData() {
+        return data;
+    }
 
     @Override
     public Map getError() {
         return error;
     }
 
-    BaseCommand() { }
+    @Override
+    public Class<?> getJsonView() {
+        return this.jsonView;
+    }
 
-    public BaseCommand(HashMap msg) {
-        message = msg;
-        mapper = new ObjectMapper();
-        mapper.disable(MapperFeature.DEFAULT_VIEW_INCLUSION);
+    @Override
+    public void setJsonView(Class<?> jsonView) {
+        this.jsonView = jsonView;
     }
 
     public Object execute() {

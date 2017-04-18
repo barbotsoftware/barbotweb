@@ -9,4 +9,7 @@ public interface Command {
     Object execute();
     boolean validate();
     Map getError();
+    Map getData();
+    Class<?> getJsonView();
+    void setJsonView(Class<?> jsonView);
 }

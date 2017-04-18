@@ -5,7 +5,9 @@ package barbot.database.model;
  */
 public class View {
 
-    public interface Summary {}
+    public interface Id {}
+
+    public interface Summary extends Id {}
 
     public interface Detail extends Summary {}
 }

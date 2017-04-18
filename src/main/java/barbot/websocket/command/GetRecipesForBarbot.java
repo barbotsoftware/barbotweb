@@ -1,10 +1,13 @@
 package barbot.websocket.command;
 
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
 import barbot.database.model.Barbot;
+import barbot.database.model.Recipe;
 import barbot.database.service.BarbotService;
 
 /**
@@ -16,16 +19,18 @@ public class GetRecipesForBarbot extends BaseCommand {
     private BarbotService barbotService;
 
     public GetRecipesForBarbot(HashMap msg) {
-        message = msg;
+        super(msg);
     }
 
     @Override
     public Object execute() {
-        String barbotId = (String) message.get("barbot_id");
+        String barbotId = (String) data.get("barbot_id");
 
         Barbot barbot = barbotService.findById(barbotId);
 
-        return "response";
+        Set<Recipe> recipes = new HashSet<Recipe>();
+
+        return recipes;
     }
 
     @Override

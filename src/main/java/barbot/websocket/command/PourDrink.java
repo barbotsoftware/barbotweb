@@ -8,7 +8,7 @@ import java.util.HashMap;
 public class PourDrink extends BaseCommand {
 
     public PourDrink(HashMap msg) {
-        message = msg;
+        super(msg);
     }
 
     @Override

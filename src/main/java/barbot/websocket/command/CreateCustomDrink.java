@@ -2,13 +2,16 @@ package barbot.websocket.command;
 
 import java.util.HashMap;
 
+import barbot.database.model.View;
+
 /**
  * Created by Naveen on 4/11/17.
  */
 public class CreateCustomDrink extends BaseCommand {
 
     public CreateCustomDrink(HashMap msg) {
-        message = msg;
+        super(msg);
+        setJsonView(View.Id.class);
     }
 
     @Override

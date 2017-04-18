@@ -6,6 +6,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonView;
+
 import barbot.utils.Constants;
 
 /**
@@ -16,6 +19,8 @@ import barbot.utils.Constants;
 public class DrinkOrder extends BaseEntity {
 
     @Column(name = "uid")
+    @JsonProperty("drink_order_id")
+    @JsonView(View.Id.class)
     private String uid;
 
     @ManyToOne
@@ -40,11 +45,13 @@ public class DrinkOrder extends BaseEntity {
 
     }
 
-    public DrinkOrder(String uid, User user, Recipe recipe, Barbot barbot) {
+    public DrinkOrder(String uid, User user, Recipe recipe, Barbot barbot, Integer ice, Integer garnish) {
         this.uid = uid;
         this.user = user;
         this.recipe = recipe;
         this.barbot = barbot;
+        this.ice = ice;
+        this.garnish = garnish;
     }
 
     public String getUid() {

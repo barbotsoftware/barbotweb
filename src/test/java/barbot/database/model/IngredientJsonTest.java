@@ -27,7 +27,7 @@ public class IngredientJsonTest extends BaseJsonTest {
     @Before
     public void setUp() {
         ingredientSummaryJson = "{ \"name\": \"Vodka\"," +
-                "  \"id\": \"ingredient_238932\" }";
+                "  \"ingredient_id\": \"ingredient_238932\" }";
 
         ingredientSummary = new Ingredient("ingredient_238932", "Vodka");
     }

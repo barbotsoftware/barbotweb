@@ -8,7 +8,7 @@ import java.util.HashMap;
 public class GetIngredientsForBarbot extends BaseCommand {
 
     public GetIngredientsForBarbot(HashMap msg) {
-        message = msg;
+        super(msg);
     }
 
     @Override

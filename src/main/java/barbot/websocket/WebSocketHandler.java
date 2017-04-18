@@ -9,7 +9,10 @@ import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
+import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import barbot.utils.Constants;
@@ -33,6 +36,7 @@ public class WebSocketHandler extends TextWebSocketHandler {
 
     public WebSocketHandler() {
         mapper = new ObjectMapper();
+        mapper.disable(MapperFeature.DEFAULT_VIEW_INCLUSION);
         sessionMap = new HashMap<>();
     }
 
@@ -50,7 +54,7 @@ public class WebSocketHandler extends TextWebSocketHandler {
             Command command = getCommand(msg, session);
 
             if(command.validate()) {
-                sendMessage(session, command.execute());
+                sendMessage(session, command.execute(), command.getJsonView());
             } else {
                 sendError(session, command.getError());
             }
@@ -97,12 +101,16 @@ public class WebSocketHandler extends TextWebSocketHandler {
         sessionMap.put(session.getId(), session);
     }
 
-    private void sendMessage(WebSocketSession session, Object message) {
+    private void sendMessage(WebSocketSession session, Object message, Class<?> jsonView) {
         HashMap responseMap = new HashMap();
         responseMap.put(Constants.KEY_RESULT, Constants.KEY_SUCCESS);
         responseMap.put(Constants.KEY_DATA, message);
         try {
-            session.sendMessage(new TextMessage(mapper.writeValueAsString(responseMap)));
+            session.sendMessage(new TextMessage(mapper.writerWithView(jsonView.getClass()).writeValueAsString(responseMap)));
+        } catch (JsonGenerationException e) {
+            e.printStackTrace();
+        } catch (JsonMappingException e) {
+            e.printStackTrace();
         } catch (IOException e) {
             sendError(session, Constants.ERROR_CREATE_ERROR, Constants.ERROR_MSG_CREATE_ERROR);
             e.printStackTrace();
