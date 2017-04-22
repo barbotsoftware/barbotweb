@@ -1,6 +1,9 @@
 package barbot.websocket.command;
 
 import java.util.HashMap;
+import java.util.Map;
+
+import barbot.utils.Constants;
 
 /**
  * Created by Naveen on 4/11/17.
@@ -13,6 +16,8 @@ public class PourDrink extends BaseCommand {
 
     @Override
     public Object execute() {
+        Map data = (HashMap) message.get(Constants.KEY_DATA);
+
         return "response";
     }
 
