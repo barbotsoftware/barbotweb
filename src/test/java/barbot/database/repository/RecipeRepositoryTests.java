@@ -12,32 +12,28 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import barbot.database.model.Ingredient;
+import barbot.database.model.Recipe;
 
 /**
- * Created by Naveen on 4/25/17.
+ * Created by Naveen on 4/15/17.
  */
 @RunWith(SpringRunner.class)
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-public class IngredientRepositoryTest {
+public class RecipeRepositoryTests {
 
     @Autowired
     private TestEntityManager entityManager;
 
     @Autowired
-    private IngredientRepository repository;
+    private RecipeRepository repository;
 
     @Test
     public void testFindByUid() throws Exception {
-        String uid = "ingredient_123456";
-        String name = "Gin";
-
-        this.entityManager.persist(new Ingredient(uid, name));
-        Ingredient ingredient = this.repository.findByUid(uid);
-
-        assertThat(ingredient.getUid()).isEqualTo(uid);
-        assertThat(ingredient.getName()).isEqualTo(name);
+        this.entityManager.persist(new Recipe("recipe_123456", "Gin and Tonic", ""));
+        Recipe recipe = this.repository.findByUid("recipe_123456");
+        assertThat(recipe.getUid()).isEqualTo("recipe_123456");
+        assertThat(recipe.getName()).isEqualTo("Gin and Tonic");
     }
 
     @Test
@@ -45,10 +41,10 @@ public class IngredientRepositoryTest {
 
         // Persist test Recipes
         for (int i = 0; i < 10; i++) {
-            this.entityManager.persist(new Ingredient("ingredient_12345" + i, "Ingredient" + i));
+            this.entityManager.persist(new Recipe("recipe_12345" + i, "Recipe" + i, "http://barbot.io/" + i));
         }
 
-        List<Ingredient> ingredients = this.repository.findByName("Ingredient");
-        assertThat(ingredients.size() == 10);
+        List<Recipe> recipes = this.repository.findByName("Recipe");
+        assertThat(recipes.size() == 10);
     }
 }

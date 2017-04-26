@@ -18,7 +18,7 @@ import org.springframework.test.context.junit4.SpringRunner;
  */
 @RunWith(SpringRunner.class)
 @JsonTest
-public class RecipeJsonTest extends BaseJsonTest {
+public class RecipeJsonTests extends BaseJsonTests {
 
     @Autowired
     private JacksonTester<Recipe> jacksonTester;
@@ -33,8 +33,6 @@ public class RecipeJsonTest extends BaseJsonTest {
 
     @Before
     public void setUp() {
-        // TODO: Read in test JSON data from files
-
         recipeSummaryJson = "{ \"name\": \"Cuba Libre\"," +
                 "  \"id\": \"recipe_8a4d7a\"," +
                 "  \"img\": \"http:\\/\\/192.168.1.41\\/barbot\\/public\\/images\\/cubalibre.png\" }";
@@ -77,13 +75,13 @@ public class RecipeJsonTest extends BaseJsonTest {
     }
 
     @Test
-    public void testSummarySerialize() throws Exception {
+    public void testSerializeSummary() throws Exception {
 
         // Set View = Summary
         useView(View.Summary.class, jacksonTester);
 
-        // Write Recipe Object to Json
-        assertThat(this.jacksonTester.write(recipeSummary)).isEqualToJson(recipeSummaryJson);
+        // Compare Recipe Object to Json
+        assertThat(this.jacksonTester.write(recipeSummary)).isEqualToJson("recipesummary.json");
 
         // Check name
         assertThat(this.jacksonTester.write(recipeSummary)).hasJsonPathStringValue("@.name");
@@ -92,7 +90,7 @@ public class RecipeJsonTest extends BaseJsonTest {
     }
 
     @Test
-    public void testSummaryDeserialize() throws Exception {
+    public void testDeserializeSummary() throws Exception {
 
         // Set View = Summary
         useView(View.Summary.class, jacksonTester);
@@ -106,15 +104,13 @@ public class RecipeJsonTest extends BaseJsonTest {
     }
 
     @Test
-    public void testDetailSerialize() throws Exception {
+    public void testSerializeDetail() throws Exception {
 
         // Set View = Detail
         useView(View.Detail.class, jacksonTester);
 
-        // Write Recipe Object to Json
-        assertThat(this.jacksonTester.write(recipeDetail)).isEqualToJson(recipeDetailJson);
-
-        System.out.println(this.jacksonTester.write(recipeDetail));
+        // Compare Recipe Object to Json
+        assertThat(this.jacksonTester.write(recipeDetail)).isEqualToJson("recipedetail.json");
 
         // Check name
         assertThat(this.jacksonTester.write(recipeDetail)).hasJsonPathStringValue("@.name");
@@ -123,7 +119,7 @@ public class RecipeJsonTest extends BaseJsonTest {
     }
 
     @Test
-    public void testDetailDeserialize() throws Exception {
+    public void testDeserializeDetail() throws Exception {
         // Set View = Detail
         useView(View.Detail.class, jacksonTester);
 

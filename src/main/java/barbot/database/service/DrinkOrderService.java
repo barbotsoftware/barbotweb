@@ -7,4 +7,6 @@ import barbot.database.model.DrinkOrder;
  */
 public interface DrinkOrderService {
     DrinkOrder create(DrinkOrder drinkOrder);
+
+    DrinkOrder findById(String drinkOrderId);
 }

@@ -31,6 +31,8 @@ public class OrderDrink extends BaseCommand {
 
     public OrderDrink(HashMap msg) {
         super(msg);
+
+        // Return Drink Order Id
         setJsonView(View.Id.class);
     }
 

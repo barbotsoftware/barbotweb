@@ -11,6 +11,7 @@ import org.springframework.util.Assert;
 
 import barbot.database.model.Ingredient;
 import barbot.database.model.Recipe;
+import barbot.database.repository.IngredientRepository;
 import barbot.database.repository.RecipeRepository;
 
 /**
@@ -21,6 +22,8 @@ public class RecipeServiceImpl implements RecipeService {
 
     @Resource
     private RecipeRepository recipeRepository;
+
+    @Resource IngredientRepository ingredientRepository;
 
     public RecipeServiceImpl(RecipeRepository recipeRepository) {
         this.recipeRepository = recipeRepository;
@@ -50,6 +53,6 @@ public class RecipeServiceImpl implements RecipeService {
     @Transactional
     public Set<Ingredient> getIngredients(Recipe recipe) {
         Assert.notNull(recipe, "Recipe must not be null");
-        return recipeRepository.findIngredients(recipe);
+        return ingredientRepository.findByRecipe(recipe);
     }
 }

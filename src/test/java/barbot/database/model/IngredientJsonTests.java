@@ -15,7 +15,7 @@ import org.springframework.test.context.junit4.SpringRunner;
  */
 @RunWith(SpringRunner.class)
 @JsonTest
-public class IngredientJsonTest extends BaseJsonTest {
+public class IngredientJsonTests extends BaseJsonTests {
 
     @Autowired
     private JacksonTester<Ingredient> jacksonTester;
@@ -33,13 +33,13 @@ public class IngredientJsonTest extends BaseJsonTest {
     }
 
     @Test
-    public void testSummarySerialize() throws Exception {
+    public void testSerializeSummary() throws Exception {
 
         // Set View = Summary
         useView(View.Summary.class, jacksonTester);
 
-        // Write Recipe Object to Json
-        assertThat(this.jacksonTester.write(ingredientSummary)).isEqualToJson(ingredientSummaryJson);
+        // Compare Ingredient Object to Json
+        assertThat(this.jacksonTester.write(ingredientSummary)).isEqualToJson("ingredientsummary.json");
 
         // Check name
         assertThat(this.jacksonTester.write(ingredientSummary)).hasJsonPathStringValue("@.name");
@@ -48,7 +48,7 @@ public class IngredientJsonTest extends BaseJsonTest {
     }
 
     @Test
-    public void testSummaryDeserialize() throws Exception {
+    public void testDeserializeSummary() throws Exception {
 
         // Set View = Summary
         useView(View.Summary.class, jacksonTester);

@@ -24,6 +24,8 @@ public class BaseCommand implements Command {
         return error;
     }
 
+    // Use JsonView to format Json Responses
+
     @Override
     public Class<?> getJsonView() {
         return this.jsonView;
