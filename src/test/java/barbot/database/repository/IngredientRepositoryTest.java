@@ -12,28 +12,32 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import barbot.database.model.Recipe;
+import barbot.database.model.Ingredient;
 
 /**
- * Created by Naveen on 4/15/17.
+ * Created by Naveen on 4/25/17.
  */
 @RunWith(SpringRunner.class)
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-public class RecipeRepositoryTest {
+public class IngredientRepositoryTest {
 
     @Autowired
     private TestEntityManager entityManager;
 
     @Autowired
-    private RecipeRepository repository;
+    private IngredientRepository repository;
 
     @Test
     public void testFindByUid() throws Exception {
-        this.entityManager.persist(new Recipe("recipe_123456", "Gin and Tonic", ""));
-        Recipe recipe = this.repository.findByUid("recipe_123456");
-        assertThat(recipe.getUid()).isEqualTo("recipe_123456");
-        assertThat(recipe.getName()).isEqualTo("Gin and Tonic");
+        String uid = "ingredient_123456";
+        String name = "Gin";
+
+        this.entityManager.persist(new Ingredient(uid, name));
+        Ingredient ingredient = this.repository.findByUid(uid);
+
+        assertThat(ingredient.getUid()).isEqualTo(uid);
+        assertThat(ingredient.getName()).isEqualTo(name);
     }
 
     @Test
@@ -41,10 +45,10 @@ public class RecipeRepositoryTest {
 
         // Persist test Recipes
         for (int i = 0; i < 10; i++) {
-            this.entityManager.persist(new Recipe("recipe_12345" + i, "Recipe" + i, "http://barbot.io/" + i));
+            this.entityManager.persist(new Ingredient("ingredient_12345" + i, "Ingredient" + i));
         }
 
-        List<Recipe> recipes = this.repository.findByName("Recipe");
-        assertThat(recipes.size() == 10);
+        List<Ingredient> ingredients = this.repository.findByName("Ingredient");
+        assertThat(ingredients.size() == 10);
     }
 }

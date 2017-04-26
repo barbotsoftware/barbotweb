@@ -14,5 +14,5 @@ public interface IngredientRepository extends BaseRepository<Ingredient, Long> {
     List<Ingredient> findByBarbotId(String barbotId);*/
 
     Ingredient findByUid(String uid);
-    Ingredient findByName(String name);
+    List<Ingredient> findByName(String name);
 }

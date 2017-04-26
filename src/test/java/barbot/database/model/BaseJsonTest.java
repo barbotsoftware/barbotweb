@@ -8,7 +8,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 /**
  * Created by Naveen on 4/16/17.
  */
-public class BaseJsonTest {
+public abstract class BaseJsonTest {
 
     void useView(Class<?> view, JacksonTester jacksonTester) {
         ObjectMapper objectMapper = (ObjectMapper) Whitebox.getInternalState(jacksonTester,
