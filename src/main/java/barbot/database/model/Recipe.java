@@ -24,7 +24,7 @@ import barbot.utils.Constants;
 public class Recipe extends BaseEntity {
 
     @Column(name = "uid")
-    @JsonProperty("id")
+    @JsonProperty("recipe_id")
     @JsonView(View.Id.class)
     private String uid;
 
@@ -52,6 +52,10 @@ public class Recipe extends BaseEntity {
 
     public Recipe() {
 
+    }
+
+    public Recipe(String uid) {
+        this(uid, null, null, null);
     }
 
     public Recipe(String uid, String name, String imageUrl) {

@@ -23,9 +23,11 @@ public class RecipeJsonTests extends BaseJsonTests {
     @Autowired
     private JacksonTester<Recipe> jacksonTester;
 
+    String recipeIdJson;
     String recipeSummaryJson;
     String recipeDetailJson;
 
+    Recipe recipeId;
     Recipe recipeSummary;
     Recipe recipeDetail;
 
@@ -33,13 +35,17 @@ public class RecipeJsonTests extends BaseJsonTests {
 
     @Before
     public void setUp() {
+        recipeIdJson = "{\n" +
+                "  \"recipe_id\":\"recipe_123456\"\n" +
+                "}";
+
         recipeSummaryJson = "{ \"name\": \"Cuba Libre\"," +
-                "  \"id\": \"recipe_8a4d7a\"," +
+                "  \"recipe_id\": \"recipe_8a4d7a\"," +
                 "  \"img\": \"http:\\/\\/192.168.1.41\\/barbot\\/public\\/images\\/cubalibre.png\" }";
 
         recipeDetailJson = "{" +
                 "            \"name\": \"The Sour\"," +
-                "            \"id\": \"recipe_9aa19a\"," +
+                "            \"recipe_id\": \"recipe_9aa19a\"," +
                 "            \"img\": \"http:\\/\\/farm8.staticflickr.com\\/7252\\/7594170156_46bf574865_o.jpg\"," +
                 "            \"ingredients\": [{" +
                 "                \"ingredient_id\": \"ingredient_123450\"," +
@@ -55,6 +61,8 @@ public class RecipeJsonTests extends BaseJsonTests {
                 "                \"name\": \"Ingredient3\"" +
                 "            }]" +
                 "}";
+
+        recipeId = new Recipe("recipe_123456");
 
         recipeSummary = new Recipe("recipe_8a4d7a",
                 "Cuba Libre",
@@ -75,6 +83,32 @@ public class RecipeJsonTests extends BaseJsonTests {
     }
 
     @Test
+    public void testSerializeId() throws Exception {
+        // Set View = Id
+        useView(View.Id.class, jacksonTester);
+
+        // Compare Recipe Object to Json
+        assertThat(this.jacksonTester.write(recipeId)).isEqualToJson("recipeid.json");
+
+        // Check Id
+        assertThat(this.jacksonTester.write(recipeId)).hasJsonPathStringValue("@.recipe_id");
+        assertThat(this.jacksonTester.write(recipeId)).extractingJsonPathStringValue("@.recipe_id")
+                .isEqualTo("recipe_123456");
+    }
+
+    @Test
+    public void testDeserializeId() throws Exception {
+        // Set View = Id
+        useView(View.Id.class, jacksonTester);
+
+        assertThat(this.jacksonTester.parse(recipeIdJson))
+                .isEqualTo(recipeId);
+
+        // Check Id
+        assertThat(this.jacksonTester.parseObject(recipeIdJson).getUid()).isEqualTo("recipe_123456");
+    }
+
+    @Test
     public void testSerializeSummary() throws Exception {
 
         // Set View = Summary
@@ -83,7 +117,7 @@ public class RecipeJsonTests extends BaseJsonTests {
         // Compare Recipe Object to Json
         assertThat(this.jacksonTester.write(recipeSummary)).isEqualToJson("recipesummary.json");
 
-        // Check name
+        // Check Name
         assertThat(this.jacksonTester.write(recipeSummary)).hasJsonPathStringValue("@.name");
         assertThat(this.jacksonTester.write(recipeSummary)).extractingJsonPathStringValue("@.name")
                 .isEqualTo("Cuba Libre");

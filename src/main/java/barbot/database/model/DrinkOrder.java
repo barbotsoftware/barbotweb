@@ -20,7 +20,7 @@ public class DrinkOrder extends BaseEntity {
 
     @Column(name = "uid")
     @JsonProperty("drink_order_id")
-    @JsonView(View.Id.class)
+    @JsonView(View.Response.class)
     private String uid;
 
     @ManyToOne
@@ -29,16 +29,20 @@ public class DrinkOrder extends BaseEntity {
 
     @ManyToOne
     @JoinColumn(name = "recipe_id", referencedColumnName = "id", nullable = false)
+    @JsonView(View.Request.class)
     private Recipe recipe;
 
     @ManyToOne
     @JoinColumn(name = "barbot_id", referencedColumnName = "id", nullable = false)
+    @JsonView(View.Request.class)
     private Barbot barbot;
 
     @Column(name = "ice")
+    @JsonView(View.Request.class)
     private Integer ice;
 
     @Column(name = "garnish")
+    @JsonView(View.Request.class)
     private Integer garnish;
 
     public DrinkOrder() {

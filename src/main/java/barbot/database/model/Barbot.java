@@ -5,6 +5,9 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonView;
+
 import barbot.utils.Constants;
 
 /**
@@ -14,15 +17,14 @@ import barbot.utils.Constants;
 @Table(name = Constants.TABLE_BARBOT, schema = Constants.DB_SCHEMA)
 public class Barbot extends BaseEntity {
 
-    @Basic
     @Column(name = "uid")
+    @JsonProperty("barbot_id")
+    @JsonView(View.Request.class)
     private String uid;
 
-    @Basic
     @Column(name = "name")
     private String name;
 
-    @Basic
     @Column(name = "status")
     private String status;
 
@@ -32,6 +34,10 @@ public class Barbot extends BaseEntity {
 
     public Barbot() {
 
+    }
+
+    public Barbot(String uid) {
+        this(uid, null);
     }
 
     public Barbot(String uid, String name) {

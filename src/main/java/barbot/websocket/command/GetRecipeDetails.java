@@ -32,7 +32,7 @@ public class GetRecipeDetails extends BaseCommand {
     @Override
     public Object execute() {
 
-        Map data = (HashMap) message.get(Constants.KEY_DATA);;
+        Map data = (HashMap) message.get(Constants.KEY_DATA);
 
         // Get Recipe ID from request
         String recipeId = (String) data.get("recipe_id");

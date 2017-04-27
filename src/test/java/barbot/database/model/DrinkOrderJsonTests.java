@@ -20,24 +20,57 @@ public class DrinkOrderJsonTests extends BaseJsonTests {
     @Autowired
     private JacksonTester<DrinkOrder> jacksonTester;
 
-    DrinkOrder drinkOrder;
+    String drinkOrderRequestJson;
+    String drinkOrderResponseJson;
+
+    DrinkOrder drinkOrderRequest;
+    DrinkOrder drinkOrderResponse;
 
     @Before
     public void setUp() {
-        drinkOrder = new DrinkOrder("drinkorder_5e0f58");
+        drinkOrderRequestJson = "";
+
+        drinkOrderResponseJson = "{\n" +
+                "  \"drink_order_id\":\"drinkorder_5e0f58\"\n" +
+                "}";
+
+        drinkOrderRequest = new DrinkOrder();
+
+        drinkOrderResponse = new DrinkOrder("drinkorder_5e0f58");
     }
 
     @Test
-    public void testSerialize() throws Exception {
-        // Set View = Id
-        useView(View.Id.class, jacksonTester);
+    public void testSerializeRequest() throws Exception {
+        // TODO: finish request tests
+    }
+
+    @Test void testDeserializeRequest() throws Exception {
+
+    }
+
+    @Test
+    public void testSerializeResponse() throws Exception {
+        // Set View = Response
+        useView(View.Response.class, jacksonTester);
 
         // Compare DrinkOrder Object to Json
-        assertThat(this.jacksonTester.write(drinkOrder)).isEqualToJson("drinkorderid.json");
+        assertThat(this.jacksonTester.write(drinkOrderResponse)).isEqualToJson("drinkorderresponse.json");
 
         // Check Id
-        assertThat(this.jacksonTester.write(drinkOrder)).hasJsonPathStringValue("@.drink_order_id");
-        assertThat(this.jacksonTester.write(drinkOrder)).extractingJsonPathStringValue("@.drink_order_id")
+        assertThat(this.jacksonTester.write(drinkOrderResponse)).hasJsonPathStringValue("@.drink_order_id");
+        assertThat(this.jacksonTester.write(drinkOrderResponse)).extractingJsonPathStringValue("@.drink_order_id")
                 .isEqualTo("drinkorder_5e0f58");
+    }
+
+    @Test
+    public void testDeserializeResponse() throws Exception {
+        // Set View = Response
+        useView(View.Response.class, jacksonTester);
+
+        assertThat(this.jacksonTester.parse(drinkOrderResponseJson))
+                .isEqualTo(drinkOrderResponse);
+
+        // Check Id
+        assertThat(this.jacksonTester.parseObject(drinkOrderResponseJson).getUid()).isEqualTo("drinkorder_5e0f58");
     }
 }

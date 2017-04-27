@@ -39,6 +39,10 @@ public class Ingredient extends BaseEntity {
 
     }
 
+    public Ingredient(String uid) {
+        this(uid, null);
+    }
+
     public Ingredient(String uid, String name) {
         this.uid = uid;
         this.name = name;

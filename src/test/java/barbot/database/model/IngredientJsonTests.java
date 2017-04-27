@@ -20,16 +20,50 @@ public class IngredientJsonTests extends BaseJsonTests {
     @Autowired
     private JacksonTester<Ingredient> jacksonTester;
 
+    String ingredientIdJson;
     String ingredientSummaryJson;
 
+    Ingredient ingredientId;
     Ingredient ingredientSummary;
 
     @Before
     public void setUp() {
+        ingredientIdJson = "{\n" +
+                "  \"ingredient_id\":\"ingredient_123456\"\n" +
+                "}";
+
         ingredientSummaryJson = "{ \"name\": \"Vodka\"," +
                 "  \"ingredient_id\": \"ingredient_238932\" }";
 
+        ingredientId = new Ingredient("ingredient_123456");
+
         ingredientSummary = new Ingredient("ingredient_238932", "Vodka");
+    }
+
+    @Test
+    public void testSerializeId() throws Exception {
+        // Set View = Id
+        useView(View.Id.class, jacksonTester);
+
+        // Compare Ingredient Object to Json
+        assertThat(this.jacksonTester.write(ingredientId)).isEqualToJson("ingredientid.json");
+
+        // Check Id
+        assertThat(this.jacksonTester.write(ingredientId)).hasJsonPathStringValue("@.ingredient_id");
+        assertThat(this.jacksonTester.write(ingredientId)).extractingJsonPathStringValue("@.ingredient_id")
+                .isEqualTo("ingredient_123456");
+    }
+
+    @Test
+    public void testDeserializeId() throws Exception {
+        // Set View = Id
+        useView(View.Id.class, jacksonTester);
+
+        assertThat(this.jacksonTester.parse(ingredientIdJson))
+                .isEqualTo(ingredientId);
+
+        // Check Id
+        assertThat(this.jacksonTester.parseObject(ingredientIdJson).getUid()).isEqualTo("ingredient_123456");
     }
 
     @Test
@@ -53,7 +87,7 @@ public class IngredientJsonTests extends BaseJsonTests {
         // Set View = Summary
         useView(View.Summary.class, jacksonTester);
 
-        // Parse Json and compare with Recipe Object
+        // Parse Json and compare with Ingredient Object
         assertThat(this.jacksonTester.parse(ingredientSummaryJson))
                 .isEqualTo(ingredientSummary);
 
