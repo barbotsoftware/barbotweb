@@ -5,13 +5,18 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 import barbot.utils.Constants;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Naveen on 3/27/17.
  */
 @Entity
 @Table(name = Constants.TABLE_USER, schema = Constants.DB_SCHEMA)
-public class User extends BaseEntity {
+public class User extends BaseEntity implements UserDetails {
 
     @Column(name = "uid")
     private String uid;
@@ -79,6 +84,30 @@ public class User extends BaseEntity {
 
     public void setRememberToken(String rememberToken) {
         this.rememberToken = rememberToken;
+    }
+
+    public String getUsername() {
+        return name;
+    }
+
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    public List getAuthorities() {
+        return new ArrayList<GrantedAuthority>();
+    }
+
+    public boolean isEnabled() {
+        return true;
     }
 
     @Override

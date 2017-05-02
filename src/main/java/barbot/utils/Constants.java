@@ -46,10 +46,12 @@ public class Constants {
     public static final int ERROR_PARSE_ERROR = 2;
     public static final int ERROR_CREATE_ERROR = 3;
     public static final int ERROR_COMMAND_NOT_RECOGNIZED = 4;
+    public static final int ERROR_NOT_AUTHENTICATED = 5;
 
     /* Error Messages */
     public static final String ERROR_MSG_INVALID_COMMAND = "Invalid command";
     public static final String ERROR_MSG_PARSE_ERROR = "Failed to parse message";
     public static final String ERROR_MSG_CREATE_ERROR = "Failed to create message";
     public static final String ERROR_MSG_COMMAND_NOT_RECOGNIZED = "Command not recognized";
+    public static final String ERROR_MSG_NOT_AUTHENTICATED = "User is not authenticated";
 }

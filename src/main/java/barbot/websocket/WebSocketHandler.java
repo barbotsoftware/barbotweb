@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
@@ -42,6 +43,16 @@ public class WebSocketHandler extends TextWebSocketHandler {
 
     @Override
     public void handleTextMessage(WebSocketSession session, TextMessage message) {
+        if(!isAuthenticated(session)) {
+            sendError(session, Constants.ERROR_NOT_AUTHENTICATED, Constants.ERROR_MSG_NOT_AUTHENTICATED);
+            try {
+                session.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return;
+        }
+
         HashMap<String, Object> msg = new HashMap();
         try {
             msg = mapper.readValue(message.getPayload(), new TypeReference<HashMap<String,Object>>(){});
@@ -132,6 +143,12 @@ public class WebSocketHandler extends TextWebSocketHandler {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private boolean isAuthenticated(WebSocketSession session) {
+        SecurityContext securityContext = (SecurityContext) session.getAttributes().get("SPRING_SECURITY_CONTEXT");
+        return securityContext != null && securityContext.getAuthentication() != null
+                && securityContext.getAuthentication().isAuthenticated();
     }
 
 }
