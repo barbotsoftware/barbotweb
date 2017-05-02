@@ -17,9 +17,6 @@ import barbot.utils.Constants;
 public class GetIngredientsForBarbot extends BaseCommand {
 
     @Autowired
-    IngredientService ingredientService;
-
-    @Autowired
     BarbotService barbotService;
 
     public GetIngredientsForBarbot(HashMap msg) {
@@ -29,12 +26,15 @@ public class GetIngredientsForBarbot extends BaseCommand {
 
     @Override
     public Object execute() {
-        Map data = (HashMap) message.get(Constants.KEY_DATA);
 
-        String barbotId = (String) data.get("barbot_id");
+        // Get Barbot ID from request
+        String barbotId = (String) data.get(Constants.KEY_DATA_BARBOT_ID);
+
+        // Get Barbot from service
         Barbot barbot = barbotService.findById(barbotId);
 
-        return "response";
+        // Return ingredients from service
+        return this.barbotService.getIngredients(barbot);
     }
 
     @Override

@@ -31,6 +31,13 @@ public class Constants {
     public static final String KEY_DATA = "data";
     public static final String KEY_ERROR = "error";
 
+    /* Web Socket JSON Data Keys */
+    public static final String KEY_DATA_BARBOT_ID = "barbot_id";
+    public static final String KEY_DATA_RECIPE_ID = "recipe_id";
+    public static final String KEY_DATA_INGREDIENT_ID = "ingredient_id";
+    public static final String KEY_DATA_DRINK_ORDER_ID = "drink_order_id";
+    public static final String KEY_DATA_ICE = "ice";
+    public static final String KEY_DATA_GARNISH = "garnish";
 
     /* Web Socket Commands */
     public static final String CMD_GET_RECIPES_FOR_BARBOT = "get_recipes_for_barbot";

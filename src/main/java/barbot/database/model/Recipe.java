@@ -9,6 +9,7 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -32,11 +33,12 @@ public class Recipe extends BaseEntity {
     @JsonView(View.Summary.class)
     private String name;
 
-    @Column(name = "created_by")
-    private Integer createdBy;
+    @ManyToOne
+    @JoinColumn(name = "created_by", referencedColumnName = "id", nullable = false)
+    private User createdBy;
 
     @Column(name = "custom")
-    private Integer custom;
+    private Boolean custom;
 
     @Column(name = "image_url")
     @JsonProperty("img")
@@ -55,16 +57,22 @@ public class Recipe extends BaseEntity {
     }
 
     public Recipe(String uid) {
-        this(uid, null, null, null);
+        this(uid, null, null, false, null, null);
     }
 
     public Recipe(String uid, String name, String imageUrl) {
-        this(uid, name, imageUrl, null);
+        this(uid, name, null, false, imageUrl, null);
     }
 
     public Recipe(String uid, String name, String imageUrl, Set<Ingredient> ingredients) {
+        this(uid, name, null, false, imageUrl, ingredients);
+    }
+
+    public Recipe(String uid, String name, User createdBy, boolean custom, String imageUrl, Set<Ingredient> ingredients) {
         this.uid = uid;
         this.name = name;
+        this.createdBy = createdBy;
+        this.custom = custom;
         this.imageUrl = imageUrl;
         this.ingredients = ingredients;
     }
@@ -85,19 +93,19 @@ public class Recipe extends BaseEntity {
         this.name = name;
     }
 
-    public Integer getCreatedBy() {
+    public User getCreatedBy() {
         return createdBy;
     }
 
-    public void setCreatedBy(Integer createdBy) {
+    public void setCreatedBy(User createdBy) {
         this.createdBy = createdBy;
     }
 
-    public Integer getCustom() {
+    public boolean getCustom() {
         return custom;
     }
 
-    public void setCustom(Integer custom) {
+    public void setCustom(boolean custom) {
         this.custom = custom;
     }
 

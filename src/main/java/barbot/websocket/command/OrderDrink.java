@@ -1,9 +1,9 @@
 package barbot.websocket.command;
 
 import java.util.HashMap;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.socket.WebSocketSession;
 
 import barbot.database.model.Barbot;
 import barbot.database.model.DrinkOrder;
@@ -13,6 +13,7 @@ import barbot.database.model.View;
 import barbot.database.service.BarbotService;
 import barbot.database.service.DrinkOrderService;
 import barbot.database.service.RecipeService;
+import barbot.database.service.UserService;
 import barbot.utils.Constants;
 
 /**
@@ -21,16 +22,23 @@ import barbot.utils.Constants;
 public class OrderDrink extends BaseCommand {
 
     @Autowired
+    BarbotService barbotService;
+
+    @Autowired
     RecipeService recipeService;
 
     @Autowired
-    BarbotService barbotService;
+    UserService userService;
 
     @Autowired
     DrinkOrderService drinkOrderService;
 
-    public OrderDrink(HashMap msg) {
+    private User user;
+
+    public OrderDrink(HashMap msg, User user) {
         super(msg);
+
+        this.user = user;
 
         // Return Drink Order Response
         setJsonView(View.Response.class);
@@ -39,29 +47,24 @@ public class OrderDrink extends BaseCommand {
     @Override
     public Object execute() {
 
-        Map data = (HashMap) message.get(Constants.KEY_DATA);
-
-        // TODO: generate uid
+        // TODO: generate drink order uid
         String uid = "";
 
         // Get Barbot
-        String barbotId = (String) data.get("barbot_id");
-        Barbot barbot = barbotService.findById(barbotId);
+        String barbotId = (String) data.get(Constants.KEY_DATA_BARBOT_ID);
+        Barbot barbot = this.barbotService.findById(barbotId);
 
         // Get Recipe
-        String recipeId = (String) data.get("recipe_id");
-        Recipe recipe = recipeService.findById(recipeId);
+        String recipeId = (String) data.get(Constants.KEY_DATA_RECIPE_ID);
+        Recipe recipe = this.recipeService.findById(recipeId);
 
-        // Get User
-        User user = new User();
+        // Get Ice and Garnish
+        Integer ice = (int) data.get(Constants.KEY_DATA_ICE);
+        Integer garnish = (int) data.get(Constants.KEY_DATA_GARNISH);
 
-        // get Ice and Garnish
-        Integer ice = Integer.valueOf((int) data.get("ice"));
-        Integer garnish = Integer.valueOf((int) data.get("garnish"));
+        DrinkOrder drinkOrder = new DrinkOrder(uid, this.user, recipe, barbot, ice, garnish);
 
-        DrinkOrder drinkOrder = new DrinkOrder(uid, user, recipe, barbot, ice, garnish);
-
-        return drinkOrderService.create(drinkOrder);
+        return this.drinkOrderService.create(drinkOrder);
     }
 
     @Override

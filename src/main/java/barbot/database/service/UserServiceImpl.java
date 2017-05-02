@@ -1,8 +1,9 @@
 package barbot.database.service;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
-import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -13,8 +14,6 @@ import org.springframework.util.Assert;
 
 import barbot.database.model.User;
 import barbot.database.repository.UserRepository;
-
-import java.util.List;
 
 /**
  * Created by Naveen on 4/13/17.

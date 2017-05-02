@@ -44,7 +44,8 @@ public class DrinkOrderJsonTests extends BaseJsonTests {
         // TODO: finish request tests
     }
 
-    @Test void testDeserializeRequest() throws Exception {
+    @Test
+    public void testDeserializeRequest() throws Exception {
 
     }
 

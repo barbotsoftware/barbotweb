@@ -6,7 +6,9 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import barbot.database.model.DrinkOrder;
+import barbot.database.model.Recipe;
 import barbot.database.service.DrinkOrderService;
+import barbot.database.service.RecipeService;
 import barbot.utils.Constants;
 
 /**
@@ -17,20 +19,30 @@ public class PourDrink extends BaseCommand {
     @Autowired
     DrinkOrderService drinkOrderService;
 
+    @Autowired
+    RecipeService recipeService;
+
     public PourDrink(HashMap msg) {
         super(msg);
     }
 
     @Override
     public Object execute() {
-        Map data = (HashMap) message.get(Constants.KEY_DATA);
 
-        String drinkOrderId = (String) data.get("drink_order_id");
-        DrinkOrder drinkOrder = drinkOrderService.findById(drinkOrderId);
+        String drinkOrderId = (String) data.get(Constants.KEY_DATA_DRINK_ORDER_ID);
+
+        DrinkOrder drinkOrder = this.drinkOrderService.findById(drinkOrderId);
+
+        Recipe recipe = drinkOrder.getRecipe();
+
+
 
         // TODO: send DrinkOrder to Barbot to pour drink
 
-        return "success";
+        Map response = new HashMap<>();
+        response.put(Constants.KEY_RESULT, Constants.KEY_SUCCESS);
+
+        return response;
     }
 
     @Override

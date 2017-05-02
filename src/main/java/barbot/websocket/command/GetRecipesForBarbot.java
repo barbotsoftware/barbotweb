@@ -30,15 +30,15 @@ public class GetRecipesForBarbot extends BaseCommand {
 
     @Override
     public Object execute() {
-        Map data = (HashMap) message.get(Constants.KEY_DATA);
 
-        String barbotId = (String) data.get("barbot_id");
+        // Get Barbot ID from request
+        String barbotId = (String) data.get(Constants.KEY_DATA_BARBOT_ID);
 
-        Barbot barbot = barbotService.findById(barbotId);
+        // Get Barbot from service
+        Barbot barbot = this.barbotService.findById(barbotId);
 
-        Set<Recipe> recipes = new HashSet<Recipe>();
-
-        return recipes;
+        // Return Recipes for Barbot from service
+        return this.barbotService.getRecipes(barbot);
     }
 
     @Override

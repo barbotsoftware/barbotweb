@@ -25,8 +25,10 @@ public class RecipeServiceImpl implements RecipeService {
 
     @Resource IngredientRepository ingredientRepository;
 
-    public RecipeServiceImpl(RecipeRepository recipeRepository) {
+    public RecipeServiceImpl(RecipeRepository recipeRepository,
+                             IngredientRepository ingredientRepository) {
         this.recipeRepository = recipeRepository;
+        this.ingredientRepository = ingredientRepository;
     }
 
     @Override

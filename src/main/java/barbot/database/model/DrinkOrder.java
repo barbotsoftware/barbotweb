@@ -70,6 +70,30 @@ public class DrinkOrder extends BaseEntity {
         this.uid = uid;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Recipe getRecipe() {
+        return recipe;
+    }
+
+    public void setRecipe(Recipe recipe) {
+        this.recipe = recipe;
+    }
+
+    public Barbot getBarbot() {
+        return barbot;
+    }
+
+    public void setBarbot(Barbot barbot) {
+        this.barbot = barbot;
+    }
+
     public Integer getIce() {
         return ice;
     }

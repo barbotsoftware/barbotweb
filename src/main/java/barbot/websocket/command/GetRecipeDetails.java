@@ -32,19 +32,18 @@ public class GetRecipeDetails extends BaseCommand {
     @Override
     public Object execute() {
 
-        Map data = (HashMap) message.get(Constants.KEY_DATA);
-
         // Get Recipe ID from request
-        String recipeId = (String) data.get("recipe_id");
+        String recipeId = (String) data.get(Constants.KEY_DATA_RECIPE_ID);
 
-        // Get Recipe from DB
+        // Get Recipe from service
         Recipe recipe = recipeService.findById(recipeId);
 
-        // Get Ingredients for Recipe
-        Set<Ingredient> ingredients = recipeService.getIngredients(recipe);
+        // Are Ingredients loaded automatically from Recipe retrieval?
+        // Get Ingredients for Recipe from service
+        // Set<Ingredient> ingredients = recipeService.getIngredients(recipe);
 
         // Set Ingredients
-        recipe.setIngredients(ingredients);
+        // recipe.setIngredients(ingredients);
 
         return recipe;
     }

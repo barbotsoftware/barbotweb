@@ -10,6 +10,7 @@ import barbot.utils.Constants;
  */
 public class BaseCommand implements Command {
     HashMap message;
+    HashMap data;
     private Map error;
     private Class<?> jsonView;
 
@@ -17,6 +18,7 @@ public class BaseCommand implements Command {
 
     public BaseCommand(HashMap msg) {
         message = msg;
+        data = (HashMap) message.get(Constants.KEY_DATA);
     }
 
     @Override
@@ -37,7 +39,7 @@ public class BaseCommand implements Command {
     }
 
     public Object execute() {
-        return "response";
+        return Constants.KEY_RESPONSE;
     }
 
     public boolean validate() {

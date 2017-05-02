@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
@@ -16,6 +17,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import barbot.database.model.User;
 import barbot.utils.Constants;
 import barbot.websocket.command.BaseCommand;
 import barbot.websocket.command.Command;
@@ -74,6 +76,8 @@ public class WebSocketHandler extends TextWebSocketHandler {
 
     private Command getCommand(HashMap<String, Object> msg, WebSocketSession session) {
         Command command;
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
         switch(msg.get(Constants.KEY_COMMAND).toString()) {
             case Constants.CMD_GET_RECIPES_FOR_BARBOT:
                 command = new GetRecipesForBarbot(msg);
@@ -85,10 +89,10 @@ public class WebSocketHandler extends TextWebSocketHandler {
                 command = new GetIngredientsForBarbot(msg);
                 break;
             case Constants.CMD_CREATE_CUSTOM_DRINK:
-                command = new CreateCustomDrink(msg);
+                command = new CreateCustomDrink(msg, user);
                 break;
             case Constants.CMD_ORDER_DRINK:
-                command = new OrderDrink(msg);
+                command = new OrderDrink(msg, user);
                 break;
             case Constants.CMD_POUR_DRINK:
                 command = new PourDrink(msg);
