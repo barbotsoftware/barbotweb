@@ -1,6 +1,12 @@
 package barbot.database.model;
 
+import java.math.BigDecimal;
+import java.sql.Timestamp;
+
+import javax.persistence.Basic;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -22,6 +28,19 @@ public class RecipeIngredient extends BaseEntity {
     @JoinColumn(name = "ingredient_id", referencedColumnName = "id", nullable = false)
     private Ingredient ingredient;
 
+    @Column(name = "amount")
+    private BigDecimal amount;
+
+    public RecipeIngredient() {
+
+    }
+
+    public RecipeIngredient(Recipe recipe, Ingredient ingredient, BigDecimal amount) {
+        this.recipe = recipe;
+        this.ingredient = ingredient;
+        this.amount = amount;
+    }
+
     public Recipe getRecipe() {
         return recipe;
     }
@@ -38,13 +57,12 @@ public class RecipeIngredient extends BaseEntity {
         this.ingredient = ingredient;
     }
 
-    public RecipeIngredient() {
-
+    public BigDecimal getAmount() {
+        return amount;
     }
 
-    public RecipeIngredient(Recipe recipe, Ingredient ingredient) {
-        this.recipe = recipe;
-        this.ingredient = ingredient;
+    public void setAmount(BigDecimal amount) {
+        this.amount = amount;
     }
 
     @Override

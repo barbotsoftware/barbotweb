@@ -1,11 +1,13 @@
 package barbot.database.model;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -31,6 +33,9 @@ public class Ingredient extends BaseEntity {
 
     @Column(name = "abv")
     private Integer abv;
+
+    @OneToMany(mappedBy = "recipe")
+    private Set<RecipeIngredient> recipeIngredients = new HashSet<RecipeIngredient>();
 
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "ingredients")
     private Set<Recipe> recipes;
@@ -70,6 +75,18 @@ public class Ingredient extends BaseEntity {
 
     public void setAbv(Integer abv) {
         this.abv = abv;
+    }
+
+    public Set<RecipeIngredient> getRecipeIngredients() {
+        return recipeIngredients;
+    }
+
+    public void setRecipeIngredients(Set<RecipeIngredient> recipeIngredients) {
+        this.recipeIngredients = recipeIngredients;
+    }
+
+    public void addRecipeIngredient(RecipeIngredient recipeIngredient) {
+        this.recipeIngredients.add(recipeIngredient);
     }
 
     public Set<Recipe> getRecipes() { return recipes; }
