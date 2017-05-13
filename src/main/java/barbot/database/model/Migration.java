@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import barbot.utils.Constants;
 
@@ -22,19 +24,21 @@ public class Migration implements Serializable {
 
     @Id
     @GeneratedValue
-    @Column(name = "id")
+    @Column(name = "id", nullable = false)
     private Integer id;
 
-    @Column(name = "migration")
+    @Column(name = "migration", nullable = false)
     private String migration;
 
-    @Column(name = "version")
+    @Column(name = "version", nullable = false)
     private String version;
 
-    @Column(name = "created_at")
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "created_at", nullable = false)
     private Timestamp createdAt;
 
-    @Column(name = "run_at")
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "run_at", nullable = false)
     private Timestamp runAt;
 
     public Migration() {

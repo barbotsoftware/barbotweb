@@ -7,6 +7,8 @@ import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  * Created by Naveen on 3/28/17.
@@ -18,15 +20,18 @@ public abstract class BaseEntity implements Serializable {
 
     @Id
     @GeneratedValue
-    @Column(name = "id")
+    @Column(name = "id", nullable = false)
     protected Integer id;
 
-    @Column(name = "created_at")
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "created_at", nullable = false)
     protected Timestamp createdAt;
 
-    @Column(name = "updated_at")
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "updated_at", nullable = false)
     protected Timestamp updatedAt;
 
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "deleted_at")
     protected Timestamp deletedAt;
 

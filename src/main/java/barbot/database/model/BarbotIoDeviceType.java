@@ -1,7 +1,10 @@
 package barbot.database.model;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import barbot.utils.Constants;
@@ -13,8 +16,11 @@ import barbot.utils.Constants;
 @Table(name = Constants.TABLE_BARBOT_IO_DEVICE_TYPE, schema = Constants.DB_SCHEMA)
 public class BarbotIoDeviceType extends BaseEntity {
 
-    @Column(name = "name")
+    @Column(name = "name", nullable = false)
     private String name;
+
+    @OneToMany(mappedBy = "barbotIoDeviceType")
+    private Set<BarbotIoDevice> barbotIoDevices;
 
     public BarbotIoDeviceType() {
 
@@ -30,6 +36,14 @@ public class BarbotIoDeviceType extends BaseEntity {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Set<BarbotIoDevice> getBarbotIoDevices() {
+        return barbotIoDevices;
+    }
+
+    public void setBarbotIoDevices(Set<BarbotIoDevice> barbotIoDevices) {
+        this.barbotIoDevices = barbotIoDevices;
     }
 
     @Override

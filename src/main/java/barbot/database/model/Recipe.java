@@ -26,12 +26,12 @@ import barbot.utils.Constants;
 @Table(name = Constants.TABLE_RECIPE, schema = Constants.DB_SCHEMA)
 public class Recipe extends BaseEntity {
 
-    @Column(name = "uid")
+    @Column(name = "uid", nullable = false)
     @JsonProperty("recipe_id")
     @JsonView(View.Id.class)
     private String uid;
 
-    @Column(name = "name")
+    @Column(name = "name", nullable = false)
     @JsonView(View.Summary.class)
     private String name;
 
@@ -39,10 +39,10 @@ public class Recipe extends BaseEntity {
     @JoinColumn(name = "created_by", referencedColumnName = "id", nullable = false)
     private User createdBy;
 
-    @Column(name = "custom")
+    @Column(name = "custom", nullable = false)
     private Boolean custom;
 
-    @Column(name = "image_url")
+    @Column(name = "image_url", nullable = false)
     @JsonProperty("img")
     @JsonView(View.Summary.class)
     private String imageUrl;
@@ -50,7 +50,7 @@ public class Recipe extends BaseEntity {
     @OneToMany(mappedBy = "recipe")
     private Set<RecipeIngredient> recipeIngredients = new HashSet<RecipeIngredient>();
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, targetEntity = Ingredient.class)
     @JoinTable(name = Constants.TABLE_RECIPE_INGREDIENT, schema = Constants.DB_SCHEMA,
             joinColumns = @JoinColumn(name = "recipe_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "ingredient_id", referencedColumnName = "id"))

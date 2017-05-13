@@ -23,7 +23,7 @@ public class BarbotIoDevice extends BaseEntity {
     @JoinColumn(name = "barbot_io_device_type_id", referencedColumnName = "id", nullable = false)
     private BarbotIoDeviceType barbotIoDeviceType;
 
-    @Column(name = "gpio_port")
+    @Column(name = "gpio_port", nullable = false)
     private Integer gpioPort;
 
     @Column(name = "name")

@@ -23,13 +23,13 @@ public class BarbotContainer extends BaseEntity {
     @JoinColumn(name = "ingredient_id", referencedColumnName = "id", nullable = false)
     private Ingredient ingredient;
 
-    @Column(name = "number")
+    @Column(name = "number", nullable = false)
     private Integer number;
 
-    @Column(name = "current_volume")
+    @Column(name = "current_volume", nullable = false)
     private Integer currentVolume;
 
-    @Column(name = "max_volume")
+    @Column(name = "max_volume", nullable = false)
     private Integer maxVolume;
 
     public BarbotContainer() {

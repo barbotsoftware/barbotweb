@@ -2,6 +2,7 @@ package barbot.database.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import barbot.utils.Constants;
@@ -10,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Naveen on 3/27/17.
@@ -18,22 +20,23 @@ import java.util.List;
 @Table(name = Constants.TABLE_USER, schema = Constants.DB_SCHEMA)
 public class User extends BaseEntity implements UserDetails {
 
-    @Column(name = "uid")
+    @Column(name = "uid", nullable = false)
     private String uid;
 
-    @Column(name = "name")
+    @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "email")
+    @Column(name = "email", nullable = false)
     private String email;
 
-    @Column(name = "password")
+    @Column(name = "password", nullable = false)
     private String password;
 
     @Column(name = "remember_token")
     private String rememberToken;
 
-//    private Collection<DrinkOrder> drinkOrdersById;
+    @OneToMany(mappedBy = "user")
+    private Set<DrinkOrder> drinkOrders;
 
     public User() {
 
@@ -84,6 +87,14 @@ public class User extends BaseEntity implements UserDetails {
 
     public void setRememberToken(String rememberToken) {
         this.rememberToken = rememberToken;
+    }
+
+    public Set<DrinkOrder> getDrinkOrders() {
+        return drinkOrders;
+    }
+
+    public void setDrinkOrders(Set<DrinkOrder> drinkOrders) {
+        this.drinkOrders = drinkOrders;
     }
 
     public String getUsername() {
@@ -144,13 +155,4 @@ public class User extends BaseEntity implements UserDetails {
         result = 31 * result + (deletedAt != null ? deletedAt.hashCode() : 0);
         return result;
     }
-
-//    @OneToMany(mappedBy = "userByUserId")
-//    public Collection<DrinkOrder> getDrinkOrdersById() {
-//        return drinkOrdersById;
-//    }
-//
-//    public void setDrinkOrdersById(Collection<DrinkOrder> drinkOrdersById) {
-//        this.drinkOrdersById = drinkOrdersById;
-//    }
 }

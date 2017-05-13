@@ -37,11 +37,11 @@ public class DrinkOrder extends BaseEntity {
     @JsonView(View.Request.class)
     private Barbot barbot;
 
-    @Column(name = "ice")
+    @Column(name = "ice", nullable = false)
     @JsonView(View.Request.class)
     private Integer ice;
 
-    @Column(name = "garnish")
+    @Column(name = "garnish", nullable = false)
     @JsonView(View.Request.class)
     private Integer garnish;
 

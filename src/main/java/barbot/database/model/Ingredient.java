@@ -22,22 +22,22 @@ import barbot.utils.Constants;
 @Table(name = Constants.TABLE_INGREDIENT, schema = Constants.DB_SCHEMA)
 public class Ingredient extends BaseEntity {
 
-    @Column(name = "uid")
+    @Column(name = "uid", nullable = false)
     @JsonProperty("ingredient_id")
     @JsonView(View.Id.class)
     private String uid;
 
-    @Column(name = "name")
+    @Column(name = "name", nullable = false)
     @JsonView(View.Summary.class)
     private String name;
 
-    @Column(name = "abv")
+    @Column(name = "abv", nullable = false)
     private Integer abv;
 
     @OneToMany(mappedBy = "recipe")
     private Set<RecipeIngredient> recipeIngredients = new HashSet<RecipeIngredient>();
 
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "ingredients")
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "ingredients", targetEntity = Recipe.class)
     private Set<Recipe> recipes;
 
     public Ingredient() {

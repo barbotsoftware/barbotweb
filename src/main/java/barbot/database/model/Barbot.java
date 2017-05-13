@@ -1,8 +1,11 @@
 package barbot.database.model;
 
+import java.util.Set;
+
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -17,20 +20,25 @@ import barbot.utils.Constants;
 @Table(name = Constants.TABLE_BARBOT, schema = Constants.DB_SCHEMA)
 public class Barbot extends BaseEntity {
 
-    @Column(name = "uid")
+    @Column(name = "uid", nullable = false)
     @JsonProperty("barbot_id")
     @JsonView(View.Request.class)
     private String uid;
 
-    @Column(name = "name")
+    @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "status")
+    @Column(name = "status", nullable = false)
     private String status;
 
-//    private Collection<BarbotContainer> barbotContainersById;
-//    private Collection<BarbotIoDevice> barbotIoDevicesById;
-//    private Collection<DrinkOrder> drinkOrdersById;
+    @OneToMany(mappedBy = "barbot")
+    private Set<BarbotContainer> barbotContainers;
+
+    @OneToMany(mappedBy = "barbot")
+    private Set<BarbotIoDevice> barbotIoDevices;
+
+    @OneToMany(mappedBy = "barbot")
+    private Set<DrinkOrder> drinkOrders;
 
     public Barbot() {
 
@@ -69,6 +77,30 @@ public class Barbot extends BaseEntity {
         this.status = status;
     }
 
+    public Set<BarbotContainer> getBarbotContainers() {
+        return barbotContainers;
+    }
+
+    public void setBarbotContainers(Set<BarbotContainer> barbotContainers) {
+        this.barbotContainers = barbotContainers;
+    }
+
+    public Set<BarbotIoDevice> getBarbotIoDevices() {
+        return barbotIoDevices;
+    }
+
+    public void setBarbotIoDevices(Set<BarbotIoDevice> barbotIoDevices) {
+        this.barbotIoDevices = barbotIoDevices;
+    }
+
+    public Set<DrinkOrder> getDrinkOrders() {
+        return drinkOrders;
+    }
+
+    public void setDrinkOrders(Set<DrinkOrder> drinkOrders) {
+        this.drinkOrders = drinkOrders;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -98,31 +130,4 @@ public class Barbot extends BaseEntity {
         result = 31 * result + (status != null ? status.hashCode() : 0);
         return result;
     }
-
-//    @OneToMany(mappedBy = "barbotByBarbotId")
-//    public Collection<BarbotContainer> getBarbotContainersById() {
-//        return barbotContainersById;
-//    }
-//
-//    public void setBarbotContainersById(Collection<BarbotContainer> barbotContainersById) {
-//        this.barbotContainersById = barbotContainersById;
-//    }
-//
-//    @OneToMany(mappedBy = "barbotByBarbotId")
-//    public Collection<BarbotIoDevice> getBarbotIoDevicesById() {
-//        return barbotIoDevicesById;
-//    }
-//
-//    public void setBarbotIoDevicesById(Collection<BarbotIoDevice> barbotIoDevicesById) {
-//        this.barbotIoDevicesById = barbotIoDevicesById;
-//    }
-//
-//    @OneToMany(mappedBy = "barbotByBarbotId")
-//    public Collection<DrinkOrder> getDrinkOrdersById() {
-//        return drinkOrdersById;
-//    }
-//
-//    public void setDrinkOrdersById(Collection<DrinkOrder> drinkOrdersById) {
-//        this.drinkOrdersById = drinkOrdersById;
-//    }
 }
