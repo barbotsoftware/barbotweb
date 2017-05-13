@@ -8,6 +8,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.json.JsonTest;
 import org.springframework.boot.test.json.JacksonTester;
+import org.springframework.boot.test.json.JsonContent;
 import org.springframework.test.context.junit4.SpringRunner;
 
 /**
@@ -45,12 +46,14 @@ public class IngredientJsonTests extends BaseJsonTests {
         // Set View = Id
         useView(View.Id.class, jacksonTester);
 
+        JsonContent<Ingredient> result = this.jacksonTester.write(ingredientId);
+
         // Compare Ingredient Object to Json
-        assertThat(this.jacksonTester.write(ingredientId)).isEqualToJson("ingredientid.json");
+        assertThat(result).isEqualToJson("ingredientid.json");
 
         // Check Id
-        assertThat(this.jacksonTester.write(ingredientId)).hasJsonPathStringValue("@.ingredient_id");
-        assertThat(this.jacksonTester.write(ingredientId)).extractingJsonPathStringValue("@.ingredient_id")
+        assertThat(result).hasJsonPathStringValue("@.ingredient_id");
+        assertThat(result).extractingJsonPathStringValue("@.ingredient_id")
                 .isEqualTo("ingredient_123456");
     }
 
@@ -72,12 +75,19 @@ public class IngredientJsonTests extends BaseJsonTests {
         // Set View = Summary
         useView(View.Summary.class, jacksonTester);
 
-        // Compare Ingredient Object to Json
-        assertThat(this.jacksonTester.write(ingredientSummary)).isEqualToJson("ingredientsummary.json");
+        JsonContent<Ingredient> result = this.jacksonTester.write(ingredientSummary);
 
-        // Check name
-        assertThat(this.jacksonTester.write(ingredientSummary)).hasJsonPathStringValue("@.name");
-        assertThat(this.jacksonTester.write(ingredientSummary)).extractingJsonPathStringValue("@.name")
+        // Compare Ingredient Object to Json
+        assertThat(result).isEqualToJson("ingredientsummary.json");
+
+        // Check Id
+        assertThat(result).hasJsonPathStringValue("@.ingredient_id");
+        assertThat(result).extractingJsonPathStringValue("@.ingredient_id")
+                .isEqualTo("ingredient_238932");
+
+        // Check Name
+        assertThat(result).hasJsonPathStringValue("@.name");
+        assertThat(result).extractingJsonPathStringValue("@.name")
                 .isEqualTo("Vodka");
     }
 
@@ -91,7 +101,12 @@ public class IngredientJsonTests extends BaseJsonTests {
         assertThat(this.jacksonTester.parse(ingredientSummaryJson))
                 .isEqualTo(ingredientSummary);
 
+        Ingredient result = this.jacksonTester.parseObject(ingredientSummaryJson);
+
+        // Check Id
+        assertThat(result.getUid()).isEqualTo("ingredient_238932");
+
         // Check Name
-        assertThat(this.jacksonTester.parseObject(ingredientSummaryJson).getName()).isEqualTo("Vodka");
+        assertThat(result.getName()).isEqualTo("Vodka");
     }
 }

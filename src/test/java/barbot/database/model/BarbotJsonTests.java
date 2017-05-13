@@ -8,6 +8,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.json.JsonTest;
 import org.springframework.boot.test.json.JacksonTester;
+import org.springframework.boot.test.json.JsonContent;
 import org.springframework.test.context.junit4.SpringRunner;
 
 /**
@@ -38,12 +39,14 @@ public class BarbotJsonTests extends BaseJsonTests {
         // Set View = Request
         useView(View.Request.class, jacksonTester);
 
+        JsonContent<Barbot> result = this.jacksonTester.write(barbotRequest);
+
         // Compare Barbot Object to Json
-        assertThat(this.jacksonTester.write(barbotRequest)).isEqualToJson("barbotrequest.json");
+        assertThat(result).isEqualToJson("barbotrequest.json");
 
         // Check Id
-        assertThat(this.jacksonTester.write(barbotRequest)).hasJsonPathStringValue("@.barbot_id");
-        assertThat(this.jacksonTester.write(barbotRequest)).extractingJsonPathStringValue("@.barbot_id")
+        assertThat(result).hasJsonPathStringValue("@.barbot_id");
+        assertThat(result).extractingJsonPathStringValue("@.barbot_id")
                 .isEqualTo("barbot_5r145d");
     }
 

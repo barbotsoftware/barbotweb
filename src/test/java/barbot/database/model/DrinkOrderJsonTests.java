@@ -8,6 +8,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.json.JsonTest;
 import org.springframework.boot.test.json.JacksonTester;
+import org.springframework.boot.test.json.JsonContent;
 import org.springframework.test.context.junit4.SpringRunner;
 
 /**
@@ -54,12 +55,14 @@ public class DrinkOrderJsonTests extends BaseJsonTests {
         // Set View = Response
         useView(View.Response.class, jacksonTester);
 
+        JsonContent<DrinkOrder> result = this.jacksonTester.write(drinkOrderResponse);
+
         // Compare DrinkOrder Object to Json
-        assertThat(this.jacksonTester.write(drinkOrderResponse)).isEqualToJson("drinkorderresponse.json");
+        assertThat(result).isEqualToJson("drinkorderresponse.json");
 
         // Check Id
-        assertThat(this.jacksonTester.write(drinkOrderResponse)).hasJsonPathStringValue("@.drink_order_id");
-        assertThat(this.jacksonTester.write(drinkOrderResponse)).extractingJsonPathStringValue("@.drink_order_id")
+        assertThat(result).hasJsonPathStringValue("@.drink_order_id");
+        assertThat(result).extractingJsonPathStringValue("@.drink_order_id")
                 .isEqualTo("drinkorder_5e0f58");
     }
 
