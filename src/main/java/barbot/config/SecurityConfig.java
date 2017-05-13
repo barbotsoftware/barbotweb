@@ -1,9 +1,7 @@
 package barbot.config;
 
-import barbot.database.repository.UserRepository;
 import barbot.database.service.UserServiceImpl;
 import barbot.security.WebSocketAuthFilter;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -30,9 +28,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().antMatchers("/**").permitAll();
     }
 
-    @Autowired
-    UserRepository userRepository;
-
     @Bean
     public AuthenticationManager authenticationManager() {
         DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
@@ -52,7 +47,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public UserServiceImpl userService() {
-        return new UserServiceImpl(userRepository);
+        return new UserServiceImpl();
     }
 
     @Bean

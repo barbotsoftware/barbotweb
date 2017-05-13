@@ -19,11 +19,9 @@ public class PourDrink extends BaseCommand {
     @Autowired
     DrinkOrderService drinkOrderService;
 
-    @Autowired
-    RecipeService recipeService;
-
-    public PourDrink(HashMap msg) {
+    public PourDrink(DrinkOrderService drinkOrderService, HashMap msg) {
         super(msg);
+        this.drinkOrderService = drinkOrderService;
     }
 
     @Override

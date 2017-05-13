@@ -19,9 +19,10 @@ public class GetIngredientsForBarbot extends BaseCommand {
     @Autowired
     BarbotService barbotService;
 
-    public GetIngredientsForBarbot(HashMap msg) {
+    public GetIngredientsForBarbot(BarbotService barbotService, HashMap msg) {
         super(msg);
         setJsonView(View.Summary.class);
+        this.barbotService = barbotService;
     }
 
     @Override
@@ -31,7 +32,7 @@ public class GetIngredientsForBarbot extends BaseCommand {
         String barbotId = (String) data.get(Constants.KEY_DATA_BARBOT_ID);
 
         // Get Barbot from service
-        Barbot barbot = barbotService.findById(barbotId);
+        Barbot barbot = barbotService.findByUid(barbotId);
 
         // Return ingredients from service
         return this.barbotService.getIngredients(barbot);

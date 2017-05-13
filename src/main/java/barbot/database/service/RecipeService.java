@@ -10,8 +10,7 @@ import barbot.database.model.Recipe;
  * Created by Naveen on 4/12/17.
  */
 public interface RecipeService {
-    Recipe create(Recipe recipe);
+    void create(Recipe recipe);
     Recipe findById(String recipeId);
     List<Recipe> findAll();
-    Set<Ingredient> getIngredients(Recipe recipe);
 }

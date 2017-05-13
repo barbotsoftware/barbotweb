@@ -4,8 +4,11 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import barbot.websocket.command.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Component;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
@@ -19,19 +22,16 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import barbot.database.model.User;
 import barbot.utils.Constants;
-import barbot.websocket.command.BaseCommand;
-import barbot.websocket.command.Command;
-import barbot.websocket.command.CreateCustomDrink;
-import barbot.websocket.command.GetIngredientsForBarbot;
-import barbot.websocket.command.GetRecipeDetails;
-import barbot.websocket.command.GetRecipesForBarbot;
-import barbot.websocket.command.OrderDrink;
-import barbot.websocket.command.PourDrink;
 
 /**
  * Created by alexh on 4/6/2017.
  */
+
+@Component
 public class WebSocketHandler extends TextWebSocketHandler {
+
+    @Autowired
+    CommandFactory commandFactory;
 
     private Map<String, WebSocketSession> sessionMap;
 
@@ -76,26 +76,26 @@ public class WebSocketHandler extends TextWebSocketHandler {
 
     private Command getCommand(HashMap<String, Object> msg, WebSocketSession session) {
         Command command;
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = getUser(session);
 
         switch(msg.get(Constants.KEY_COMMAND).toString()) {
             case Constants.CMD_GET_RECIPES_FOR_BARBOT:
-                command = new GetRecipesForBarbot(msg);
+                command = commandFactory.create(GetRecipesForBarbot.class, msg);
                 break;
             case Constants.CMD_GET_RECIPE_DETAILS:
-                command = new GetRecipeDetails(msg);
+                command = commandFactory.create(GetRecipeDetails.class, msg);
                 break;
             case Constants.CMD_GET_INGREDIENTS_FOR_BARBOT:
-                command = new GetIngredientsForBarbot(msg);
+                command = commandFactory.create(GetIngredientsForBarbot.class, msg);
                 break;
             case Constants.CMD_CREATE_CUSTOM_DRINK:
-                command = new CreateCustomDrink(msg, user);
+                command = commandFactory.create(CreateCustomDrink.class, msg, user);
                 break;
             case Constants.CMD_ORDER_DRINK:
-                command = new OrderDrink(msg, user);
+                command = commandFactory.create(OrderDrink.class, msg, user);
                 break;
             case Constants.CMD_POUR_DRINK:
-                command = new PourDrink(msg);
+                command = commandFactory.create(PourDrink.class, msg);
                 break;
             default:
                 command = new BaseCommand(msg);
@@ -153,6 +153,11 @@ public class WebSocketHandler extends TextWebSocketHandler {
         SecurityContext securityContext = (SecurityContext) session.getAttributes().get("SPRING_SECURITY_CONTEXT");
         return securityContext != null && securityContext.getAuthentication() != null
                 && securityContext.getAuthentication().isAuthenticated();
+    }
+
+    private User getUser(WebSocketSession session) {
+        SecurityContext securityContext = (SecurityContext) session.getAttributes().get("SPRING_SECURITY_CONTEXT");
+        return (User) securityContext.getAuthentication().getPrincipal();
     }
 
 }

@@ -2,66 +2,53 @@ package barbot.database.service;
 
 import java.util.List;
 
-import javax.annotation.Resource;
-
+import barbot.database.dao.BarbotDao;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import barbot.database.model.Barbot;
 import barbot.database.model.Ingredient;
 import barbot.database.model.Recipe;
-import barbot.database.repository.BarbotRepository;
-import barbot.database.repository.IngredientRepository;
-import barbot.database.repository.RecipeRepository;
+
+import javax.transaction.Transactional;
 
 /**
  * Created by Naveen on 4/12/17.
  */
 @Service
+@Transactional
 public class BarbotServiceImpl implements BarbotService {
 
-    @Resource
-    private BarbotRepository barbotRepository;
-
-    @Resource
-    private RecipeRepository recipeRepository;
-
-    @Resource
-    private IngredientRepository ingredientRepository;
-
-    public BarbotServiceImpl(BarbotRepository barbotRepository,
-                             RecipeRepository recipeRepository,
-                             IngredientRepository ingredientRepository) {
-        this.barbotRepository = barbotRepository;
-        this.recipeRepository = recipeRepository;
-        this.ingredientRepository = ingredientRepository;
-    }
+    @Autowired
+    private BarbotDao barbotDao;
 
     @Override
-    @Transactional
-    public Barbot findById(String barbotId) {
+    public Barbot findByUid(String barbotId) {
         Assert.hasLength(barbotId, "BarbotId must not be empty");
-        return this.barbotRepository.findByUid(barbotId);
+        return barbotDao.findByUid(barbotId);
     }
 
     @Override
-    @Transactional
+    public Barbot findById(int id) {
+        return barbotDao.findById(id);
+    }
+
+    @Override
     public List<Recipe> getRecipes(Barbot barbot) {
         if (barbot == null) {
             throw new NullPointerException(barbot + " not found.");
         }
 
-        return this.recipeRepository.findByBarbot(barbot);
+        return barbotDao.getRecipes(barbot);
     }
 
     @Override
-    @Transactional
     public List<Ingredient> getIngredients(Barbot barbot) {
         if (barbot == null) {
             throw new NullPointerException(barbot + " not found.");
         }
 
-        return this.ingredientRepository.findByBarbot(barbot);
+        return barbotDao.getIngredients(barbot);
     }
 }

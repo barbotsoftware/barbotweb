@@ -28,9 +28,6 @@ public class OrderDrink extends BaseCommand {
     RecipeService recipeService;
 
     @Autowired
-    UserService userService;
-
-    @Autowired
     DrinkOrderService drinkOrderService;
 
     private User user;
@@ -44,6 +41,16 @@ public class OrderDrink extends BaseCommand {
         setJsonView(View.Response.class);
     }
 
+    public OrderDrink(DrinkOrderService drinkOrderService, RecipeService recipeService, BarbotService barbotService, HashMap msg, User user) {
+        super(msg);
+        this.user = user;
+        // Return Drink Order Response
+        setJsonView(View.Response.class);
+        this.drinkOrderService = drinkOrderService;
+        this.recipeService = recipeService;
+        this.barbotService = barbotService;
+    }
+
     @Override
     public Object execute() {
 
@@ -52,7 +59,7 @@ public class OrderDrink extends BaseCommand {
 
         // Get Barbot
         String barbotId = (String) data.get(Constants.KEY_DATA_BARBOT_ID);
-        Barbot barbot = this.barbotService.findById(barbotId);
+        Barbot barbot = this.barbotService.findByUid(barbotId);
 
         // Get Recipe
         String recipeId = (String) data.get(Constants.KEY_DATA_RECIPE_ID);
@@ -64,7 +71,9 @@ public class OrderDrink extends BaseCommand {
 
         DrinkOrder drinkOrder = new DrinkOrder(uid, this.user, recipe, barbot, ice, garnish);
 
-        return this.drinkOrderService.create(drinkOrder);
+        drinkOrderService.create(drinkOrder);
+
+        return "";
     }
 
     @Override

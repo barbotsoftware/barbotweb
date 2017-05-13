@@ -1,7 +1,6 @@
 package barbot.database.dao;
 
 import org.hibernate.SQLQuery;
-import org.hibernate.Session;
 import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
 import org.springframework.stereotype.Component;
 
@@ -22,9 +21,7 @@ public class MainDao extends HibernateDaoSupport {
      * @return True if field is unique
      */
     public boolean checkFieldIsUnique(String tableName, String field, String value) {
-        Session session = getSessionFactory().getCurrentSession();
-
-        SQLQuery query = session.createSQLQuery("SELECT * FROM `" + tableName + "` WHERE " + field + " = :value");
+        SQLQuery query = currentSession().createSQLQuery("SELECT * FROM `" + tableName + "` WHERE " + field + " = :value");
 
         query.setParameter("value", value);
 

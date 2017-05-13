@@ -24,9 +24,10 @@ public class GetRecipeDetails extends BaseCommand {
     @Autowired
     RecipeService recipeService;
 
-    public GetRecipeDetails(HashMap msg) {
+    public GetRecipeDetails(RecipeService recipeService, HashMap msg) {
         super(msg);
         setJsonView(View.Detail.class);
+        this.recipeService = recipeService;
     }
 
     @Override

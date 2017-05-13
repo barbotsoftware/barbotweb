@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import barbot.database.service.RecipeServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import barbot.database.model.Ingredient;
@@ -14,22 +15,21 @@ import barbot.database.model.View;
 import barbot.database.service.DrinkOrderService;
 import barbot.database.service.RecipeService;
 import barbot.utils.Constants;
+import org.springframework.stereotype.Component;
 
 /**
  * Created by Naveen on 4/11/17.
  */
 public class CreateCustomDrink extends BaseCommand {
 
-    @Autowired
-    RecipeService recipeService;
+    private RecipeService recipeService;
 
     private User user;
 
-    public CreateCustomDrink(HashMap msg, User user) {
+    public CreateCustomDrink(RecipeService recipeService, HashMap msg, User user) {
         super(msg);
-
         this.user = user;
-
+        this.recipeService = recipeService;
         setJsonView(View.Id.class);
     }
 
@@ -44,7 +44,7 @@ public class CreateCustomDrink extends BaseCommand {
 
         Recipe recipe = new Recipe(uid, name, this.user, true, imageUrl, ingredients);
 
-        this.recipeService.create(recipe);
+        recipeService.create(recipe);
 
         Map response = new HashMap<>();
         response.put(Constants.KEY_DATA_RECIPE_ID, recipe.getUid());

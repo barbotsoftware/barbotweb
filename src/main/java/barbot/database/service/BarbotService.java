@@ -10,7 +10,9 @@ import barbot.database.model.Recipe;
  * Created by Naveen on 4/12/17.
  */
 public interface BarbotService {
-    Barbot findById(String barbotId);
+    Barbot findById(int id);
+
+    Barbot findByUid(String uid);
 
     List<Recipe> getRecipes(Barbot barbot);
 
