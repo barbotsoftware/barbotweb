@@ -61,4 +61,8 @@ public class Constants {
     public static final String ERROR_MSG_CREATE_ERROR = "Failed to create message";
     public static final String ERROR_MSG_COMMAND_NOT_RECOGNIZED = "Command not recognized";
     public static final String ERROR_MSG_NOT_AUTHENTICATED = "User is not authenticated";
+
+    /* Unique ID Constants */
+    public static final String USER_UID_PREFIX = "user_";
+    public static final int UID_LENGTH = 6;
 }

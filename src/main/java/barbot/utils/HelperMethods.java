@@ -5,6 +5,8 @@ import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.stereotype.Component;
 
+import java.util.Random;
+
 /**
  * Created by Alex on 4/26/2017.
  */
@@ -25,5 +27,15 @@ public class HelperMethods {
 
     public String getMessage(String message, Object... args) {
         return messageSource.getMessage(message, args, "", LocaleContextHolder.getLocale());
+    }
+
+    public String generateUid() {
+        Random r = new Random();
+        StringBuffer sb = new StringBuffer();
+        while(sb.length() < Constants.UID_LENGTH){
+            sb.append(Integer.toHexString(r.nextInt()));
+        }
+
+        return sb.toString().substring(0, Constants.UID_LENGTH);
     }
 }
