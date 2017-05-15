@@ -12,7 +12,7 @@ import java.util.regex.Pattern;
  * Common validation logic for validating user input
  */
 @Component
-public class Validator {
+public class FieldValidator {
 
     @Autowired
     private HelperMethods hlpr;
@@ -131,6 +131,7 @@ public class Validator {
             }
         } else {
             messageKey = field + ".notFound";
+            flag = false;
         }
 
         if(!flag) {

@@ -7,7 +7,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.support.ResourceBundleMessageSource;
 
 @SpringBootApplication
-@ComponentScan({"barbot.utils"})
+@ComponentScan
 public class BarbotApplication {
 
 	public static void main(String[] args) {

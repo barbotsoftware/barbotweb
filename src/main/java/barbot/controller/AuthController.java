@@ -2,7 +2,7 @@ package barbot.controller;
 
 import barbot.database.model.User;
 import barbot.database.service.UserService;
-import barbot.utils.Validator;
+import barbot.utils.FieldValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -21,7 +21,7 @@ import java.util.Map;
 public class AuthController {
 
     @Autowired
-    Validator validator;
+    FieldValidator validator;
 
     @Autowired
     BCryptPasswordEncoder passwordEncoder;
@@ -43,6 +43,7 @@ public class AuthController {
             User user = new User();
             user.setName(request.getParameter("name"));
             user.setPassword(passwordEncoder.encode(request.getParameter("password")));
+            user.setEmail("");
             userService.create(user);
         } else {
             result.put("result", "error");
