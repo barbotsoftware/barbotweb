@@ -36,14 +36,15 @@ public class AuthController {
         result.put("result", "success");
 
         HashMap fieldsToValidate = new HashMap();
-        fieldsToValidate.put("name", "required|unique:user");
+        fieldsToValidate.put("name", "required");
+        fieldsToValidate.put("email", "required|unique:user");
         fieldsToValidate.put("password", "required");
 
         if(validator.validate(request.getParameterMap(), fieldsToValidate)) {
             User user = new User();
             user.setName(request.getParameter("name"));
             user.setPassword(passwordEncoder.encode(request.getParameter("password")));
-            user.setEmail("");
+            user.setEmail(request.getParameter("email"));
             userService.create(user);
         } else {
             result.put("result", "error");
