@@ -6,6 +6,8 @@ import java.util.Map;
 import java.util.Set;
 
 import barbot.database.service.RecipeServiceImpl;
+import barbot.utils.FieldValidator;
+import barbot.utils.HelperMethods;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import barbot.database.model.Ingredient;
@@ -26,36 +28,40 @@ public class CreateCustomDrink extends BaseCommand {
 
     private User user;
 
-    public CreateCustomDrink(RecipeService recipeService, HashMap msg, User user) {
-        super(msg);
+    private FieldValidator fieldValidator;
+
+    public CreateCustomDrink(RecipeService recipeService, FieldValidator validator, HelperMethods hlpr, HashMap msg, User user) {
+        super(msg, hlpr);
         this.user = user;
         this.recipeService = recipeService;
+        this.fieldValidator = validator;
         setJsonView(View.Id.class);
     }
 
     @Override
     public Object execute() {
-
-        // TODO: Generate Recipe UID
-        String uid = "";
-        String name = (String) data.get("name");
-        String imageUrl = "";
         Set<Ingredient> ingredients = new HashSet<>(); // data.get("ingredients");
 
-        Recipe recipe = new Recipe(uid, name, this.user, true, imageUrl, ingredients);
+        //Recipe recipe = new Recipe(uid, name, this.user, true, imageUrl, ingredients);
 
-        recipeService.create(recipe);
+        //recipeService.create(recipe);
 
         Map response = new HashMap<>();
-        response.put(Constants.KEY_DATA_RECIPE_ID, recipe.getUid());
+        //response.put(Constants.KEY_DATA_RECIPE_ID, recipe.getUid());
 
         return response;
     }
 
     @Override
     public boolean validate() {
-        // TODO: Validate Recipe
+        HashMap fieldsToValidate = new HashMap();
+        fieldsToValidate.put("ingredients", "required");
 
-        return super.validate();
+        if(!fieldValidator.validate((HashMap)message.get("data"), fieldsToValidate)) {
+            error = fieldValidator.getErrors();
+            return false;
+        }
+
+        return true;
     }
 }

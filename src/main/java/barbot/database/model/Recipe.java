@@ -50,7 +50,7 @@ public class Recipe extends BaseEntity {
     @OneToMany(mappedBy = "recipe")
     private Set<RecipeIngredient> recipeIngredients = new HashSet<RecipeIngredient>();
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, targetEntity = Ingredient.class)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, targetEntity = Ingredient.class)
     @JoinTable(name = Constants.TABLE_RECIPE_INGREDIENT, schema = Constants.DB_SCHEMA,
             joinColumns = @JoinColumn(name = "recipe_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "ingredient_id", referencedColumnName = "id"))

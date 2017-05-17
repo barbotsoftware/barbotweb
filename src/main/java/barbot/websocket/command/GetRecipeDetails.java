@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+import barbot.utils.FieldValidator;
+import barbot.utils.HelperMethods;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.fasterxml.jackson.core.JsonGenerationException;
@@ -21,38 +23,39 @@ import barbot.utils.Constants;
  */
 public class GetRecipeDetails extends BaseCommand {
 
-    @Autowired
     RecipeService recipeService;
 
-    public GetRecipeDetails(RecipeService recipeService, HashMap msg) {
-        super(msg);
+    private FieldValidator fieldValidator;
+
+    public GetRecipeDetails(RecipeService recipeService, FieldValidator validator, HelperMethods hlpr, HashMap msg) {
+        super(msg, hlpr);
         setJsonView(View.Detail.class);
         this.recipeService = recipeService;
+        this.fieldValidator = validator;
     }
 
     @Override
     public Object execute() {
-
         // Get Recipe ID from request
         String recipeId = (String) data.get(Constants.KEY_DATA_RECIPE_ID);
 
         // Get Recipe from service
-        Recipe recipe = recipeService.findById(recipeId);
-
-        // Are Ingredients loaded automatically from Recipe retrieval?
-        // Get Ingredients for Recipe from service
-        // Set<Ingredient> ingredients = recipeService.getIngredients(recipe);
-
-        // Set Ingredients
-        // recipe.setIngredients(ingredients);
-
-        return recipe;
+        return recipeService.findById(recipeId);
     }
 
     @Override
     public boolean validate() {
-        // TODO: Validate RecipeID
+        if(!super.validate())
+            return false;
 
-        return super.validate();
+        HashMap fieldsToValidate = new HashMap();
+        fieldsToValidate.put("recipe_id", "required|exists:recipe");
+
+        if(!fieldValidator.validate((HashMap)message.get("data"), fieldsToValidate)) {
+            error = fieldValidator.getErrors();
+            return false;
+        }
+
+        return true;
     }
 }

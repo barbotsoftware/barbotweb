@@ -46,23 +46,18 @@ public class Constants {
     public static final String CMD_CREATE_CUSTOM_DRINK = "create_custom_drink";
     public static final String CMD_ORDER_DRINK = "order_drink";
     public static final String CMD_POUR_DRINK = "pour_drink";
-    public static final String CMD_AUTHENTICATE = "authenticate";
-
-    /* Error Codes */
-    public static final int ERROR_INVALID_COMMAND = 1;
-    public static final int ERROR_PARSE_ERROR = 2;
-    public static final int ERROR_CREATE_ERROR = 3;
-    public static final int ERROR_COMMAND_NOT_RECOGNIZED = 4;
-    public static final int ERROR_NOT_AUTHENTICATED = 5;
 
     /* Error Messages */
-    public static final String ERROR_MSG_INVALID_COMMAND = "Invalid command";
-    public static final String ERROR_MSG_PARSE_ERROR = "Failed to parse message";
-    public static final String ERROR_MSG_CREATE_ERROR = "Failed to create message";
-    public static final String ERROR_MSG_COMMAND_NOT_RECOGNIZED = "Command not recognized";
-    public static final String ERROR_MSG_NOT_AUTHENTICATED = "User is not authenticated";
+    public static final String ERROR_MSG_PREFIX = "errorMsg.";
+    public static final String ERROR_MSG_INVALID_COMMAND = "invalidCommand";
+    public static final String ERROR_MSG_PARSE_ERROR = "parseError";
+    public static final String ERROR_MSG_CREATE_ERROR = "createError";
+    public static final String ERROR_MSG_COMMAND_NOT_RECOGNIZED = "commandNotRecognized";
+    public static final String ERROR_MSG_NOT_AUTHENTICATED = "notAuthenticated";
+    public static final String ERROR_MSG_EXECUTION_FAILED = "executionFailed";
 
     /* Unique ID Constants */
     public static final String USER_UID_PREFIX = "user_";
+    public static final String RECIPE_UID_PREFIX = "recipe_";
     public static final int UID_LENGTH = 6;
 }

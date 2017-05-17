@@ -7,6 +7,8 @@ import javax.annotation.Resource;
 import javax.transaction.Transactional;
 
 import barbot.database.dao.RecipeDao;
+import barbot.utils.Constants;
+import barbot.utils.HelperMethods;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
@@ -14,6 +16,7 @@ import org.springframework.util.Assert;
 
 import barbot.database.model.Ingredient;
 import barbot.database.model.Recipe;
+import org.springframework.util.StringUtils;
 
 /**
  * Created by Naveen on 4/12/17.
@@ -25,11 +28,17 @@ public class RecipeServiceImpl implements RecipeService {
     @Autowired
     RecipeDao recipeDao;
 
+    @Autowired
+    HelperMethods hlpr;
+
     @Override
     @Transactional
     public void create(Recipe recipe) {
-        Recipe createdRecipe = recipe;
-        recipeDao.save(createdRecipe);
+        if(StringUtils.isEmpty(recipe.getUid())) {
+            recipe.setUid(Constants.RECIPE_UID_PREFIX + hlpr.generateUid());
+        }
+
+        recipeDao.save(recipe);
     }
 
     @Override

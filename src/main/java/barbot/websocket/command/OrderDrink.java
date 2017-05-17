@@ -2,6 +2,8 @@ package barbot.websocket.command;
 
 import java.util.HashMap;
 
+import barbot.utils.FieldValidator;
+import barbot.utils.HelperMethods;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.socket.WebSocketSession;
 
@@ -21,34 +23,25 @@ import barbot.utils.Constants;
  */
 public class OrderDrink extends BaseCommand {
 
-    @Autowired
     BarbotService barbotService;
 
-    @Autowired
     RecipeService recipeService;
 
-    @Autowired
     DrinkOrderService drinkOrderService;
+
+    private FieldValidator fieldValidator;
 
     private User user;
 
-    public OrderDrink(HashMap msg, User user) {
-        super(msg);
-
-        this.user = user;
-
-        // Return Drink Order Response
-        setJsonView(View.Response.class);
-    }
-
-    public OrderDrink(DrinkOrderService drinkOrderService, RecipeService recipeService, BarbotService barbotService, HashMap msg, User user) {
-        super(msg);
+    public OrderDrink(DrinkOrderService drinkOrderService, RecipeService recipeService, BarbotService barbotService, FieldValidator validator, HelperMethods hlpr, HashMap msg, User user) {
+        super(msg, hlpr);
         this.user = user;
         // Return Drink Order Response
         setJsonView(View.Response.class);
         this.drinkOrderService = drinkOrderService;
         this.recipeService = recipeService;
         this.barbotService = barbotService;
+        this.fieldValidator = validator;
     }
 
     @Override

@@ -46,7 +46,7 @@ public class FieldValidator {
         String messageKey = "";
 
         if(fields.containsKey(field)) {
-            String value = ((String[]) fields.get(field))[0];
+            String value = fields.get(field).getClass().equals(String.class) ? (String)fields.get(field) : ((String[]) fields.get(field))[0];
 
             String[] validatorParts = validator.split(":");
             switch (validatorParts[0])
@@ -55,6 +55,12 @@ public class FieldValidator {
                     if (value == null || value.isEmpty())
                     {
                         messageKey = field + ".empty";
+                        flag = false;
+                    }
+                    break;
+                case "exists":
+                    if(!mainDao.checkEntityExists(validatorParts[1], value)) {
+                        messageKey = field + ".doesNotExist";
                         flag = false;
                     }
                     break;
@@ -135,7 +141,7 @@ public class FieldValidator {
         }
 
         if(!flag) {
-            errors.put(messageKey, hlpr.getMessage(messageKey));
+            errors.put(messageKey, hlpr.getMessage(Constants.ERROR_MSG_PREFIX + messageKey));
         }
 
         return flag;

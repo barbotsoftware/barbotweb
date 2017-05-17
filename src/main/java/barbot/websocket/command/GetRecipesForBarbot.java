@@ -5,6 +5,8 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import barbot.utils.FieldValidator;
+import barbot.utils.HelperMethods;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import barbot.database.model.Barbot;
@@ -18,13 +20,15 @@ import barbot.utils.Constants;
  */
 public class GetRecipesForBarbot extends BaseCommand {
 
-    @Autowired
     private BarbotService barbotService;
 
-    public GetRecipesForBarbot(BarbotService barbotService, HashMap msg) {
-        super(msg);
+    private FieldValidator fieldValidator;
+
+    public GetRecipesForBarbot(BarbotService barbotService, FieldValidator validator, HelperMethods hlpr, HashMap msg) {
+        super(msg, hlpr);
         setJsonView(View.Summary.class);
         this.barbotService = barbotService;
+        this.fieldValidator = validator;
     }
 
     @Override

@@ -27,4 +27,18 @@ public class MainDao extends HibernateDaoSupport {
 
         return query.list().size() == 0;
     }
+
+    /**
+     * Checks if an entity exists in the database
+     * @param tableName Name of the table/entity to check
+     * @param id ID of teh entity
+     * @return True is the entity exists
+     */
+    public boolean checkEntityExists(String tableName, String id) {
+        SQLQuery query = currentSession().createSQLQuery("SELECT * FROM `" + tableName + "` WHERE uid = :id");
+
+        query.setParameter("id", id);
+
+        return query.list().size() > 0;
+    }
 }

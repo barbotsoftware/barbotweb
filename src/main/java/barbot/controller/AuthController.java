@@ -30,7 +30,7 @@ public class AuthController {
     UserService userService;
 
     @ResponseBody
-    @RequestMapping(path = "/auth/register", method = RequestMethod.GET)
+    @RequestMapping(path = "/auth/register", method = RequestMethod.POST)
     public Map register(HttpServletRequest request) {
         HashMap result = new HashMap();
         result.put("result", "success");

@@ -3,6 +3,8 @@ package barbot.websocket.command;
 import java.util.HashMap;
 import java.util.Map;
 
+import barbot.utils.FieldValidator;
+import barbot.utils.HelperMethods;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import barbot.database.model.DrinkOrder;
@@ -16,12 +18,14 @@ import barbot.utils.Constants;
  */
 public class PourDrink extends BaseCommand {
 
-    @Autowired
     DrinkOrderService drinkOrderService;
 
-    public PourDrink(DrinkOrderService drinkOrderService, HashMap msg) {
-        super(msg);
+    private FieldValidator fieldValidator;
+
+    public PourDrink(DrinkOrderService drinkOrderService, FieldValidator validator, HelperMethods hlpr, HashMap msg) {
+        super(msg, hlpr);
         this.drinkOrderService = drinkOrderService;
+        this.fieldValidator = validator;
     }
 
     @Override

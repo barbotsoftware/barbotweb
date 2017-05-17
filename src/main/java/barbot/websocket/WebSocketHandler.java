@@ -4,10 +4,11 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import barbot.database.model.View;
+import barbot.utils.HelperMethods;
 import barbot.websocket.command.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
@@ -19,6 +20,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.hibernate5.Hibernate5Module;
 
 import barbot.database.model.User;
 import barbot.utils.Constants;
@@ -33,6 +35,9 @@ public class WebSocketHandler extends TextWebSocketHandler {
     @Autowired
     CommandFactory commandFactory;
 
+    @Autowired
+    HelperMethods hlpr;
+
     private Map<String, WebSocketSession> sessionMap;
 
     private ObjectMapper mapper;
@@ -40,13 +45,15 @@ public class WebSocketHandler extends TextWebSocketHandler {
     public WebSocketHandler() {
         mapper = new ObjectMapper();
         mapper.disable(MapperFeature.DEFAULT_VIEW_INCLUSION);
+        mapper.setConfig(mapper.getSerializationConfig().withView(View.Detail.class).withView(View.Summary.class).withView(View.Id.class));
+        mapper.registerModule(new Hibernate5Module());
         sessionMap = new HashMap<>();
     }
 
     @Override
     public void handleTextMessage(WebSocketSession session, TextMessage message) {
         if(!isAuthenticated(session)) {
-            sendError(session, Constants.ERROR_NOT_AUTHENTICATED, Constants.ERROR_MSG_NOT_AUTHENTICATED);
+            sendError(session, Constants.ERROR_MSG_NOT_AUTHENTICATED);
             try {
                 session.close();
             } catch (IOException e) {
@@ -59,17 +66,21 @@ public class WebSocketHandler extends TextWebSocketHandler {
         try {
             msg = mapper.readValue(message.getPayload(), new TypeReference<HashMap<String,Object>>(){});
         } catch (IOException e) {
-            sendError(session, Constants.ERROR_PARSE_ERROR, Constants.ERROR_MSG_PARSE_ERROR);
+            sendError(session, Constants.ERROR_MSG_PARSE_ERROR);
             e.printStackTrace();
         }
 
         if(msg.containsKey(Constants.KEY_COMMAND)) {
             Command command = getCommand(msg, session);
 
-            if(command.validate()) {
-                sendMessage(session, command.execute(), command.getJsonView());
-            } else {
-                sendError(session, command.getError());
+            try {
+                if (command.validate()) {
+                    sendMessage(session, command.execute(), command.getJsonView());
+                } else {
+                    sendError(session, command.getError());
+                }
+            } catch (Exception e) {
+                sendError(session, Constants.ERROR_MSG_EXECUTION_FAILED);
             }
         }
     }
@@ -98,8 +109,8 @@ public class WebSocketHandler extends TextWebSocketHandler {
                 command = commandFactory.create(PourDrink.class, msg);
                 break;
             default:
-                command = new BaseCommand(msg);
-                sendError(session, Constants.ERROR_COMMAND_NOT_RECOGNIZED, Constants.ERROR_MSG_COMMAND_NOT_RECOGNIZED);
+                command = new BaseCommand(msg, hlpr);
+                sendError(session, Constants.ERROR_MSG_COMMAND_NOT_RECOGNIZED);
                 break;
         }
 
@@ -121,20 +132,20 @@ public class WebSocketHandler extends TextWebSocketHandler {
         responseMap.put(Constants.KEY_RESULT, Constants.KEY_SUCCESS);
         responseMap.put(Constants.KEY_DATA, message);
         try {
-            session.sendMessage(new TextMessage(mapper.writerWithView(jsonView.getClass()).writeValueAsString(responseMap)));
+            session.sendMessage(new TextMessage(mapper.writerWithView(jsonView).writeValueAsString(responseMap)));
         } catch (JsonGenerationException e) {
             e.printStackTrace();
         } catch (JsonMappingException e) {
             e.printStackTrace();
         } catch (IOException e) {
-            sendError(session, Constants.ERROR_CREATE_ERROR, Constants.ERROR_MSG_CREATE_ERROR);
+            sendError(session, Constants.ERROR_MSG_CREATE_ERROR);
             e.printStackTrace();
         }
     }
 
-    private void sendError(WebSocketSession session, int errorCode, String error) {
+    private void sendError(WebSocketSession session, String errorCode) {
         Map errorMap = new HashMap();
-        errorMap.put(errorCode, error);
+        errorMap.put(errorCode, hlpr.getMessage(Constants.ERROR_MSG_PREFIX + errorCode));
         sendError(session, errorMap);
     }
 
