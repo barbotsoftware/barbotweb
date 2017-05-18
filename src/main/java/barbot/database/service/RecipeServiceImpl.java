@@ -43,7 +43,7 @@ public class RecipeServiceImpl implements RecipeService {
 
     @Override
     @Transactional
-    public Recipe findById(String recipeId) {
+    public Recipe findByUid(String recipeId) {
         Assert.hasLength(recipeId, "RecipeId must not be empty");
         return recipeDao.findByUid(recipeId);
     }

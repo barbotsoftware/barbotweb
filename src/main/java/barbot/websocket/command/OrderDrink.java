@@ -4,8 +4,6 @@ import java.util.HashMap;
 
 import barbot.utils.FieldValidator;
 import barbot.utils.HelperMethods;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.socket.WebSocketSession;
 
 import barbot.database.model.Barbot;
 import barbot.database.model.DrinkOrder;
@@ -15,7 +13,6 @@ import barbot.database.model.View;
 import barbot.database.service.BarbotService;
 import barbot.database.service.DrinkOrderService;
 import barbot.database.service.RecipeService;
-import barbot.database.service.UserService;
 import barbot.utils.Constants;
 
 /**
@@ -46,33 +43,38 @@ public class OrderDrink extends BaseCommand {
 
     @Override
     public Object execute() {
-
-        // TODO: generate drink order uid
-        String uid = "";
-
         // Get Barbot
         String barbotId = (String) data.get(Constants.KEY_DATA_BARBOT_ID);
         Barbot barbot = this.barbotService.findByUid(barbotId);
 
         // Get Recipe
         String recipeId = (String) data.get(Constants.KEY_DATA_RECIPE_ID);
-        Recipe recipe = this.recipeService.findById(recipeId);
+        Recipe recipe = this.recipeService.findByUid(recipeId);
 
         // Get Ice and Garnish
-        Integer ice = (int) data.get(Constants.KEY_DATA_ICE);
-        Integer garnish = (int) data.get(Constants.KEY_DATA_GARNISH);
+        Integer ice = data.containsKey(Constants.KEY_DATA_ICE) ? (int) data.get(Constants.KEY_DATA_ICE) : 0;
+        Integer garnish = data.containsKey(Constants.KEY_DATA_GARNISH) ? (int) data.get(Constants.KEY_DATA_GARNISH) : 0;
 
-        DrinkOrder drinkOrder = new DrinkOrder(uid, this.user, recipe, barbot, ice, garnish);
+        DrinkOrder drinkOrder = new DrinkOrder(this.user, recipe, barbot, ice, garnish);
 
         drinkOrderService.create(drinkOrder);
 
-        return "";
+        return drinkOrder;
     }
 
     @Override
     public boolean validate() {
-        // TODO: Validate BarbotID, RecipeID, Ice, Garnish
+        if(!super.validate())
+            return false;
 
-        return super.validate();
+        HashMap fieldsToValidate = new HashMap();
+        fieldsToValidate.put(Constants.KEY_DATA_BARBOT_ID, "required|exists:barbot");
+        fieldsToValidate.put(Constants.KEY_DATA_RECIPE_ID, "required|exists:recipe");
+        if(!fieldValidator.validate((HashMap)message.get(Constants.KEY_DATA), fieldsToValidate)) {
+            error = fieldValidator.getErrors();
+            return false;
+        }
+
+        return true;
     }
 }

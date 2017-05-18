@@ -2,11 +2,15 @@ package barbot.database.service;
 
 
 import barbot.database.dao.DrinkOrderDao;
+import barbot.utils.Constants;
+import barbot.utils.HelperMethods;
+import org.codehaus.groovy.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import barbot.database.model.DrinkOrder;
+import org.springframework.util.StringUtils;
 
 import javax.transaction.Transactional;
 
@@ -20,10 +24,16 @@ public class DrinkOrderServiceImpl implements DrinkOrderService {
     @Autowired
     DrinkOrderDao drinkOrderDao;
 
+    @Autowired
+    HelperMethods hlpr;
+
     @Override
     public void create(DrinkOrder drinkOrder) {
-        DrinkOrder createdDrinkOrder = drinkOrder;
-        drinkOrderDao.save(createdDrinkOrder);
+        if(StringUtils.isEmpty(drinkOrder.getUid())) {
+            drinkOrder.setUid(Constants.DRINK_ORDER_UID_PREFIX + hlpr.generateUid());
+        }
+
+        drinkOrderDao.save(drinkOrder);
     }
 
     @Override

@@ -59,5 +59,6 @@ public class Constants {
     /* Unique ID Constants */
     public static final String USER_UID_PREFIX = "user_";
     public static final String RECIPE_UID_PREFIX = "recipe_";
+    public static final String DRINK_ORDER_UID_PREFIX = "drinkOrder_";
     public static final int UID_LENGTH = 6;
 }

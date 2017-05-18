@@ -1,19 +1,10 @@
 package barbot.websocket.command;
 
-import java.io.IOException;
 import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
 
 import barbot.utils.FieldValidator;
 import barbot.utils.HelperMethods;
-import org.springframework.beans.factory.annotation.Autowired;
 
-import com.fasterxml.jackson.core.JsonGenerationException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-
-import barbot.database.model.Ingredient;
-import barbot.database.model.Recipe;
 import barbot.database.model.View;
 import barbot.database.service.RecipeService;
 import barbot.utils.Constants;
@@ -40,7 +31,7 @@ public class GetRecipeDetails extends BaseCommand {
         String recipeId = (String) data.get(Constants.KEY_DATA_RECIPE_ID);
 
         // Get Recipe from service
-        return recipeService.findById(recipeId);
+        return recipeService.findByUid(recipeId);
     }
 
     @Override
@@ -49,9 +40,9 @@ public class GetRecipeDetails extends BaseCommand {
             return false;
 
         HashMap fieldsToValidate = new HashMap();
-        fieldsToValidate.put("recipe_id", "required|exists:recipe");
+        fieldsToValidate.put(Constants.KEY_DATA, "required|exists:recipe");
 
-        if(!fieldValidator.validate((HashMap)message.get("data"), fieldsToValidate)) {
+        if(!fieldValidator.validate((HashMap)message.get(Constants.KEY_DATA), fieldsToValidate)) {
             error = fieldValidator.getErrors();
             return false;
         }

@@ -53,8 +53,7 @@ public class DrinkOrder extends BaseEntity {
         this.uid = uid;
     }
 
-    public DrinkOrder(String uid, User user, Recipe recipe, Barbot barbot, Integer ice, Integer garnish) {
-        this.uid = uid;
+    public DrinkOrder(User user, Recipe recipe, Barbot barbot, Integer ice, Integer garnish) {
         this.user = user;
         this.recipe = recipe;
         this.barbot = barbot;

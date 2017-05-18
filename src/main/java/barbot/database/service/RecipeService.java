@@ -11,6 +11,6 @@ import barbot.database.model.Recipe;
  */
 public interface RecipeService {
     void create(Recipe recipe);
-    Recipe findById(String recipeId);
+    Recipe findByUid(String recipeId);
     List<Recipe> findAll();
 }
