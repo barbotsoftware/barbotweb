@@ -61,4 +61,7 @@ public class Constants {
     public static final String RECIPE_UID_PREFIX = "recipe_";
     public static final String DRINK_ORDER_UID_PREFIX = "drinkOrder_";
     public static final int UID_LENGTH = 6;
+
+    /* Misc */
+    public static final String CUSTOM_IMG_URL = "dickbutt.png";
 }

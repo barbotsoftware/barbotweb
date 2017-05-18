@@ -46,9 +46,9 @@ public class FieldValidator {
         String messageKey = "";
 
         if(fields.containsKey(field)) {
-            String value = fields.get(field).getClass().equals(String.class) ? (String)fields.get(field) : ((String[]) fields.get(field))[0];
-
             String[] validatorParts = validator.split(":");
+
+            String value = fields.get(field).getClass().equals(String.class) ? (String)fields.get(field) : ((String[]) fields.get(field))[0];
             switch (validatorParts[0])
             {
                 case "required":

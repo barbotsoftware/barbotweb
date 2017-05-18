@@ -48,7 +48,7 @@ public class Recipe extends BaseEntity {
     @JsonView(View.Summary.class)
     private String imageUrl;
 
-    @OneToMany(mappedBy = "recipe", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "recipe", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JsonView(View.Summary.class)
     @JsonProperty("ingredients")
     @JsonManagedReference

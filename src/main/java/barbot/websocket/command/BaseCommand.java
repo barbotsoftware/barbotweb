@@ -21,6 +21,7 @@ public class BaseCommand implements Command {
     public BaseCommand(HashMap msg, HelperMethods hlpr) {
         message = msg;
         data = (HashMap) message.get(Constants.KEY_DATA);
+        error = new HashMap();
         this.hlpr = hlpr;
     }
 

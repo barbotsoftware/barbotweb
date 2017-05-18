@@ -3,6 +3,7 @@ package barbot.websocket.command;
 import barbot.database.model.User;
 import barbot.database.service.BarbotService;
 import barbot.database.service.DrinkOrderService;
+import barbot.database.service.IngredientService;
 import barbot.database.service.RecipeService;
 import barbot.utils.FieldValidator;
 import barbot.utils.HelperMethods;
@@ -27,6 +28,9 @@ public class CommandFactory {
     DrinkOrderService drinkOrderService;
 
     @Autowired
+    IngredientService ingredientService;
+
+    @Autowired
     FieldValidator fieldValidator;
 
     @Autowired
@@ -34,7 +38,7 @@ public class CommandFactory {
 
     public Command create(Class clazz, Object... args) {
         if(clazz.equals(CreateCustomDrink.class)) {
-            return new CreateCustomDrink(recipeService, fieldValidator, hlpr, (HashMap)args[0], (User)args[1]);
+            return new CreateCustomDrink(recipeService, ingredientService, fieldValidator, hlpr, (HashMap)args[0], (User)args[1]);
         } else if (clazz.equals(GetRecipesForBarbot.class)) {
             return new GetRecipesForBarbot(barbotService, fieldValidator, hlpr, (HashMap) args[0]);
         } else if (clazz.equals(GetRecipeDetails.class)) {
