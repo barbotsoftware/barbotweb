@@ -1,12 +1,14 @@
 package barbot.database.dao;
 
 import barbot.database.model.Barbot;
+import barbot.database.model.BarbotContainer;
 import barbot.database.model.Ingredient;
 import barbot.database.model.Recipe;
 import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
 import org.springframework.stereotype.Component;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -31,6 +33,14 @@ public class BarbotDao extends HibernateDaoSupport {
     }
 
     public List<Ingredient> getIngredients(Barbot barbot) {
-        return null;
+        barbot = getHibernateTemplate().get(Barbot.class, barbot.getId());
+        getHibernateTemplate().initialize(barbot.getBarbotContainers());
+
+        List<Ingredient> ingredients = new ArrayList<>();
+        for(BarbotContainer container : barbot.getBarbotContainers()) {
+            ingredients.add(container.getIngredient());
+        }
+
+        return ingredients;
     }
 }
