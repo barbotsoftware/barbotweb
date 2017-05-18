@@ -4,6 +4,7 @@ import barbot.database.model.Barbot;
 import barbot.database.model.BarbotContainer;
 import barbot.database.model.Ingredient;
 import barbot.database.model.Recipe;
+import org.hibernate.Query;
 import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
 import org.springframework.stereotype.Component;
 
@@ -29,7 +30,18 @@ public class BarbotDao extends HibernateDaoSupport {
     }
 
     public List<Recipe> getRecipes(Barbot barbot) {
-        return null;
+        List<Ingredient> ingredients = getIngredients(barbot);
+        List<Recipe> recipes = (List<Recipe>)getHibernateTemplate().find("FROM Recipe WHERE custom = 0");
+
+        List<Recipe> recipesForBarbot = new ArrayList<>();
+        for(Recipe recipe : recipes) {
+            getHibernateTemplate().initialize(recipe.getIngredients());
+            if(ingredients.containsAll(recipe.getIngredients())) {
+                recipesForBarbot.add(recipe);
+            }
+        }
+
+        return recipesForBarbot;
     }
 
     public List<Ingredient> getIngredients(Barbot barbot) {

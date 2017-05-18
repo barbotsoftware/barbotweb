@@ -46,8 +46,17 @@ public class GetRecipesForBarbot extends BaseCommand {
 
     @Override
     public boolean validate() {
-        // TODO: Validate BarbotID
+        if(!super.validate())
+            return false;
 
-        return super.validate();
+        HashMap fieldsToValidate = new HashMap();
+        fieldsToValidate.put(Constants.KEY_DATA_BARBOT_ID, "required|exists:barbot");
+
+        if(!fieldValidator.validate((HashMap)message.get("data"), fieldsToValidate)) {
+            error = fieldValidator.getErrors();
+            return false;
+        }
+
+        return true;
     }
 }
