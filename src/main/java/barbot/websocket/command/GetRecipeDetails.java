@@ -29,7 +29,7 @@ public class GetRecipeDetails extends BaseCommand {
 
     public GetRecipeDetails(RecipeService recipeService, FieldValidator validator, HelperMethods hlpr, HashMap msg) {
         super(msg, hlpr);
-        setJsonView(View.Detail.class);
+        setJsonView(View.Summary.class);
         this.recipeService = recipeService;
         this.fieldValidator = validator;
     }

@@ -14,6 +14,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonView;
 
@@ -47,14 +48,18 @@ public class Recipe extends BaseEntity {
     @JsonView(View.Summary.class)
     private String imageUrl;
 
-    @OneToMany(mappedBy = "recipe")
+    @OneToMany(mappedBy = "recipe", fetch = FetchType.EAGER)
+    @JsonView(View.Summary.class)
+    @JsonProperty("ingredients")
+    @JsonManagedReference
     private Set<RecipeIngredient> recipeIngredients = new HashSet<RecipeIngredient>();
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, targetEntity = Ingredient.class)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, targetEntity = Ingredient.class)
     @JoinTable(name = Constants.TABLE_RECIPE_INGREDIENT, schema = Constants.DB_SCHEMA,
             joinColumns = @JoinColumn(name = "recipe_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "ingredient_id", referencedColumnName = "id"))
     @JsonView(View.Detail.class)
+    @JsonProperty("ingredient_list")
     private Set<Ingredient> ingredients;
 
     public Recipe() {

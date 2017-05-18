@@ -12,6 +12,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import barbot.utils.Constants;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonView;
 
 /**
  * Created by Naveen on 3/27/17.
@@ -22,13 +24,17 @@ public class RecipeIngredient extends BaseEntity {
 
     @ManyToOne
     @JoinColumn(name = "recipe_id", referencedColumnName = "id", nullable = false)
+    @JsonView(View.Detail.class)
+    @JsonBackReference
     private Recipe recipe;
 
     @ManyToOne
     @JoinColumn(name = "ingredient_id", referencedColumnName = "id", nullable = false)
+    @JsonView(View.Summary.class)
     private Ingredient ingredient;
 
     @Column(name = "amount")
+    @JsonView(View.Summary.class)
     private BigDecimal amount;
 
     public RecipeIngredient() {
