@@ -1,7 +1,10 @@
 package barbot.config;
 
+import barbot.database.service.BarbotService;
 import barbot.database.service.UserServiceImpl;
+import barbot.security.BarbotAuthenticationProvider;
 import barbot.security.WebSocketAuthFilter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,6 +27,9 @@ import java.util.List;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    @Autowired
+    BarbotService barbotService;
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests().antMatchers("/auth/register").permitAll()
@@ -36,8 +42,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
         daoAuthenticationProvider.setUserDetailsService(userService());
 
+        BarbotAuthenticationProvider barbotAuthenticationProvider = new BarbotAuthenticationProvider();
+        barbotAuthenticationProvider.setBarbotService(barbotService);
+        barbotAuthenticationProvider.setPasswordEncoder(passwordEncoder());
+
         List<AuthenticationProvider> providerList = new ArrayList();
         providerList.add(daoAuthenticationProvider);
+        providerList.add(barbotAuthenticationProvider);
 
         return new ProviderManager(providerList);
     }

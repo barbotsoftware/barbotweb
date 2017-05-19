@@ -40,6 +40,19 @@ public class WebSocketAuthFilter implements Filter{
                 if(authResponse != null && authResponse.isAuthenticated()) {
                     SecurityContextHolder.getContext().setAuthentication(authResponse);
                 }
+            } else if (request.getParameter("barbot_id") != null && request.getParameter("password") != null) {
+                Authentication authRequest = new BarbotAuthenticationToken(request.getParameter("barbot_id"), request.getParameter("password"));
+                Authentication authResponse = null;
+                try {
+                    authResponse = authenticationManager.authenticate(authRequest);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                if(authResponse != null && authResponse.isAuthenticated()) {
+                    SecurityContextHolder.getContext().setAuthentication(authResponse);
+                    request.getSession().setAttribute("barbot", authResponse.getPrincipal());
+                }
             }
         }
 
