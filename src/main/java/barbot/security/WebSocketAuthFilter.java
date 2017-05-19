@@ -38,7 +38,9 @@ public class WebSocketAuthFilter implements Filter{
                 }
 
                 if(authResponse != null && authResponse.isAuthenticated()) {
-                    SecurityContextHolder.getContext().setAuthentication(authResponse);
+                    securityContext = SecurityContextHolder.getContext();
+                    securityContext.setAuthentication(authResponse);
+                    request.getSession().setAttribute("SPRING_SECURITY_CONTEXT", securityContext);
                 }
             } else if (request.getParameter("barbot_id") != null && request.getParameter("password") != null) {
                 Authentication authRequest = new BarbotAuthenticationToken(request.getParameter("barbot_id"), request.getParameter("password"));
@@ -50,7 +52,9 @@ public class WebSocketAuthFilter implements Filter{
                 }
 
                 if(authResponse != null && authResponse.isAuthenticated()) {
-                    SecurityContextHolder.getContext().setAuthentication(authResponse);
+                    securityContext = SecurityContextHolder.getContext();
+                    securityContext.setAuthentication(authResponse);
+                    request.getSession().setAttribute("SPRING_SECURITY_CONTEXT", securityContext);
                     request.getSession().setAttribute("barbot", authResponse.getPrincipal());
                 }
             }
