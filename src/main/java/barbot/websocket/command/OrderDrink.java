@@ -2,6 +2,7 @@ package barbot.websocket.command;
 
 import java.util.HashMap;
 
+import barbot.event.BarbotEvent;
 import barbot.utils.FieldValidator;
 import barbot.utils.HelperMethods;
 
@@ -14,6 +15,7 @@ import barbot.database.service.BarbotService;
 import barbot.database.service.DrinkOrderService;
 import barbot.database.service.RecipeService;
 import barbot.utils.Constants;
+import org.springframework.context.ApplicationEventPublisher;
 
 /**
  * Created by Naveen on 4/11/17.
@@ -26,11 +28,15 @@ public class OrderDrink extends BaseCommand {
 
     DrinkOrderService drinkOrderService;
 
+    private ApplicationEventPublisher publisher;
+
     private FieldValidator fieldValidator;
 
     private User user;
 
-    public OrderDrink(DrinkOrderService drinkOrderService, RecipeService recipeService, BarbotService barbotService, FieldValidator validator, HelperMethods hlpr, HashMap msg, User user) {
+    public OrderDrink(DrinkOrderService drinkOrderService, RecipeService recipeService, BarbotService barbotService,
+                      FieldValidator validator, HelperMethods hlpr, ApplicationEventPublisher publisher, HashMap msg,
+                      User user) {
         super(msg, hlpr);
         this.user = user;
         // Return Drink Order Response
@@ -39,6 +45,7 @@ public class OrderDrink extends BaseCommand {
         this.recipeService = recipeService;
         this.barbotService = barbotService;
         this.fieldValidator = validator;
+        this.publisher = publisher;
     }
 
     @Override
@@ -55,9 +62,16 @@ public class OrderDrink extends BaseCommand {
         Integer ice = data.containsKey(Constants.KEY_DATA_ICE) ? (int) data.get(Constants.KEY_DATA_ICE) : 0;
         Integer garnish = data.containsKey(Constants.KEY_DATA_GARNISH) ? (int) data.get(Constants.KEY_DATA_GARNISH) : 0;
 
+        // Create drink order
         DrinkOrder drinkOrder = new DrinkOrder(this.user, recipe, barbot, ice, garnish);
 
+        // Save the drink order
         drinkOrderService.create(drinkOrder);
+
+        // Send a message to the barbot with the drink order
+        BarbotEvent barbotEvent = new BarbotEvent(barbot, drinkOrder, Constants.EVENT_DRINK_ORDERED);
+
+        publisher.publishEvent(barbotEvent);
 
         return drinkOrder;
     }

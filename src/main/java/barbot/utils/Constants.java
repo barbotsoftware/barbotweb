@@ -30,6 +30,9 @@ public class Constants {
     public static final String KEY_SUCCESS = "success";
     public static final String KEY_DATA = "data";
     public static final String KEY_ERROR = "error";
+    public static final String KEY_MESSAGE_TYPE = "type";
+    public static final String KEY_COMMAND_RESPONSE = "command_response";
+    public static final String KEY_EVENT = "event";
 
     /* Web Socket JSON Data Keys */
     public static final String KEY_DATA_BARBOT_ID = "barbot_id";
@@ -46,6 +49,9 @@ public class Constants {
     public static final String CMD_CREATE_CUSTOM_DRINK = "create_custom_drink";
     public static final String CMD_ORDER_DRINK = "order_drink";
     public static final String CMD_POUR_DRINK = "pour_drink";
+
+    /* Web Socket Events */
+    public static final String EVENT_DRINK_ORDERED = "drink_ordered";
 
     /* Error Messages */
     public static final String ERROR_MSG_PREFIX = "errorMsg.";

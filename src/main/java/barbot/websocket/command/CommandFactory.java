@@ -8,6 +8,7 @@ import barbot.database.service.RecipeService;
 import barbot.utils.FieldValidator;
 import barbot.utils.HelperMethods;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
@@ -36,6 +37,9 @@ public class CommandFactory {
     @Autowired
     HelperMethods hlpr;
 
+    @Autowired
+    private ApplicationEventPublisher publisher;
+
     public Command create(Class clazz, Object... args) {
         if(clazz.equals(CreateCustomDrink.class)) {
             return new CreateCustomDrink(recipeService, ingredientService, fieldValidator, hlpr, (HashMap)args[0], (User)args[1]);
@@ -46,7 +50,7 @@ public class CommandFactory {
         } else if (clazz.equals(GetIngredientsForBarbot.class)) {
             return new GetIngredientsForBarbot(barbotService, fieldValidator, hlpr, (HashMap) args[0]);
         } else if (clazz.equals(OrderDrink.class)) {
-            return new OrderDrink(drinkOrderService, recipeService, barbotService, fieldValidator, hlpr, (HashMap) args[0], (User) args[1]);
+            return new OrderDrink(drinkOrderService, recipeService, barbotService, fieldValidator, hlpr, publisher, (HashMap) args[0], (User) args[1]);
         } else if (clazz.equals(PourDrink.class)) {
             return new PourDrink(drinkOrderService, fieldValidator, hlpr, (HashMap) args[0]);
         }

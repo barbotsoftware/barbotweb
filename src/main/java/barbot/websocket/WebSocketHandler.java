@@ -4,10 +4,13 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import barbot.database.model.Barbot;
 import barbot.database.model.View;
+import barbot.event.BarbotEvent;
 import barbot.utils.HelperMethods;
 import barbot.websocket.command.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.event.EventListener;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.CloseStatus;
@@ -87,7 +90,6 @@ public class WebSocketHandler extends TextWebSocketHandler {
 
     private Command getCommand(HashMap<String, Object> msg, WebSocketSession session) {
         Command command;
-        User user = getUser(session);
 
         switch(msg.get(Constants.KEY_COMMAND).toString()) {
             case Constants.CMD_GET_RECIPES_FOR_BARBOT:
@@ -100,10 +102,10 @@ public class WebSocketHandler extends TextWebSocketHandler {
                 command = commandFactory.create(GetIngredientsForBarbot.class, msg);
                 break;
             case Constants.CMD_CREATE_CUSTOM_DRINK:
-                command = commandFactory.create(CreateCustomDrink.class, msg, user);
+                command = commandFactory.create(CreateCustomDrink.class, msg, getUser(session));
                 break;
             case Constants.CMD_ORDER_DRINK:
-                command = commandFactory.create(OrderDrink.class, msg, user);
+                command = commandFactory.create(OrderDrink.class, msg, getUser(session));
                 break;
             case Constants.CMD_POUR_DRINK:
                 command = commandFactory.create(PourDrink.class, msg);
@@ -127,8 +129,31 @@ public class WebSocketHandler extends TextWebSocketHandler {
         sessionMap.put(session.getId(), session);
     }
 
+    @EventListener
+    public void handleBarbotEvent(BarbotEvent event) {
+        WebSocketSession session = getSessionForBarbot(event.getTarget());
+
+        if(session != null) {
+            HashMap message = new HashMap();
+            message.put(Constants.KEY_MESSAGE_TYPE, Constants.KEY_EVENT);
+            message.put(Constants.KEY_EVENT, event.getEventType());
+            message.put(Constants.KEY_DATA, event.getMessage());
+            try {
+                session.sendMessage(new TextMessage(mapper.writerWithView(event.getJsonView()).writeValueAsString(message)));
+            } catch (JsonGenerationException e) {
+                e.printStackTrace();
+            } catch (JsonMappingException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                sendError(session, Constants.ERROR_MSG_CREATE_ERROR);
+                e.printStackTrace();
+            }
+        }
+    }
+
     private void sendMessage(WebSocketSession session, Object message, Class<?> jsonView) {
         HashMap responseMap = new HashMap();
+        responseMap.put(Constants.KEY_MESSAGE_TYPE, Constants.KEY_COMMAND_RESPONSE);
         responseMap.put(Constants.KEY_RESULT, Constants.KEY_SUCCESS);
         responseMap.put(Constants.KEY_DATA, message);
         try {
@@ -169,6 +194,16 @@ public class WebSocketHandler extends TextWebSocketHandler {
     private User getUser(WebSocketSession session) {
         SecurityContext securityContext = (SecurityContext) session.getAttributes().get("SPRING_SECURITY_CONTEXT");
         return (User) securityContext.getAuthentication().getPrincipal();
+    }
+
+    private WebSocketSession getSessionForBarbot(Barbot barbot) {
+        for(WebSocketSession session : sessionMap.values()) {
+            if(barbot.equals(session.getAttributes().get("barbot"))) {
+                return session;
+            }
+        }
+
+        return null;
     }
 
 }
