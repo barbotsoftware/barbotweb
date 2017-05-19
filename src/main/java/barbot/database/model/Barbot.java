@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonView;
 
@@ -30,6 +31,10 @@ public class Barbot extends BaseEntity {
 
     @Column(name = "status", nullable = false)
     private String status;
+
+    @Column(name = "password", nullable = false)
+    @JsonIgnore
+    private String password;
 
     @OneToMany(mappedBy = "barbot")
     private Set<BarbotContainer> barbotContainers;
@@ -75,6 +80,14 @@ public class Barbot extends BaseEntity {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public Set<BarbotContainer> getBarbotContainers() {
