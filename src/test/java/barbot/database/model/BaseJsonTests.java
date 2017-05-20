@@ -1,5 +1,6 @@
 package barbot.database.model;
 
+import org.junit.Ignore;
 import org.mockito.internal.util.reflection.Whitebox;
 import org.springframework.boot.test.json.JacksonTester;
 
@@ -8,6 +9,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 /**
  * Created by Naveen on 4/16/17.
  */
+@Ignore
 public abstract class BaseJsonTests {
 
     void useView(Class<?> view, JacksonTester jacksonTester) {

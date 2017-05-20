@@ -25,32 +25,62 @@ import barbot.database.model.Recipe;
 @RunWith(SpringRunner.class)
 @DataJpaTest
 @ContextConfiguration(classes = TestDatabaseConfig.class)
-public class RecipeDaoTests {
+public class RecipeDaoTests extends BaseDaoTests {
 
     private RecipeDao recipeDao;
 
-    @Mock
-    private HibernateTemplate mockTemplate;
+    private List<Recipe> recipes;
 
+    private final int recipeListSize = 10;
+
+    @Override
     @Before
     public void setUp() {
-        MockitoAnnotations.initMocks(this);
+        super.setUp();
+
         recipeDao = new RecipeDao();
         recipeDao.setHibernateTemplate(mockTemplate);
+
+        recipes = new ArrayList<>();
+
+        for (int i = 0; i < recipeListSize; i++) {
+            Recipe recipe = new Recipe();
+            recipe.setId(i);
+            recipe.setUid("recipe_xxxxx" + i);
+            recipes.add(recipe);
+        }
     }
 
     @Test
     public void testFindByUid() {
-        String uid = "recipe_2beb3b";
+        String uid = recipes.get(0).getUid();
 
-        Recipe recipe = new Recipe(uid);
-
-        List list = new ArrayList<>();
-        list.add(recipe);
-
-        (Mockito.doReturn(list).when(mockTemplate))
+        (Mockito.doReturn(recipes).when(mockTemplate))
                 .find("FROM Recipe WHERE uid = ?", uid);
 
         assertThat(recipeDao.findByUid(uid).getUid()).isEqualTo(uid);
+    }
+
+    @Test
+    public void testFindById() {
+        int id = recipes.get(0).getId();
+
+        (Mockito.doReturn(recipes.get(0)).when(mockTemplate))
+                .get(Recipe.class, id);
+
+        assertThat(recipeDao.findById(id).getId()).isEqualTo(id);
+    }
+
+    @Test
+    public void testFindAll() {
+        (Mockito.doReturn(recipes).when(mockTemplate))
+                .find("FROM Recipe");
+
+        assertThat(recipeDao.findAll().size()).isEqualTo(recipeListSize);
+    }
+
+    @Test
+    public void testSave() {
+
     }
 }
