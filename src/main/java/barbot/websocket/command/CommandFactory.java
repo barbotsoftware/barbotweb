@@ -41,8 +41,8 @@ public class CommandFactory {
     private ApplicationEventPublisher publisher;
 
     public Command create(Class clazz, Object... args) {
-        if(clazz.equals(CreateCustomDrink.class)) {
-            return new CreateCustomDrink(recipeService, ingredientService, fieldValidator, hlpr, (HashMap)args[0], (User)args[1]);
+        if(clazz.equals(CreateCustomRecipe.class)) {
+            return new CreateCustomRecipe(recipeService, ingredientService, fieldValidator, hlpr, (HashMap)args[0], (User)args[1]);
         } else if (clazz.equals(GetRecipesForBarbot.class)) {
             return new GetRecipesForBarbot(barbotService, fieldValidator, hlpr, (HashMap) args[0]);
         } else if (clazz.equals(GetRecipeDetails.class)) {

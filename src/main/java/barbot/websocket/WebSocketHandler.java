@@ -101,8 +101,8 @@ public class WebSocketHandler extends TextWebSocketHandler {
             case Constants.CMD_GET_INGREDIENTS_FOR_BARBOT:
                 command = commandFactory.create(GetIngredientsForBarbot.class, msg);
                 break;
-            case Constants.CMD_CREATE_CUSTOM_DRINK:
-                command = commandFactory.create(CreateCustomDrink.class, msg, getUser(session));
+            case Constants.CMD_CREATE_CUSTOM_RECIPE:
+                command = commandFactory.create(CreateCustomRecipe.class, msg, getUser(session));
                 break;
             case Constants.CMD_ORDER_DRINK:
                 command = commandFactory.create(OrderDrink.class, msg, getUser(session));
