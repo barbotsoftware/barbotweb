@@ -8,11 +8,8 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -41,14 +38,7 @@ public class RecipeDaoTests extends BaseDaoTests {
         recipeDao = new RecipeDao();
         recipeDao.setHibernateTemplate(mockTemplate);
 
-        recipes = new ArrayList<>();
-
-        for (int i = 0; i < recipeListSize; i++) {
-            Recipe recipe = new Recipe();
-            recipe.setId(i);
-            recipe.setUid("recipe_xxxxx" + i);
-            recipes.add(recipe);
-        }
+        setUpTestData();
     }
 
     @Test
@@ -58,7 +48,10 @@ public class RecipeDaoTests extends BaseDaoTests {
         (Mockito.doReturn(recipes).when(mockTemplate))
                 .find("FROM Recipe WHERE uid = ?", uid);
 
-        assertThat(recipeDao.findByUid(uid).getUid()).isEqualTo(uid);
+        Recipe result = recipeDao.findByUid(uid);
+
+        assertThat(result).isNotNull();
+        assertThat(result.getUid()).isEqualTo(uid);
     }
 
     @Test
@@ -68,7 +61,10 @@ public class RecipeDaoTests extends BaseDaoTests {
         (Mockito.doReturn(recipes.get(0)).when(mockTemplate))
                 .get(Recipe.class, id);
 
-        assertThat(recipeDao.findById(id).getId()).isEqualTo(id);
+        Recipe result = recipeDao.findById(id);
+
+        assertThat(result).isNotNull();
+        assertThat(result.getId()).isEqualTo(id);
     }
 
     @Test
@@ -76,11 +72,29 @@ public class RecipeDaoTests extends BaseDaoTests {
         (Mockito.doReturn(recipes).when(mockTemplate))
                 .find("FROM Recipe");
 
-        assertThat(recipeDao.findAll().size()).isEqualTo(recipeListSize);
+        List<Recipe> result = recipeDao.findAll();
+
+        assertThat(result).isNotNull();
+        assertThat(result.size()).isEqualTo(recipeListSize);
     }
 
     @Test
     public void testSave() {
+        Mockito.when(mockTemplate.save(recipes.get(0))).thenReturn((long)1);
 
+        recipeDao.save(recipes.get(0));
+
+        Mockito.verify(mockTemplate).save(recipes.get(0));
+    }
+
+    private void setUpTestData() {
+        recipes = new ArrayList<>();
+
+        for (int i = 0; i < recipeListSize; i++) {
+            Recipe recipe = new Recipe();
+            recipe.setId(i);
+            recipe.setUid("recipe_xxxxx" + i);
+            recipes.add(recipe);
+        }
     }
 }
