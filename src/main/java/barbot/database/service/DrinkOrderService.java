@@ -8,5 +8,5 @@ import barbot.database.model.DrinkOrder;
 public interface DrinkOrderService {
     void create(DrinkOrder drinkOrder);
 
-    DrinkOrder findById(String drinkOrderId);
+    DrinkOrder findByUid(String drinkOrderId);
 }

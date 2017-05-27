@@ -53,7 +53,7 @@ public class CreateCustomRecipe extends BaseCommand {
         ArrayList<HashMap> ingredients = (ArrayList<HashMap>)data.get("ingredients");
         for(HashMap ingredient : ingredients) {
             String id = (String) ingredient.get("ingredient_id");
-            Ingredient addIngredient = ingredientService.findById(id);
+            Ingredient addIngredient = ingredientService.findByUid(id);
             if(addIngredient != null) {
                 RecipeIngredient recipeIngredient = new RecipeIngredient();
                 recipeIngredient.setAmount(BigDecimal.valueOf(Double.parseDouble((String)ingredient.get("amount"))));

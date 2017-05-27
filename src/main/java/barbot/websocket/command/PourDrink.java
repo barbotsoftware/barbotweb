@@ -5,12 +5,10 @@ import java.util.Map;
 
 import barbot.utils.FieldValidator;
 import barbot.utils.HelperMethods;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import barbot.database.model.DrinkOrder;
 import barbot.database.model.Recipe;
 import barbot.database.service.DrinkOrderService;
-import barbot.database.service.RecipeService;
 import barbot.utils.Constants;
 
 /**
@@ -33,7 +31,7 @@ public class PourDrink extends BaseCommand {
 
         String drinkOrderId = (String) data.get(Constants.KEY_DATA_DRINK_ORDER_ID);
 
-        DrinkOrder drinkOrder = this.drinkOrderService.findById(drinkOrderId);
+        DrinkOrder drinkOrder = this.drinkOrderService.findByUid(drinkOrderId);
 
         Recipe recipe = drinkOrder.getRecipe();
 

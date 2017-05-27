@@ -37,7 +37,7 @@ public class DrinkOrderServiceImpl implements DrinkOrderService {
     }
 
     @Override
-    public DrinkOrder findById(String drinkOrderId) {
+    public DrinkOrder findByUid(String drinkOrderId) {
         Assert.hasLength(drinkOrderId, "DrinkOrderId must not be empty");
         return drinkOrderDao.findByUid(drinkOrderId);
     }

@@ -31,7 +31,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     HelperMethods hlpr;
 
     @Override
-    public User findById(String userId) {
+    public User findByUid(String userId) {
         Assert.hasLength(userId, "UserId must not be empty");
         return userDao.findByUid(userId);
     }

@@ -22,7 +22,7 @@ public class IngredientServiceImpl implements IngredientService {
 
     @Override
     @Transactional
-    public Ingredient findById(String ingredientId) {
+    public Ingredient findByUid(String ingredientId) {
         Assert.hasLength(ingredientId, "IngredientId must not be empty");
         return ingredientDao.findByUid(ingredientId);
     }
