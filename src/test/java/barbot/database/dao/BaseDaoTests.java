@@ -6,6 +6,8 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.orm.hibernate5.HibernateTemplate;
 
+import barbot.TestDataHelper;
+
 /**
  * Created by Naveen on 5/20/17.
  */
@@ -14,8 +16,11 @@ public abstract class BaseDaoTests {
     @Mock
     protected HibernateTemplate mockTemplate;
 
+    protected TestDataHelper testDataHelper;
+
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
+        testDataHelper = new TestDataHelper();
     }
 }

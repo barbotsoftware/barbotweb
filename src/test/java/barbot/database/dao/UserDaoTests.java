@@ -2,7 +2,6 @@ package barbot.database.dao;
 
 import static org.assertj.core.api.Java6Assertions.assertThat;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Before;
@@ -90,14 +89,6 @@ public class UserDaoTests extends BaseDaoTests {
     }
 
     private void setUpTestData() {
-        users = new ArrayList<>();
-
-        for (int i = 0; i < userListSize; i++) {
-            User user = new User();
-            user.setId(i);
-            user.setUid("user_xxxxx" + i);
-            user.setName("User " + i);
-            users.add(user);
-        }
+        users = testDataHelper.createUserList(userListSize);
     }
 }

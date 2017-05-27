@@ -2,7 +2,6 @@ package barbot.database.dao;
 
 import static org.assertj.core.api.Java6Assertions.assertThat;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Before;
@@ -77,13 +76,6 @@ public class DrinkOrderDaoTests extends BaseDaoTests {
     }
 
     private void setUpTestData() {
-        drinkOrders = new ArrayList<>();
-
-        for (int i = 1; i < drinkOrderListSize; i++) {
-            DrinkOrder drinkOrder = new DrinkOrder();
-            drinkOrder.setId(i);
-            drinkOrder.setUid("drinkOrder_xxxxx" + i);
-            drinkOrders.add(drinkOrder);
-        }
+        drinkOrders = testDataHelper.createDrinkOrderList(drinkOrderListSize);
     }
 }

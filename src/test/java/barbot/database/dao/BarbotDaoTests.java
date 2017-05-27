@@ -2,10 +2,8 @@ package barbot.database.dao;
 
 import static org.assertj.core.api.Java6Assertions.assertThat;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -33,7 +31,7 @@ public class BarbotDaoTests extends BaseDaoTests {
 
     private List<Barbot> barbots;
 
-    private Set<BarbotContainer> barbotContainers;
+    private List<BarbotContainer> barbotContainers;
 
     private List<Recipe> recipes;
 
@@ -112,48 +110,19 @@ public class BarbotDaoTests extends BaseDaoTests {
     private void setUpTestData() {
 
         // Barbots
-        barbots = new ArrayList<>();
-
-        for (int i = 1; i <= listSize; i++) {
-            Barbot barbot = new Barbot();
-            barbot.setId(i);
-            barbot.setUid("drinkOrder_xxxxx" + i);
-            barbots.add(barbot);
-        }
+        barbots = testDataHelper.createBarbotList(listSize);
 
         // Ingredients
-        ingredients = new ArrayList<>();
-
-        for (int i = 1; i <= listSize; i++) {
-            Ingredient ingredient = new Ingredient();
-            ingredient.setId(i);
-            ingredient.setUid("ingredient_xxxxx" + i);
-            ingredients.add(ingredient);
-        }
+        ingredients = testDataHelper.createIngredientList(listSize);
 
         // BarbotContainers
-        barbotContainers = new HashSet<>();
-
-        for (int i = 1; i <= listSize; i++) {
-            BarbotContainer bc = new BarbotContainer();
-            bc.setId(i);
-            bc.setIngredient(ingredients.get(i-1));
-            bc.setBarbot(barbots.get(0));
-            barbotContainers.add(bc);
-        }
+        barbotContainers = testDataHelper.createBarbotContainerList(listSize,
+                ingredients, barbots);
 
         // Set BarbotContainers to first Barbot
-        barbots.get(0).setBarbotContainers(barbotContainers);
+        barbots.get(0).setBarbotContainers(new HashSet<>(barbotContainers));
 
         // Recipes
-        recipes = new ArrayList<>();
-
-        for (int i = 1; i <= listSize; i++) {
-            Recipe recipe = new Recipe();
-            recipe.setId(i);
-            recipe.setUid("recipe_xxxxx" + i);
-            recipe.setIngredients(new HashSet(ingredients));
-            recipes.add(recipe);
-        }
+        recipes = testDataHelper.createRecipeList(listSize, ingredients);
     }
 }
