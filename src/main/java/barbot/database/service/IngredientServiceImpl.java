@@ -1,13 +1,12 @@
 package barbot.database.service;
 
-import javax.annotation.Resource;
 import javax.transaction.Transactional;
 
-import barbot.database.dao.IngredientDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
+import barbot.database.dao.IngredientDao;
 import barbot.database.model.Ingredient;
 
 /**

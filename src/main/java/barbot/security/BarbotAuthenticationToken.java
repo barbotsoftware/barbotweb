@@ -1,6 +1,5 @@
 package barbot.security;
 
-import barbot.database.model.Barbot;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 
 /**

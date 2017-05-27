@@ -1,12 +1,13 @@
 package barbot.utils;
 
-import barbot.database.dao.MainDao;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import barbot.database.dao.MainDao;
 
 /**
  * Common validation logic for validating user input

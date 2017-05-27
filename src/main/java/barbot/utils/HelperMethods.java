@@ -1,11 +1,11 @@
 package barbot.utils;
 
+import java.util.Random;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.stereotype.Component;
-
-import java.util.Random;
 
 /**
  * Created by Alex on 4/26/2017.

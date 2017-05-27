@@ -4,11 +4,6 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import barbot.database.model.Barbot;
-import barbot.database.model.View;
-import barbot.event.BarbotEvent;
-import barbot.utils.HelperMethods;
-import barbot.websocket.command.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.EventListener;
 import org.springframework.security.core.context.SecurityContext;
@@ -25,8 +20,21 @@ import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.hibernate5.Hibernate5Module;
 
+import barbot.database.model.Barbot;
 import barbot.database.model.User;
+import barbot.database.model.View;
+import barbot.event.BarbotEvent;
 import barbot.utils.Constants;
+import barbot.utils.HelperMethods;
+import barbot.websocket.command.BaseCommand;
+import barbot.websocket.command.Command;
+import barbot.websocket.command.CommandFactory;
+import barbot.websocket.command.CreateCustomRecipe;
+import barbot.websocket.command.GetIngredientsForBarbot;
+import barbot.websocket.command.GetRecipeDetails;
+import barbot.websocket.command.GetRecipesForBarbot;
+import barbot.websocket.command.OrderDrink;
+import barbot.websocket.command.PourDrink;
 
 /**
  * Created by alexh on 4/6/2017.

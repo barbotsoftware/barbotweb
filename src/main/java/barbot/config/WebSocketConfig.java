@@ -1,12 +1,13 @@
 package barbot.config;
 
-import barbot.websocket.WebSocketHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.socket.config.annotation.EnableWebSocket;
 import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
 import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry;
 import org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor;
+
+import barbot.websocket.WebSocketHandler;
 
 /**
  * Created by alexh on 4/6/2017.

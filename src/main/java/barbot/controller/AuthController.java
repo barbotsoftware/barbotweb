@@ -1,8 +1,10 @@
 package barbot.controller;
 
-import barbot.database.model.User;
-import barbot.database.service.UserService;
-import barbot.utils.FieldValidator;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -10,9 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpServletRequest;
-import java.util.HashMap;
-import java.util.Map;
+import barbot.database.model.User;
+import barbot.database.service.UserService;
+import barbot.utils.FieldValidator;
 
 /**
  * Created by Alex on 2/19/2017.

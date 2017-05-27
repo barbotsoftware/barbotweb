@@ -1,9 +1,7 @@
 package barbot.database.service;
 
 import java.util.List;
-import java.util.Set;
 
-import barbot.database.model.Ingredient;
 import barbot.database.model.Recipe;
 
 /**

@@ -2,12 +2,11 @@ package barbot.websocket.command;
 
 import java.util.HashMap;
 
-import barbot.utils.FieldValidator;
-import barbot.utils.HelperMethods;
-
 import barbot.database.model.View;
 import barbot.database.service.RecipeService;
 import barbot.utils.Constants;
+import barbot.utils.FieldValidator;
+import barbot.utils.HelperMethods;
 
 /**
  * Created by Naveen on 4/11/17.

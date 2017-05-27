@@ -1,17 +1,13 @@
 package barbot.websocket.command;
 
 import java.util.HashMap;
-import java.util.Map;
-
-import barbot.utils.FieldValidator;
-import barbot.utils.HelperMethods;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import barbot.database.model.Barbot;
 import barbot.database.model.View;
 import barbot.database.service.BarbotService;
-import barbot.database.service.IngredientService;
 import barbot.utils.Constants;
+import barbot.utils.FieldValidator;
+import barbot.utils.HelperMethods;
 
 /**
  * Created by Naveen on 4/11/17.

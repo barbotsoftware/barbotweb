@@ -1,9 +1,8 @@
 package barbot.config;
 
-import barbot.database.service.BarbotService;
-import barbot.database.service.UserServiceImpl;
-import barbot.security.BarbotAuthenticationProvider;
-import barbot.security.WebSocketAuthFilter;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
@@ -17,8 +16,10 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import java.util.ArrayList;
-import java.util.List;
+import barbot.database.service.BarbotService;
+import barbot.database.service.UserServiceImpl;
+import barbot.security.BarbotAuthenticationProvider;
+import barbot.security.WebSocketAuthFilter;
 
 /**
  * Created by Naveen on 3/26/17.

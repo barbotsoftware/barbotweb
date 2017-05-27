@@ -1,22 +1,18 @@
 package barbot.database.service;
 
 import java.util.List;
-import java.util.Set;
 
-import javax.annotation.Resource;
 import javax.transaction.Transactional;
 
-import barbot.database.dao.RecipeDao;
-import barbot.utils.Constants;
-import barbot.utils.HelperMethods;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
-
-import barbot.database.model.Ingredient;
-import barbot.database.model.Recipe;
 import org.springframework.util.StringUtils;
+
+import barbot.database.dao.RecipeDao;
+import barbot.database.model.Recipe;
+import barbot.utils.Constants;
+import barbot.utils.HelperMethods;
 
 /**
  * Created by Naveen on 4/12/17.

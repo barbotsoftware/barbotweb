@@ -1,10 +1,10 @@
 package barbot.database.dao;
 
+import javax.transaction.Transactional;
+
 import org.hibernate.SQLQuery;
 import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
 import org.springframework.stereotype.Component;
-
-import javax.transaction.Transactional;
 
 /**
  * Created by Alex on 5/1/2017.

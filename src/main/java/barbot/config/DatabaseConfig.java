@@ -1,15 +1,22 @@
 package barbot.config;
 
-import barbot.database.dao.*;
+import java.util.Properties;
+
+import javax.sql.DataSource;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
-import javax.sql.DataSource;
 
-import java.util.Properties;
+import barbot.database.dao.BarbotDao;
+import barbot.database.dao.DrinkOrderDao;
+import barbot.database.dao.IngredientDao;
+import barbot.database.dao.MainDao;
+import barbot.database.dao.RecipeDao;
+import barbot.database.dao.UserDao;
 
 /**
  * Created by alexh on 3/25/2017.

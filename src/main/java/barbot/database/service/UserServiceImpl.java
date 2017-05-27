@@ -2,9 +2,6 @@ package barbot.database.service;
 
 import javax.transaction.Transactional;
 
-import barbot.database.dao.UserDao;
-import barbot.utils.Constants;
-import barbot.utils.HelperMethods;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -12,9 +9,12 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
-
-import barbot.database.model.User;
 import org.springframework.util.StringUtils;
+
+import barbot.database.dao.UserDao;
+import barbot.database.model.User;
+import barbot.utils.Constants;
+import barbot.utils.HelperMethods;
 
 /**
  * Created by Naveen on 4/13/17.

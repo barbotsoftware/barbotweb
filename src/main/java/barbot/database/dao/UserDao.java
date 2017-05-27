@@ -1,11 +1,13 @@
 package barbot.database.dao;
 
-import barbot.database.model.User;
+import java.util.List;
+
+import javax.transaction.Transactional;
+
 import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
 import org.springframework.stereotype.Component;
 
-import javax.transaction.Transactional;
-import java.util.List;
+import barbot.database.model.User;
 
 /**
  * Created by Alex on 5/11/2017.
