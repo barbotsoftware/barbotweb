@@ -31,6 +31,22 @@ public class BarbotPump extends BaseEntity {
         this.barbotContainer = barbotContainer;
     }
 
+    public BarbotIoDevice getBarbotIoDevice() {
+        return barbotIoDevice;
+    }
+
+    public void setBarbotIoDevice(BarbotIoDevice barbotIoDevice) {
+        this.barbotIoDevice = barbotIoDevice;
+    }
+
+    public BarbotContainer getBarbotContainer() {
+        return barbotContainer;
+    }
+
+    public void setBarbotContainer(BarbotContainer barbotContainer) {
+        this.barbotContainer = barbotContainer;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
