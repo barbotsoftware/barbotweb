@@ -56,8 +56,8 @@ public class Recipe extends BaseEntity {
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, targetEntity = Ingredient.class)
     @JoinTable(name = Constants.TABLE_RECIPE_INGREDIENT, schema = Constants.DB_SCHEMA,
-            joinColumns = @JoinColumn(name = "recipe_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "ingredient_id", referencedColumnName = "id"))
+            joinColumns = @JoinColumn(name = "recipe_id", referencedColumnName = "id", nullable = false),
+            inverseJoinColumns = @JoinColumn(name = "ingredient_id", referencedColumnName = "id", nullable = false))
     @JsonView(View.Detail.class)
     @JsonProperty("ingredient_list")
     private Set<Ingredient> ingredients;
