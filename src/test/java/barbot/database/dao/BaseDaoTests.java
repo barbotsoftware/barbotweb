@@ -6,7 +6,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.orm.hibernate5.HibernateTemplate;
 
-import barbot.TestDataHelper;
+import barbot.utils.TestDataHelper;
 
 /**
  * Created by Naveen on 5/20/17.
