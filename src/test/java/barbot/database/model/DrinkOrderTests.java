@@ -73,9 +73,7 @@ public class DrinkOrderTests extends EntityTests {
 
         JsonView jv = createJsonView(DrinkOrder.class, "uid");
 
-        Class<?>[] array = { View.Response.class };
-
-        assertThat(jv.value()).isEqualTo(array);
+        assertThat(jv.value()).contains(View.Response.class);
     }
 
     @Test
@@ -105,9 +103,7 @@ public class DrinkOrderTests extends EntityTests {
 
         JsonView jv = createJsonView(DrinkOrder.class, "recipe");
 
-        Class<?>[] array = { View.Summary.class };
-
-        assertThat(jv.value()).isEqualTo(array);
+        assertThat(jv.value()).contains(View.Summary.class);
     }
 
     @Test
@@ -124,9 +120,7 @@ public class DrinkOrderTests extends EntityTests {
 
         JsonView jv = createJsonView(DrinkOrder.class, "barbot");
 
-        Class<?>[] array = { View.Summary.class };
-
-        assertThat(jv.value()).isEqualTo(array);
+        assertThat(jv.value()).contains(View.Summary.class);
     }
 
     @Test
@@ -138,9 +132,7 @@ public class DrinkOrderTests extends EntityTests {
 
         JsonView jv = createJsonView(DrinkOrder.class, "ice");
 
-        Class<?>[] array = { View.Summary.class };
-
-        assertThat(jv.value()).isEqualTo(array);
+        assertThat(jv.value()).contains(View.Summary.class);
     }
 
     @Test
@@ -152,8 +144,6 @@ public class DrinkOrderTests extends EntityTests {
 
         JsonView jv = createJsonView(DrinkOrder.class, "garnish");
 
-        Class<?>[] array = { View.Summary.class };
-
-        assertThat(jv.value()).isEqualTo(array);
+        assertThat(jv.value()).contains(View.Summary.class);
     }
 }

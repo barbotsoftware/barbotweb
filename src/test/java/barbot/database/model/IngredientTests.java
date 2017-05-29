@@ -73,9 +73,7 @@ public class IngredientTests extends EntityTests {
 
         JsonView jv = createJsonView(Ingredient.class, "uid");
 
-        Class<?>[] array = { View.Id.class };
-
-        assertThat(jv.value()).isEqualTo(array);
+        assertThat(jv.value()).contains(View.Id.class);
     }
 
     @Test
@@ -87,9 +85,7 @@ public class IngredientTests extends EntityTests {
 
         JsonView jv = createJsonView(Ingredient.class, "name");
 
-        Class<?>[] array = { View.Summary.class };
-
-        assertThat(jv.value()).isEqualTo(array);
+        assertThat(jv.value()).contains(View.Summary.class);
     }
 
     @Test

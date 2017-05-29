@@ -76,10 +76,7 @@ public class BarbotTests extends EntityTests {
 
         JsonView jv = createJsonView(Barbot.class, "uid");
 
-        // init Array with View class
-        Class<?>[] array = { View.Request.class };
-
-        assertThat(jv.value()).isEqualTo(array);
+        assertThat(jv.value()).contains(View.Request.class);
     }
 
     @Test

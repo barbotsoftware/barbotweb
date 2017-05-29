@@ -9,6 +9,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -16,6 +17,8 @@ import javax.persistence.Table;
 
 import org.junit.Ignore;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonView;
 
@@ -43,6 +46,18 @@ public abstract class EntityTests {
 
     protected JoinColumn createJoinColumn(Class<?> cl, String fieldName) {
         return createFieldAnnotation(cl, fieldName, JoinColumn.class);
+    }
+
+    protected JoinTable createJoinTable(Class<?> cl, String fieldName) {
+        return createFieldAnnotation(cl, fieldName, JoinTable.class);
+    }
+
+    protected JsonBackReference createJsonBackReference(Class<?> cl, String fieldName) {
+        return createFieldAnnotation(cl, fieldName, JsonBackReference.class);
+    }
+
+    protected JsonManagedReference createJsonManagedReference(Class<?> cl, String fieldName) {
+        return createFieldAnnotation(cl, fieldName, JsonManagedReference.class);
     }
 
     protected JsonProperty createJsonProperty(Class<?> cl, String fieldName) {
