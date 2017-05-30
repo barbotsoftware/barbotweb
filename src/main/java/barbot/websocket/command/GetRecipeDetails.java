@@ -39,7 +39,7 @@ public class GetRecipeDetails extends BaseCommand {
             return false;
 
         HashMap fieldsToValidate = new HashMap();
-        fieldsToValidate.put(Constants.KEY_DATA, "required|exists:recipe");
+        fieldsToValidate.put(Constants.KEY_DATA_RECIPE_ID, "required|exists:recipe");
 
         if(!fieldValidator.validate((HashMap)message.get(Constants.KEY_DATA), fieldsToValidate)) {
             error = fieldValidator.getErrors();
