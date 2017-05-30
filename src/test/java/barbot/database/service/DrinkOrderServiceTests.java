@@ -4,12 +4,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import barbot.database.dao.DrinkOrderDao;
 import barbot.database.model.DrinkOrder;
@@ -18,8 +15,6 @@ import barbot.utils.HelperMethods;
 /**
  * Created by Naveen on 5/27/17.
  */
-@RunWith(SpringRunner.class)
-@SpringBootTest
 public class DrinkOrderServiceTests extends BaseServiceTests {
 
     @InjectMocks

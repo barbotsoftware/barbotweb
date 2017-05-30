@@ -9,8 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.json.JsonTest;
 import org.springframework.boot.test.json.JacksonTester;
 import org.springframework.boot.test.json.JsonContent;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import barbot.config.TestDatabaseConfig;
 import barbot.database.model.Ingredient;
 import barbot.database.model.View;
 
@@ -19,9 +21,9 @@ import barbot.database.model.View;
  */
 @RunWith(SpringRunner.class)
 @JsonTest
+@ContextConfiguration(classes = TestDatabaseConfig.class)
 public class IngredientJsonTests extends BaseJsonTests {
 
-    @Autowired
     private JacksonTester<Ingredient> jacksonTester;
 
     String ingredientIdJson;
@@ -30,8 +32,11 @@ public class IngredientJsonTests extends BaseJsonTests {
     Ingredient ingredientId;
     Ingredient ingredientSummary;
 
+    @Override
     @Before
     public void setUp() {
+        super.setUp();
+
         ingredientIdJson = "{\n" +
                 "  \"ingredient_id\":\"ingredient_123456\"\n" +
                 "}";
