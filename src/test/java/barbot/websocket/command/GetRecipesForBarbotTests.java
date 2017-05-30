@@ -13,7 +13,6 @@ import org.mockito.Mockito;
 import barbot.database.model.Barbot;
 import barbot.database.model.Recipe;
 import barbot.database.service.BarbotService;
-import barbot.utils.Constants;
 
 /**
  * Created by Naveen on 5/29/17.
@@ -66,9 +65,9 @@ public class GetRecipesForBarbotTests extends CommandTests {
         HashMap data = new HashMap<>();
         data.put("barbot_id", barbotId);
 
-        msg.put(Constants.KEY_DATA, data);
+        msg.put("data", data);
 
-        fieldsToValidate.put(Constants.KEY_DATA_BARBOT_ID, "required|exists:barbot");
+        fieldsToValidate.put("barbot_id", "required|exists:barbot");
 
         barbot = new Barbot(barbotId);
 
