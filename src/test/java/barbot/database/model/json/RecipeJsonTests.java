@@ -2,6 +2,7 @@ package barbot.database.model.json;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -12,10 +13,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.json.JsonTest;
 import org.springframework.boot.test.json.JacksonTester;
 import org.springframework.boot.test.json.JsonContent;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import barbot.config.TestDatabaseConfig;
 import barbot.database.model.Ingredient;
 import barbot.database.model.Recipe;
+import barbot.database.model.RecipeIngredient;
 import barbot.database.model.View;
 
 /**
@@ -23,9 +27,9 @@ import barbot.database.model.View;
  */
 @RunWith(SpringRunner.class)
 @JsonTest
+@ContextConfiguration(classes = TestDatabaseConfig.class)
 public class RecipeJsonTests extends BaseJsonTests {
 
-    @Autowired
     private JacksonTester<Recipe> jacksonTester;
 
     String recipeIdJson;
@@ -36,55 +40,14 @@ public class RecipeJsonTests extends BaseJsonTests {
     Recipe recipeSummary;
     Recipe recipeDetail;
 
-    Set<Ingredient> ingredients;
+    Set<RecipeIngredient> recipeIngredients;
 
+    @Override
     @Before
     public void setUp() {
-        recipeIdJson = "{\n" +
-                "  \"recipe_id\":\"recipe_123456\"\n" +
-                "}";
+        super.setUp();
 
-        recipeSummaryJson = "{ \"name\": \"Cuba Libre\"," +
-                "  \"recipe_id\": \"recipe_8a4d7a\"," +
-                "  \"img\": \"http:\\/\\/192.168.1.41\\/barbot\\/public\\/images\\/cubalibre.png\" }";
-
-        recipeDetailJson = "{" +
-                "            \"name\": \"The Sour\"," +
-                "            \"recipe_id\": \"recipe_9aa19a\"," +
-                "            \"img\": \"http:\\/\\/farm8.staticflickr.com\\/7252\\/7594170156_46bf574865_o.jpg\"," +
-                "            \"ingredients\": [{" +
-                "                \"ingredient_id\": \"ingredient_123450\"," +
-                "                \"name\": \"Ingredient0\"" +
-                "            }, {" +
-                "                \"ingredient_id\": \"ingredient_123451\"," +
-                "                \"name\": \"Ingredient1\"" +
-                "            }, {" +
-                "                \"ingredient_id\": \"ingredient_123452\"," +
-                "                \"name\": \"Ingredient2\"" +
-                "            }, {" +
-                "                \"ingredient_id\": \"ingredient_123453\"," +
-                "                \"name\": \"Ingredient3\"" +
-                "            }]" +
-                "}";
-
-        recipeId = new Recipe("recipe_123456");
-
-        recipeSummary = new Recipe("recipe_8a4d7a",
-                "Cuba Libre",
-                "http://192.168.1.41/barbot/public/images/cubalibre.png");
-
-        ingredients = new HashSet<>();
-
-        for (int i = 0; i < 4; i++) {
-            Ingredient ingredient = new Ingredient("ingredient_12345" + i, "Ingredient" + i);
-
-            ingredients.add(ingredient);
-        }
-
-        recipeDetail = new Recipe("recipe_9aa19a",
-                "The Sour",
-                "http://farm8.staticflickr.com/7252/7594170156_46bf574865_o.jpg",
-                ingredients);
+        setUpTestData();
     }
 
     @Test
@@ -219,6 +182,55 @@ public class RecipeJsonTests extends BaseJsonTests {
         assertThat(result.getImageUrl()).isEqualTo("http://farm8.staticflickr.com/7252/7594170156_46bf574865_o.jpg");
 
         // Check Ingredients
-        //assertThat(result.getIngredients()).isEqualTo(ingredients);
+        assertThat(result.getRecipeIngredients()).isEqualTo(recipeIngredients);
+    }
+
+    private void setUpTestData() {
+        recipeIdJson = "{\n" +
+                "  \"recipe_id\":\"recipe_123456\"\n" +
+                "}";
+
+        recipeSummaryJson = "{ \"name\": \"Cuba Libre\"," +
+                "  \"recipe_id\": \"recipe_8a4d7a\"," +
+                "  \"img\": \"http:\\/\\/192.168.1.41\\/barbot\\/public\\/images\\/cubalibre.png\" }";
+
+        recipeDetailJson = "{" +
+                "            \"name\": \"The Sour\"," +
+                "            \"recipe_id\": \"recipe_9aa19a\"," +
+                "            \"img\": \"http:\\/\\/farm8.staticflickr.com\\/7252\\/7594170156_46bf574865_o.jpg\"," +
+                "            \"ingredients\": [{" +
+                "                \"ingredient_id\": \"ingredient_123450\"," +
+                "                \"amount\": 0.0" +
+                "            }, {" +
+                "                \"ingredient_id\": \"ingredient_123451\"," +
+                "                \"amount\": 1.0" +
+                "            }, {" +
+                "                \"ingredient_id\": \"ingredient_123452\"," +
+                "                \"amount\": 2.0" +
+                "            }, {" +
+                "                \"ingredient_id\": \"ingredient_123453\"," +
+                "                \"amount\": 3.0" +
+                "            }]" +
+                "}";
+
+        recipeId = new Recipe("recipe_123456");
+
+        recipeSummary = new Recipe("recipe_8a4d7a",
+                "Cuba Libre",
+                "http://192.168.1.41/barbot/public/images/cubalibre.png");
+
+        recipeDetail = new Recipe("recipe_9aa19a",
+                "The Sour",
+                "http://farm8.staticflickr.com/7252/7594170156_46bf574865_o.jpg");
+
+        recipeIngredients = new HashSet<>();
+
+        for (int i = 0; i < 4; i++) {
+            RecipeIngredient recipeIngredient = new RecipeIngredient(recipeDetail, new Ingredient("ingredient_12345" + i), new BigDecimal(i));
+
+            recipeIngredients.add(recipeIngredient);
+        }
+
+        recipeDetail.setRecipeIngredients(recipeIngredients);
     }
 }

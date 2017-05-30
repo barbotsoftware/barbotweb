@@ -5,19 +5,19 @@
   "ingredients":[
     {
       "ingredient_id":"ingredient_123450",
-      "name":"Ingredient0"
+      "amount":0.0
     },
     {
       "ingredient_id":"ingredient_123451",
-      "name":"Ingredient1"
+      "amount":1.0
     },
     {
       "ingredient_id":"ingredient_123452",
-      "name":"Ingredient2"
+      "amount":2.0
     },
     {
       "ingredient_id":"ingredient_123453",
-      "name":"Ingredient3"
+      "amount":3.0
     }
   ]
 }

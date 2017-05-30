@@ -13,6 +13,7 @@ import javax.persistence.Table;
 
 import barbot.utils.Constants;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonView;
 
 /**
@@ -30,6 +31,7 @@ public class RecipeIngredient extends BaseEntity {
 
     @ManyToOne
     @JoinColumn(name = "ingredient_id", referencedColumnName = "id", nullable = false)
+    @JsonProperty("ingredient_id")
     @JsonView(View.Summary.class)
     private Ingredient ingredient;
 

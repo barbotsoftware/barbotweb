@@ -14,6 +14,7 @@ import javax.persistence.Table;
 import org.junit.Test;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonView;
 
 /**
@@ -30,7 +31,8 @@ public class RecipeIngredientTests extends EntityTests {
     public void testFieldAnnotations() {
         assertField(RecipeIngredient.class, "recipe", ManyToOne.class, JoinColumn.class, JsonView.class,
                 JsonBackReference.class);
-        assertField(RecipeIngredient.class, "ingredient", ManyToOne.class, JoinColumn.class, JsonView.class);
+        assertField(RecipeIngredient.class, "ingredient", ManyToOne.class, JoinColumn.class, JsonProperty.class,
+                JsonView.class);
         assertField(RecipeIngredient.class, "amount", Column.class, JsonView.class);
     }
 
@@ -88,6 +90,10 @@ public class RecipeIngredientTests extends EntityTests {
         assertThat(jc.name()).isEqualTo("ingredient_id");
         assertThat(jc.referencedColumnName()).isEqualTo("id");
         assertThat(jc.nullable()).isFalse();
+
+        JsonProperty jp = createJsonProperty(RecipeIngredient.class, "ingredient");
+
+        assertThat(jp.value()).isEqualTo("ingredient_id");
 
         JsonView jv = createJsonView(RecipeIngredient.class, "ingredient");
 
