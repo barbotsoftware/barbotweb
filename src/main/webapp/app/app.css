@@ -1,0 +1,10 @@
+.anus-counter {
+    margin: 5px;
+    width: 200px;
+    background: gainsboro;
+}
+
+.anus-counter:hover {
+    cursor: pointer;
+    color: pink;
+}
