@@ -15,13 +15,10 @@ public class GetRecipeDetails extends BaseCommand {
 
     RecipeService recipeService;
 
-    private FieldValidator fieldValidator;
-
     public GetRecipeDetails(RecipeService recipeService, FieldValidator validator, HelperMethods hlpr, HashMap msg) {
-        super(msg, hlpr);
+        super(msg, hlpr, validator);
         setJsonView(View.Summary.class);
         this.recipeService = recipeService;
-        this.fieldValidator = validator;
     }
 
     @Override

@@ -25,6 +25,7 @@ import barbot.database.model.User;
 import barbot.database.model.View;
 import barbot.event.BarbotEvent;
 import barbot.utils.Constants;
+import barbot.utils.FieldValidator;
 import barbot.utils.HelperMethods;
 import barbot.websocket.command.BaseCommand;
 import barbot.websocket.command.Command;
@@ -48,6 +49,9 @@ public class WebSocketHandler extends TextWebSocketHandler {
 
     @Autowired
     HelperMethods hlpr;
+
+    @Autowired
+    FieldValidator fieldValidator;
 
     private Map<String, WebSocketSession> sessionMap;
 
@@ -119,7 +123,7 @@ public class WebSocketHandler extends TextWebSocketHandler {
                 command = commandFactory.create(PourDrink.class, msg);
                 break;
             default:
-                command = new BaseCommand(msg, hlpr);
+                command = new BaseCommand(msg, hlpr, fieldValidator);
                 sendError(session, Constants.ERROR_MSG_COMMAND_NOT_RECOGNIZED);
                 break;
         }

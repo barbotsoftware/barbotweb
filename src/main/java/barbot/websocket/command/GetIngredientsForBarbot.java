@@ -16,13 +16,10 @@ public class GetIngredientsForBarbot extends BaseCommand {
 
     BarbotService barbotService;
 
-    private FieldValidator fieldValidator;
-
     public GetIngredientsForBarbot(BarbotService barbotService, FieldValidator validator, HelperMethods hlpr, HashMap msg) {
-        super(msg, hlpr);
+        super(msg, hlpr, validator);
         setJsonView(View.Summary.class);
         this.barbotService = barbotService;
-        this.fieldValidator = validator;
     }
 
     @Override

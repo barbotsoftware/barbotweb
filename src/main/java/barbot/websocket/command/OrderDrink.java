@@ -30,21 +30,18 @@ public class OrderDrink extends BaseCommand {
 
     private ApplicationEventPublisher publisher;
 
-    private FieldValidator fieldValidator;
-
     private User user;
 
     public OrderDrink(DrinkOrderService drinkOrderService, RecipeService recipeService, BarbotService barbotService,
                       FieldValidator validator, HelperMethods hlpr, ApplicationEventPublisher publisher, HashMap msg,
                       User user) {
-        super(msg, hlpr);
+        super(msg, hlpr, validator);
         this.user = user;
         // Return Drink Order Response
         setJsonView(View.Response.class);
         this.drinkOrderService = drinkOrderService;
         this.recipeService = recipeService;
         this.barbotService = barbotService;
-        this.fieldValidator = validator;
         this.publisher = publisher;
     }
 

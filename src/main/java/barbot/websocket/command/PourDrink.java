@@ -17,12 +17,9 @@ public class PourDrink extends BaseCommand {
 
     DrinkOrderService drinkOrderService;
 
-    private FieldValidator fieldValidator;
-
     public PourDrink(DrinkOrderService drinkOrderService, FieldValidator validator, HelperMethods hlpr, HashMap msg) {
-        super(msg, hlpr);
+        super(msg, hlpr, validator);
         this.drinkOrderService = drinkOrderService;
-        this.fieldValidator = validator;
     }
 
     @Override

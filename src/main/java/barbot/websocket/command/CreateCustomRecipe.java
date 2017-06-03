@@ -28,20 +28,16 @@ public class CreateCustomRecipe extends BaseCommand {
 
     private User user;
 
-    private FieldValidator fieldValidator;
-
     public CreateCustomRecipe(RecipeService recipeService, IngredientService ingredientService, FieldValidator validator, HelperMethods hlpr, HashMap msg, User user) {
-        super(msg, hlpr);
+        super(msg, hlpr, validator);
         this.user = user;
         this.recipeService = recipeService;
-        this.fieldValidator = validator;
         this.ingredientService = ingredientService;
         setJsonView(View.Summary.class);
     }
 
     @Override
     public Object execute() {
-        HashMap data = (HashMap)message.get("data");
 
         Recipe recipe = new Recipe();
         recipe.setCustom(true);

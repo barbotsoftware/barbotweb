@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import barbot.utils.Constants;
+import barbot.utils.FieldValidator;
 import barbot.utils.HelperMethods;
 
 /**
@@ -15,14 +16,16 @@ public class BaseCommand implements Command {
     protected Map error;
     private Class<?> jsonView;
     protected HelperMethods hlpr;
+    protected FieldValidator fieldValidator;
 
     BaseCommand() { }
 
-    public BaseCommand(HashMap msg, HelperMethods hlpr) {
+    public BaseCommand(HashMap msg, HelperMethods hlpr, FieldValidator fieldValidator) {
         message = msg;
         data = (HashMap) message.get(Constants.KEY_DATA);
         error = new HashMap();
         this.hlpr = hlpr;
+        this.fieldValidator = fieldValidator;
     }
 
     @Override
