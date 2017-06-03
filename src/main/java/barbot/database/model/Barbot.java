@@ -39,9 +39,6 @@ public class Barbot extends BaseEntity {
     private Set<BarbotContainer> barbotContainers;
 
     @OneToMany(mappedBy = "barbot")
-    private Set<BarbotIoDevice> barbotIoDevices;
-
-    @OneToMany(mappedBy = "barbot")
     private Set<DrinkOrder> drinkOrders;
 
     public Barbot() {
@@ -95,14 +92,6 @@ public class Barbot extends BaseEntity {
 
     public void setBarbotContainers(Set<BarbotContainer> barbotContainers) {
         this.barbotContainers = barbotContainers;
-    }
-
-    public Set<BarbotIoDevice> getBarbotIoDevices() {
-        return barbotIoDevices;
-    }
-
-    public void setBarbotIoDevices(Set<BarbotIoDevice> barbotIoDevices) {
-        this.barbotIoDevices = barbotIoDevices;
     }
 
     public Set<DrinkOrder> getDrinkOrders() {

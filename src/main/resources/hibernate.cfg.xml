@@ -11,9 +11,6 @@
         <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
         <mapping class="barbot.database.model.Barbot"/>
         <mapping class="barbot.database.model.BarbotContainer"/>
-        <mapping class="barbot.database.model.BarbotIoDevice"/>
-        <mapping class="barbot.database.model.BarbotIoDeviceType"/>
-        <mapping class="barbot.database.model.BarbotPump"/>
         <mapping class="barbot.database.model.DrinkOrder"/>
         <mapping class="barbot.database.model.Ingredient"/>
         <mapping class="barbot.database.model.Migration"/>

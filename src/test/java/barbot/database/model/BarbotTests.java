@@ -33,7 +33,6 @@ public class BarbotTests extends EntityTests {
         assertField(Barbot.class, "status", Column.class);
         assertField(Barbot.class, "password", Column.class, JsonIgnore.class);
         assertField(Barbot.class, "barbotContainers", OneToMany.class);
-        assertField(Barbot.class, "barbotIoDevices", OneToMany.class);
         assertField(Barbot.class, "drinkOrders", OneToMany.class);
     }
 
@@ -44,7 +43,6 @@ public class BarbotTests extends EntityTests {
         assertMethod(Barbot.class, "getStatus");
         assertMethod(Barbot.class, "getPassword");
         assertMethod(Barbot.class, "getBarbotContainers");
-        assertMethod(Barbot.class, "getBarbotIoDevices");
         assertMethod(Barbot.class, "getDrinkOrders");
     }
 
@@ -106,13 +104,6 @@ public class BarbotTests extends EntityTests {
     @Test
     public void testBarbotContainers() {
         OneToMany otm = createOneToMany(Barbot.class, "barbotContainers");
-
-        assertThat(otm.mappedBy()).isEqualTo("barbot");
-    }
-
-    @Test
-    public void testBarbotIoDevices() {
-        OneToMany otm = createOneToMany(Barbot.class, "barbotIoDevices");
 
         assertThat(otm.mappedBy()).isEqualTo("barbot");
     }
