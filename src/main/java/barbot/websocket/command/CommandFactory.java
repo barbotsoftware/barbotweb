@@ -58,6 +58,8 @@ public class CommandFactory {
             return new GetBarbotConfig(barbotService, fieldValidator, hlpr, (HashMap) args[0]);
         } else if (clazz.equals(SetBarbotConfig.class)) {
             return new SetBarbotConfig(barbotService, ingredientService, fieldValidator, hlpr, (HashMap) args[0]);
+        } else if (clazz.equals(BaseCommand.class)) {
+            return new BaseCommand((HashMap) args[0], hlpr, fieldValidator);
         }
 
         return null;
