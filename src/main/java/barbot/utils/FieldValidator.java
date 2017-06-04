@@ -108,7 +108,7 @@ public class FieldValidator {
                         flag = false;
                     }
                     break;
-                case "validEmail":
+                case "valid_email":
                     if(!Pattern.matches("^([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}){0,1}$", value)) {
                         messageKey = field + ".invalidEmail";
                         flag = false;

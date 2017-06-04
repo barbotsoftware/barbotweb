@@ -2,6 +2,7 @@ package barbot.database.dao;
 
 import javax.transaction.Transactional;
 
+import barbot.database.model.EmailCapture;
 import org.hibernate.SQLQuery;
 import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
 import org.springframework.stereotype.Component;
@@ -40,5 +41,9 @@ public class MainDao extends HibernateDaoSupport {
         query.setParameter("id", id);
 
         return query.list().size() > 0;
+    }
+
+    public void saveEmailCapture(EmailCapture emailCapture) {
+        getHibernateTemplate().save(emailCapture);
     }
 }

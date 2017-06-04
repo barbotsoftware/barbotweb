@@ -5,6 +5,9 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import barbot.database.dao.MainDao;
+import barbot.database.model.EmailCapture;
+import barbot.utils.Routes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -20,7 +23,7 @@ import barbot.utils.FieldValidator;
  * Created by Alex on 2/19/2017.
  */
 @Controller
-public class AuthController {
+public class AuthController extends BaseController {
 
     @Autowired
     FieldValidator validator;
@@ -31,15 +34,15 @@ public class AuthController {
     @Autowired
     UserService userService;
 
-    @ResponseBody
-    @RequestMapping(path = "/auth/register", method = RequestMethod.POST)
-    public Map register(HttpServletRequest request) {
-        HashMap result = new HashMap();
-        result.put("result", "success");
+    @Autowired
+    MainDao mainDao;
 
+    @ResponseBody
+    @RequestMapping(path = Routes.REGISTER, method = RequestMethod.POST)
+    public Map register(HttpServletRequest request) {
         HashMap fieldsToValidate = new HashMap();
         fieldsToValidate.put("name", "required");
-        fieldsToValidate.put("email", "required|unique:user");
+        fieldsToValidate.put("email", "required|unique:user|valid_email");
         fieldsToValidate.put("password", "required");
 
         if(validator.validate(request.getParameterMap(), fieldsToValidate)) {
@@ -49,10 +52,28 @@ public class AuthController {
             user.setEmail(request.getParameter("email"));
             userService.create(user);
         } else {
-            result.put("result", "error");
-            result.put("errors", validator.getErrors());
+            return error(validator.getErrors());
         }
 
-        return result;
+        return success(null);
+    }
+
+    @ResponseBody
+    @RequestMapping(path = Routes.EMAIL_CAPTURE, method = RequestMethod.POST)
+    public Map emailCapture(HttpServletRequest request) {
+        HashMap fieldsToValidate = new HashMap();
+        fieldsToValidate.put("email", "required|valid_email");
+
+        if(validator.validate(request.getParameterMap(), fieldsToValidate)) {
+            EmailCapture emailCapture = new EmailCapture();
+            emailCapture.setName(request.getParameter("name"));
+            emailCapture.setEmail(request.getParameter("email"));
+            emailCapture.setCity(request.getParameter("city"));
+            mainDao.saveEmailCapture(emailCapture);
+        } else {
+            return error(validator.getErrors());
+        }
+
+        return success(null);
     }
 }
