@@ -5,13 +5,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>BarBot | Full Service Cocktail Machine</title>
     
-    <link rel="stylesheet" href="app/app.css">
+    <link rel="stylesheet" href="../build/app.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.4/angular.js"></script>
-    <script src="app/app.js"></script>
+    <script src="../build/app.concat.js"></script>
+
+    <script src="http://localhost:35729/livereload.js"></script>
+    <!--<script src="app/app.js"></script>
     <script src="anus.js"></script>
     <script src="app/header/templates/header.directive.js"></script>
     <script src="app/header/header.service.js"></script>
-    <script src="anus.js"></script>
+    <script src="anus.js"></script>-->
 </head>
 <body ng-app="barbot" ng-controller="MainController">
     <h1>Meet BarBot!</h1>
@@ -20,7 +23,7 @@
 
     
 
-    <div style="background:pink;" ng-repeat="anus in anusArray">
+    <div class="anus" ng-repeat="anus in anusArray">
         {{anus}}
     </div>
 

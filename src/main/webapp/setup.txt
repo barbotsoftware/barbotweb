@@ -1,0 +1,15 @@
+- Install Node.js
+- Restart computer
+- Open the web app in cmd and run command "npm install"
+- Run environment with command "gulp init" to open a new tab in browser, or "gulp run" if you have the page open already
+- Yeet
+
+Livereload will automatically update the page in the browser when a change is made. All files are concatenated into app.concat.js, starting with the app.module.js to instantiate the angular module first.
+
+
+
+Might refactor more later on and polish some of the env setup
+
+
+
+Panda.

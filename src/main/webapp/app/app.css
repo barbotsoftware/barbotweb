@@ -6,5 +6,9 @@
 
 .anus-counter:hover {
     cursor: pointer;
-    color: pink;
+    color: red;
+}
+
+.anus {
+    background: pink;
 }
