@@ -3,6 +3,7 @@ package barbot.database.service;
 import java.util.List;
 
 import barbot.database.model.Barbot;
+import barbot.database.model.BarbotContainer;
 import barbot.database.model.Ingredient;
 import barbot.database.model.Recipe;
 
@@ -17,4 +18,6 @@ public interface BarbotService {
     List<Recipe> getRecipes(Barbot barbot);
 
     List<Ingredient> getIngredients(Barbot barbot);
+
+    List<BarbotContainer> getBarbotContainers(Barbot barbot);
 }

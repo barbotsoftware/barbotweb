@@ -6,6 +6,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonView;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import barbot.utils.Constants;
 
 /**
@@ -21,15 +27,24 @@ public class BarbotContainer extends BaseEntity {
 
     @ManyToOne
     @JoinColumn(name = "ingredient_id", referencedColumnName = "id", nullable = false)
+    @JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="ingredient_id")
+    @JsonIdentityReference(alwaysAsId=true)
+    @JsonProperty("ingredient_id")
+    @JsonView(View.Summary.class)
     private Ingredient ingredient;
 
     @Column(name = "number", nullable = false)
+    @JsonView(View.Summary.class)
     private Integer number;
 
     @Column(name = "current_volume", nullable = false)
+    @JsonProperty("current_volume")
+    @JsonView(View.Summary.class)
     private Integer currentVolume;
 
     @Column(name = "max_volume", nullable = false)
+    @JsonProperty("max_volume")
+    @JsonView(View.Summary.class)
     private Integer maxVolume;
 
     public BarbotContainer() {

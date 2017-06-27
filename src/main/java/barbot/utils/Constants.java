@@ -11,10 +11,8 @@ public class Constants {
     /* Database Table Names */
     public static final String TABLE_BARBOT = "barbot";
     public static final String TABLE_BARBOT_CONTAINER = "barbot_container";
-    public static final String TABLE_BARBOT_IO_DEVICE = "barbot_io_device";
-    public static final String TABLE_BARBOT_IO_DEVICE_TYPE = "barbot_io_device_type";
-    public static final String TABLE_BARBOT_PUMP = "barbot_pump";
     public static final String TABLE_DRINK_ORDER = "drink_order";
+    public static final String TABLE_EMAIL_CAPTURE = "email_capture";
     public static final String TABLE_INGREDIENT = "ingredient";
     public static final String TABLE_MIGRATION = "migration";
     public static final String TABLE_RECIPE = "recipe";
@@ -22,7 +20,6 @@ public class Constants {
     public static final String TABLE_USER = "user";
 
     /* Web Socket JSON Keys */
-    public static final String KEY_TYPE = "type";
     public static final String KEY_REQUEST = "request";
     public static final String KEY_RESPONSE = "response";
     public static final String KEY_COMMAND = "command";
@@ -49,6 +46,8 @@ public class Constants {
     public static final String CMD_CREATE_CUSTOM_RECIPE = "create_custom_recipe";
     public static final String CMD_ORDER_DRINK = "order_drink";
     public static final String CMD_POUR_DRINK = "pour_drink";
+    public static final String CMD_GET_BARBOT_CONFIG = "get_barbot_config";
+    public static final String CMD_SET_BARBOT_CONFIG = "set_barbot_config";
 
     /* Web Socket Events */
     public static final String EVENT_DRINK_ORDERED = "drink_ordered";

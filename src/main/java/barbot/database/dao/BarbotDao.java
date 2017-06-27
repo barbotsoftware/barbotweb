@@ -56,4 +56,11 @@ public class BarbotDao extends HibernateDaoSupport {
 
         return ingredients;
     }
+
+    public List<BarbotContainer> getBarbotContainers(Barbot barbot) {
+        barbot = getHibernateTemplate().get(Barbot.class, barbot.getId());
+        getHibernateTemplate().initialize(barbot.getBarbotContainers());
+
+        return new ArrayList<>(barbot.getBarbotContainers());
+    }
 }

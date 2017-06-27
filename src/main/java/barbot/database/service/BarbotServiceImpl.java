@@ -10,6 +10,7 @@ import org.springframework.util.Assert;
 
 import barbot.database.dao.BarbotDao;
 import barbot.database.model.Barbot;
+import barbot.database.model.BarbotContainer;
 import barbot.database.model.Ingredient;
 import barbot.database.model.Recipe;
 
@@ -50,5 +51,14 @@ public class BarbotServiceImpl implements BarbotService {
         }
 
         return barbotDao.getIngredients(barbot);
+    }
+
+    @Override
+    public List<BarbotContainer> getBarbotContainers(Barbot barbot) {
+        if (barbot == null) {
+            throw new NullPointerException(barbot + " not found.");
+        }
+
+        return barbotDao.getBarbotContainers(barbot);
     }
 }

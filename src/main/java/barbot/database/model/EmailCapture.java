@@ -5,11 +5,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import barbot.utils.Constants;
+
 /**
  * Created by alexh on 6/3/2017.
  */
 @Entity
-@Table(name = "email_capture")
+@Table(name = Constants.TABLE_EMAIL_CAPTURE, schema = Constants.DB_SCHEMA)
 public class EmailCapture {
     private Integer id;
     private String email;

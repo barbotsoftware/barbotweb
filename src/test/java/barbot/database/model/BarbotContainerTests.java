@@ -13,6 +13,11 @@ import javax.persistence.Table;
 
 import org.junit.Test;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonView;
+
 /**
  * Created by Naveen on 5/28/17.
  */
@@ -26,10 +31,11 @@ public class BarbotContainerTests extends EntityTests {
     @Test
     public void testFieldAnnotations() {
         assertField(BarbotContainer.class, "barbot", ManyToOne.class, JoinColumn.class);
-        assertField(BarbotContainer.class, "ingredient", ManyToOne.class, JoinColumn.class);
-        assertField(BarbotContainer.class, "number", Column.class);
-        assertField(BarbotContainer.class, "currentVolume", Column.class);
-        assertField(BarbotContainer.class, "maxVolume", Column.class);
+        assertField(BarbotContainer.class, "ingredient", ManyToOne.class, JoinColumn.class,
+                JsonIdentityInfo.class, JsonIdentityReference.class, JsonProperty.class, JsonView.class);
+        assertField(BarbotContainer.class, "number", Column.class, JsonView.class);
+        assertField(BarbotContainer.class, "currentVolume", Column.class, JsonProperty.class, JsonView.class);
+        assertField(BarbotContainer.class, "maxVolume", Column.class, JsonProperty.class, JsonView.class);
     }
 
     @Test

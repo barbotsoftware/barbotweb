@@ -107,6 +107,20 @@ public class BarbotDaoTests extends BaseDaoTests {
         assertThat(results.size()).isEqualTo(listSize);
     }
 
+    @Test
+    public void testGetBarbotContainers() {
+        Barbot barbot = barbots.get(0);
+        int id = barbot.getId();
+
+        (Mockito.doReturn(barbot).when(mockTemplate))
+            .get(Barbot.class, id);
+
+        List<BarbotContainer> results = barbotDao.getBarbotContainers(barbot);
+
+        assertThat(results).isNotNull();
+        assertThat(results.size()).isEqualTo(listSize);
+    }
+
     private void setUpTestData() {
 
         // Barbots
