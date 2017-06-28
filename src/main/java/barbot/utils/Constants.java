@@ -46,8 +46,8 @@ public class Constants {
     public static final String CMD_CREATE_CUSTOM_RECIPE = "create_custom_recipe";
     public static final String CMD_ORDER_DRINK = "order_drink";
     public static final String CMD_POUR_DRINK = "pour_drink";
-    public static final String CMD_GET_BARBOT_CONFIG = "get_barbot_config";
-    public static final String CMD_SET_BARBOT_CONFIG = "set_barbot_config";
+    public static final String CMD_GET_CONTAINERS_FOR_BARBOT = "get_containers_for_barbot";
+    public static final String CMD_SET_CONTAINERS_FOR_BARBOT = "set_containers_for_barbot";
 
     /* Web Socket Events */
     public static final String EVENT_DRINK_ORDERED = "drink_ordered";

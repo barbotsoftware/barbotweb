@@ -30,13 +30,13 @@ import barbot.websocket.command.BaseCommand;
 import barbot.websocket.command.Command;
 import barbot.websocket.command.CommandFactory;
 import barbot.websocket.command.CreateCustomRecipe;
-import barbot.websocket.command.GetBarbotConfig;
+import barbot.websocket.command.GetContainersForBarbot;
 import barbot.websocket.command.GetIngredientsForBarbot;
 import barbot.websocket.command.GetRecipeDetails;
 import barbot.websocket.command.GetRecipesForBarbot;
 import barbot.websocket.command.OrderDrink;
 import barbot.websocket.command.PourDrink;
-import barbot.websocket.command.SetBarbotConfig;
+import barbot.websocket.command.SetContainersForBarbot;
 
 /**
  * Created by alexh on 4/6/2017.
@@ -120,11 +120,11 @@ public class WebSocketHandler extends TextWebSocketHandler {
             case Constants.CMD_POUR_DRINK:
                 command = commandFactory.create(PourDrink.class, msg);
                 break;
-            case Constants.CMD_GET_BARBOT_CONFIG:
-                command = commandFactory.create(GetBarbotConfig.class, msg);
+            case Constants.CMD_GET_CONTAINERS_FOR_BARBOT:
+                command = commandFactory.create(GetContainersForBarbot.class, msg);
                 break;
-            case Constants.CMD_SET_BARBOT_CONFIG:
-                command = commandFactory.create(SetBarbotConfig.class, msg);
+            case Constants.CMD_SET_CONTAINERS_FOR_BARBOT:
+                command = commandFactory.create(SetContainersForBarbot.class, msg);
                 break;
             default:
                 command = commandFactory.create(BaseCommand.class, msg);

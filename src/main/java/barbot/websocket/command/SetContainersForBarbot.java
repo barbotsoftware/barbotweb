@@ -11,14 +11,14 @@ import barbot.utils.HelperMethods;
 /**
  * Created by Naveen on 6/1/17.
  */
-public class SetBarbotConfig extends BaseCommand {
+public class SetContainersForBarbot extends BaseCommand {
 
     private BarbotService barbotService;
 
     private IngredientService ingredientService;
 
-    public SetBarbotConfig(BarbotService barbotService, IngredientService ingredientService, FieldValidator validator,
-                           HelperMethods hlpr, HashMap msg) {
+    public SetContainersForBarbot(BarbotService barbotService, IngredientService ingredientService, FieldValidator validator,
+                                  HelperMethods hlpr, HashMap msg) {
         super(msg, hlpr, validator);
 
         this.barbotService = barbotService;

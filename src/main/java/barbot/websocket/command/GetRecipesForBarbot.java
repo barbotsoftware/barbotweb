@@ -12,7 +12,7 @@ import barbot.utils.HelperMethods;
 /**
  * Created by alexh on 4/6/2017.
  */
-public class GetRecipesForBarbot extends BaseCommand {
+public class GetRecipesForBarbot extends BarbotCommand {
 
     private BarbotService barbotService;
 
@@ -37,17 +37,6 @@ public class GetRecipesForBarbot extends BaseCommand {
 
     @Override
     public boolean validate() {
-        if(!super.validate())
-            return false;
-
-        HashMap fieldsToValidate = new HashMap();
-        fieldsToValidate.put(Constants.KEY_DATA_BARBOT_ID, "required|exists:barbot");
-
-        if(!fieldValidator.validate((HashMap)message.get("data"), fieldsToValidate)) {
-            error = fieldValidator.getErrors();
-            return false;
-        }
-
-        return true;
+        return validateBarbotId();
     }
 }

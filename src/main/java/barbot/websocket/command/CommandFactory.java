@@ -54,10 +54,10 @@ public class CommandFactory {
             return new OrderDrink(drinkOrderService, recipeService, barbotService, fieldValidator, hlpr, publisher, (HashMap) args[0], (User) args[1]);
         } else if (clazz.equals(PourDrink.class)) {
             return new PourDrink(drinkOrderService, fieldValidator, hlpr, (HashMap) args[0]);
-        } else if (clazz.equals(GetBarbotConfig.class)) {
-            return new GetBarbotConfig(barbotService, fieldValidator, hlpr, (HashMap) args[0]);
-        } else if (clazz.equals(SetBarbotConfig.class)) {
-            return new SetBarbotConfig(barbotService, ingredientService, fieldValidator, hlpr, (HashMap) args[0]);
+        } else if (clazz.equals(GetContainersForBarbot.class)) {
+            return new GetContainersForBarbot(barbotService, fieldValidator, hlpr, (HashMap) args[0]);
+        } else if (clazz.equals(SetContainersForBarbot.class)) {
+            return new SetContainersForBarbot(barbotService, ingredientService, fieldValidator, hlpr, (HashMap) args[0]);
         } else if (clazz.equals(BaseCommand.class)) {
             return new BaseCommand((HashMap) args[0], hlpr, fieldValidator);
         }

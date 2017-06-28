@@ -19,7 +19,7 @@ import barbot.database.service.BarbotService;
 /**
  * Created by Naveen on 6/6/17.
  */
-public class GetBarbotConfigTests extends CommandTests {
+public class GetContainersForBarbotTests extends CommandTests {
 
     @Mock
     private BarbotService barbotService;
@@ -80,6 +80,6 @@ public class GetBarbotConfigTests extends CommandTests {
 
         barbotContainers = testDataHelper.createBarbotContainerList(listSize, ingredients, barbots);
 
-        command = new GetBarbotConfig(barbotService, fieldValidator, helperMethods, msg);
+        command = new GetContainersForBarbot(barbotService, fieldValidator, helperMethods, msg);
     }
 }
