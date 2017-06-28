@@ -7,6 +7,7 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Component;
 
 import barbot.database.model.User;
+import barbot.database.service.BarbotContainerService;
 import barbot.database.service.BarbotService;
 import barbot.database.service.DrinkOrderService;
 import barbot.database.service.IngredientService;
@@ -33,6 +34,9 @@ public class CommandFactory {
     IngredientService ingredientService;
 
     @Autowired
+    BarbotContainerService barbotContainerService;
+
+    @Autowired
     FieldValidator fieldValidator;
 
     @Autowired
@@ -57,7 +61,7 @@ public class CommandFactory {
         } else if (clazz.equals(GetContainersForBarbot.class)) {
             return new GetContainersForBarbot(barbotService, fieldValidator, hlpr, (HashMap) args[0]);
         } else if (clazz.equals(SetContainersForBarbot.class)) {
-            return new SetContainersForBarbot(barbotService, ingredientService, fieldValidator, hlpr, (HashMap) args[0]);
+            return new SetContainersForBarbot(barbotService, ingredientService, barbotContainerService, fieldValidator, hlpr, (HashMap) args[0]);
         } else if (clazz.equals(BaseCommand.class)) {
             return new BaseCommand((HashMap) args[0], hlpr, fieldValidator);
         }

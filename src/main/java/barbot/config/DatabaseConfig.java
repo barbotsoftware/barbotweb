@@ -11,6 +11,7 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 
+import barbot.database.dao.BarbotContainerDao;
 import barbot.database.dao.BarbotDao;
 import barbot.database.dao.DrinkOrderDao;
 import barbot.database.dao.IngredientDao;
@@ -103,5 +104,12 @@ public class DatabaseConfig {
         BarbotDao barbotDao = new BarbotDao();
         barbotDao.setSessionFactory(sessionFactory().getObject());
         return barbotDao;
+    }
+
+    @Bean
+    public BarbotContainerDao barbotContainerDao() {
+        BarbotContainerDao barbotContainerDao = new BarbotContainerDao();
+        barbotContainerDao.setSessionFactory(sessionFactory().getObject());
+        return barbotContainerDao;
     }
 }

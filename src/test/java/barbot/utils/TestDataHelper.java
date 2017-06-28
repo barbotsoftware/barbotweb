@@ -40,6 +40,7 @@ public class TestDataHelper {
         for (int i = 0; i < listSize; i++) {
             BarbotContainer bc = new BarbotContainer();
             bc.setId(i);
+            bc.setNumber(i);
             bc.setIngredient(ingredients.get(i));
             bc.setBarbot(barbots.get(0));
             barbotContainers.add(bc);
