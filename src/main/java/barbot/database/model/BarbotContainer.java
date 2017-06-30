@@ -52,7 +52,14 @@ public class BarbotContainer extends BaseEntity {
     }
 
     public BarbotContainer(Integer number, Integer maxVolume) {
+        this(null, null, number, null, maxVolume);
+    }
+
+    public BarbotContainer(Barbot barbot, Ingredient ingredient, Integer number, Integer currentVolume, Integer maxVolume) {
+        this.barbot = barbot;
+        this.ingredient = ingredient;
         this.number = number;
+        this.currentVolume = currentVolume;
         this.maxVolume = maxVolume;
     }
 

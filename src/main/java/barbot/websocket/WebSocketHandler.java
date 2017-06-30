@@ -171,7 +171,10 @@ public class WebSocketHandler extends TextWebSocketHandler {
         HashMap responseMap = new HashMap();
         responseMap.put(Constants.KEY_MESSAGE_TYPE, Constants.KEY_COMMAND_RESPONSE);
         responseMap.put(Constants.KEY_RESULT, Constants.KEY_SUCCESS);
-        responseMap.put(Constants.KEY_DATA, message);
+        if (message != null) {
+            responseMap.put(Constants.KEY_DATA, message);
+        }
+
         try {
             session.sendMessage(new TextMessage(mapper.writerWithView(jsonView).writeValueAsString(responseMap)));
         } catch (JsonGenerationException e) {

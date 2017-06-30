@@ -38,6 +38,10 @@ public class Constants {
     public static final String KEY_DATA_DRINK_ORDER_ID = "drink_order_id";
     public static final String KEY_DATA_ICE = "ice";
     public static final String KEY_DATA_GARNISH = "garnish";
+    public static final String KEY_DATA_BARBOT_CONTAINERS = "barbot_containers";
+    public static final String KEY_DATA_NUMBER = "number";
+    public static final String KEY_DATA_CURRENT_VOLUME = "current_volume";
+    public static final String KEY_DATA_MAX_VOLUME = "max_volume";
 
     /* Web Socket Commands */
     public static final String CMD_GET_RECIPES_FOR_BARBOT = "get_recipes_for_barbot";
