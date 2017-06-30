@@ -1,34 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>BarBot | Full Service Cocktail Machine</title>
-    
+
     <link rel="stylesheet" href="../build/app.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.4/angular.js"></script>
     <script src="../build/app.concat.js"></script>
 
     <script src="http://localhost:35729/livereload.js"></script>
-    <!--<script src="app/app.js"></script>
-    <script src="anus.js"></script>
-    <script src="app/header/templates/header.directive.js"></script>
-    <script src="app/header/header.service.js"></script>
-    <script src="anus.js"></script>-->
 </head>
+
 <body ng-app="barbot" ng-controller="MainController">
-    <h1>Meet BarBot!</h1>
-    
-    <div class="anus-counter" ng-click="anusCounter()">{{anus}}</div>
+    <header></header>
 
-    
-
-    <div class="anus" ng-repeat="anus in anusArray">
-        {{anus}}
+    <div class="main container">
+        <div class="row">
+            <banner></banner>
+        </div>
+        <div class="row">
+            <features></features>
+        </div>
+        <div class="row">
+            <app-info></app-info>
+        </div>
+        <div class="row"> 
+            <how-it-works></how-it-works>
+        </div>
+        <div class="row">
+            <get-started></get-started>
+        </div>
     </div>
-
-    {{test}}
-
-    <anus>
+    
+    <footer></footer>
 </body>
+
 </html>

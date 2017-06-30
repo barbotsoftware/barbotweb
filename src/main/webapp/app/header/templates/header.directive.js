@@ -1,4 +1,4 @@
-angular.module("barbot").directive('anus', function() {
+angular.module("barbot").directive('header', function() {
   return {
     templateUrl: './header/templates/header.html'
   };

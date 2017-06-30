@@ -1,14 +1,11 @@
-.anus-counter {
-    margin: 5px;
-    width: 200px;
-    background: gainsboro;
+.flexbox {
+    display: flex;
 }
 
-.anus-counter:hover {
+.hover-hand:hover {
     cursor: pointer;
-    color: red;
 }
 
-.anus {
-    background: pink;
+.main-section {
+    width: 100%;
 }
