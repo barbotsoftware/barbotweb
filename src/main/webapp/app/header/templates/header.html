@@ -1,17 +1,13 @@
-<div id="header" class="header flexbox">
+<div id="header" class="header flexbox" ng-controller="HeaderController">
     <div class="title-div flexbox">
-        <div class="logo">Logo</div>
-        <div class="header-title">Barbot</div>
+        <div class="logo">
+            <img ng-src="{{ logo.src }}" alt="logo.name" ng-click="#"/>
+        </div>
+        <div class="header-title">{{ title }}</div>
     </div>
     <div class="nav-container flexbox">
-        <div class="nav-button hover-hand">
-            A button!
-        </div>
-        <div class="nav-button hover-hand">
-            A button 2!
-        </div>
-        <div class="nav-button hover-hand">
-            A button 3!
+        <div class="nav-button hover-hand" ng-repeat="link in navBarLinks">
+            <a ng-click="scrollTo(link.scrollToId)">{{ link.linkText }}</a>
         </div>
     </div>
 </div>

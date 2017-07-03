@@ -1,3 +1,9 @@
-<div class="getStarted main-section container">
-    getStarted! WOO
-</div>  
+<div id="getStarted" class="getStarted main-section container" ng-controller="GetStartedController">
+    <h2>{{ title }}</h2>
+    <form>
+        <div class="form-group" ng-repeat="input in inputs">
+            <input type="{{ input.type }}" class="form-control" id="{{ input.id }}" placeholder="{{ input.placeholder }}">
+        </div>
+        <button type="submit" class="btn btn-default">Submit</button>
+    </form>
+</div>
