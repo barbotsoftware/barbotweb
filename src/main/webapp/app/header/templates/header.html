@@ -1,7 +1,9 @@
 <div id="header" class="header flexbox" ng-controller="HeaderController">
     <div class="title-div flexbox">
         <div class="logo">
-            <img ng-src="{{ logo.src }}" alt="logo.name" ng-click="#"/>
+            <a href="#">
+                <img ng-src="{{ logo.src }}" alt="logo.name" />
+            </a>
         </div>
         <div class="header-title">{{ title }}</div>
     </div>

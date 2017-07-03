@@ -5,19 +5,20 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import barbot.database.dao.MainDao;
-import barbot.database.model.EmailCapture;
-import barbot.utils.Routes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import barbot.database.dao.MainDao;
+import barbot.database.model.EmailCapture;
 import barbot.database.model.User;
 import barbot.database.service.UserService;
 import barbot.utils.FieldValidator;
+import barbot.utils.Routes;
 
 /**
  * Created by Alex on 2/19/2017.
@@ -60,15 +61,14 @@ public class AuthController extends BaseController {
 
     @ResponseBody
     @RequestMapping(path = Routes.EMAIL_CAPTURE, method = RequestMethod.POST)
-    public Map emailCapture(HttpServletRequest request) {
+    public Map emailCapture(@RequestBody EmailCapture emailCapture) {
         HashMap fieldsToValidate = new HashMap();
         fieldsToValidate.put("email", "required|valid_email");
 
-        if(validator.validate(request.getParameterMap(), fieldsToValidate)) {
-            EmailCapture emailCapture = new EmailCapture();
-            emailCapture.setName(request.getParameter("name"));
-            emailCapture.setEmail(request.getParameter("email"));
-            emailCapture.setCity(request.getParameter("city"));
+        Map parameterMap = new HashMap<>();
+        parameterMap.put("email", emailCapture.getEmail());
+
+        if(validator.validate(parameterMap, fieldsToValidate)) {
             mainDao.saveEmailCapture(emailCapture);
         } else {
             return error(validator.getErrors());

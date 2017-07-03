@@ -1,22 +1,40 @@
 angular.module('barbot')
-    .controller('GetStartedController', ['$scope', function($scope) {
+    .controller('GetStartedController', ['$scope', '$http', function($scope, $http) {
         $scope.title = 'Get Started';
 
-        $scope.inputs = [
+        $scope.fields = [
             {
                 type: 'text',
-                id: 'nameInput',
-                placeholder: 'Name'
+                name: 'Name'
             },
             {
                 type: 'email',
-                id: 'emailInput',
-                placeholder: 'Email'
+                name: 'Email'
             },
             {
                 type: 'text',
-                id: 'cityInput',
-                placeholder: 'City'
+                name: 'City'
             }
         ];
+
+        $scope.inputs = {
+            customFields: {
+                'Name': '',
+                'Email': '',
+                'City': ''
+            }
+        };
+
+        $scope.submit = function() {
+            var data = {
+                name: $scope.inputs.customFields['Name'],
+                email: $scope.inputs.customFields['Email'],
+                city: $scope.inputs.customFields['City']
+            };
+
+            $http.post('/signup', data)
+                .then(function(data, status, headers, config) {
+                    console.log(data);
+                });
+        };
     }]);
