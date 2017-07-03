@@ -61,6 +61,20 @@ public class UserServiceTests extends BaseServiceTests {
     }
 
     @Test
+    public void testFindByEmailAndPassword() {
+        String email = user.getEmail();
+        String password = user.getPassword();
+
+        (Mockito.doReturn(user)).when(userDao).findByEmailAndPassword(email, password);
+
+        User result = userService.findByEmailAndPassword(email, password);
+
+        assertThat(result).isNotNull();
+        assertThat(result.getEmail()).isEqualTo(result.getEmail());
+        assertThat(result.getPassword()).isEqualTo(result.getPassword());
+    }
+
+    @Test
     public void testCreate() {
         userService.create(user);
 

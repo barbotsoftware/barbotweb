@@ -43,6 +43,13 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
+    public User findByEmailAndPassword(String email, String password) {
+        Assert.hasLength(email, "Email must not be empty");
+        Assert.hasLength(password, "Password must not be empty");
+        return userDao.findByEmailAndPassword(email, password);
+    }
+
+    @Override
     public void create(User user) {
         if(StringUtils.isEmpty(user.getUid())) {
             user.setUid(Constants.USER_UID_PREFIX + hlpr.generateUid());

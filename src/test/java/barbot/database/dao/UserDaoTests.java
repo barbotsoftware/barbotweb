@@ -2,6 +2,7 @@ package barbot.database.dao;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Before;
@@ -9,6 +10,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -25,24 +27,31 @@ public class UserDaoTests extends BaseDaoTests {
 
     private UserDao userDao;
 
+    private BCryptPasswordEncoder passwordEncoder;
+
     private List<User> users;
 
-    private final int userListSize = 10;
+    private User user;
+
+    private final int userListSize = 5;
 
     @Override
     @Before
     public void setUp() {
         super.setUp();
 
+        passwordEncoder = new BCryptPasswordEncoder();
+
         userDao = new UserDao();
         userDao.setHibernateTemplate(mockTemplate);
+        userDao.setPasswordEncoder(passwordEncoder);
 
         setUpTestData();
     }
 
     @Test
     public void testFindByUid() {
-        String uid = users.get(0).getUid();
+        String uid = user.getUid();
 
         (Mockito.doReturn(users).when(mockTemplate))
                 .find("FROM User WHERE uid = ?", uid);
@@ -55,7 +64,7 @@ public class UserDaoTests extends BaseDaoTests {
 
     @Test
     public void testFindById() {
-        int id = users.get(0).getId();
+        int id = user.getId();
 
         (Mockito.doReturn(users.get(0)).when(mockTemplate))
                 .get(User.class, id);
@@ -68,7 +77,7 @@ public class UserDaoTests extends BaseDaoTests {
 
     @Test
     public void testFindByName() {
-        String name = users.get(0).getName();
+        String name = user.getName();
 
         (Mockito.doReturn(users).when(mockTemplate))
                 .find("FROM User WHERE name = ?", name);
@@ -77,6 +86,26 @@ public class UserDaoTests extends BaseDaoTests {
 
         assertThat(result).isNotNull();
         assertThat(result.getName()).isEqualTo(name);
+    }
+
+    @Test
+    public void testFindByEmailAndPassword() {
+        String email = user.getEmail();
+        String password = user.getPassword();
+
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+
+        List<User> results = new ArrayList<>();
+        results.add(user);
+
+        (Mockito.doReturn(results).when(mockTemplate))
+                .find("FROM User WHERE email = ?", email);
+
+        User result = userDao.findByEmailAndPassword(email, password);
+
+        assertThat(result).isNotNull();
+        assertThat(result.getEmail()).isEqualTo(email);
+        assertThat(result.getPassword()).isEqualTo(user.getPassword());
     }
 
     @Test
@@ -90,5 +119,7 @@ public class UserDaoTests extends BaseDaoTests {
 
     private void setUpTestData() {
         users = testDataHelper.createUserList(userListSize);
+
+        user = users.get(0);
     }
 }

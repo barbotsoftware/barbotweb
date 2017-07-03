@@ -8,5 +8,6 @@ import barbot.database.model.User;
 public interface UserService {
     User findByUid(String userId);
     User findByName(String name);
+    User findByEmailAndPassword(String email, String password);
     void create(User user);
 }

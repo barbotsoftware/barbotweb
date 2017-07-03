@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import barbot.database.dao.BarbotContainerDao;
 import barbot.database.dao.BarbotDao;
@@ -65,6 +66,11 @@ public class DatabaseConfig {
     }
 
     @Bean
+    public BCryptPasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    @Bean
     public MainDao mainDao() {
         MainDao mainDao = new MainDao();
         mainDao.setSessionFactory(sessionFactory().getObject());
@@ -75,6 +81,7 @@ public class DatabaseConfig {
     public UserDao userDao() {
         UserDao userDao = new UserDao();
         userDao.setSessionFactory(sessionFactory().getObject());
+        userDao.setPasswordEncoder(passwordEncoder());
         return userDao;
     }
 

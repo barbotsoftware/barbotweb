@@ -99,7 +99,9 @@ public class TestDataHelper {
             User user = new User();
             user.setId(i);
             user.setUid("user_xxxxx" + i);
-            user.setName("User " + i);
+            user.setName("User" + i);
+            user.setEmail(user.getName() + "@barbot.io");
+            user.setPassword("password");
             users.add(user);
         }
 
