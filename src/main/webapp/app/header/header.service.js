@@ -1,11 +1,6 @@
-angular.module("barbot")
-.factory("headerService", function() {
+angular.module('barbot')
+.factory('headerService', function() {
+    return function () {
 
-    function getAnus() {
-        return "anus! (from header.service)";
-    }
-
-    return {
-        getAnus
     }
 });

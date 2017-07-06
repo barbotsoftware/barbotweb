@@ -1,9 +1,10 @@
-<div id="features" class="features main-section container">
-    <h2>Features</h2>
-    <ul class="list-inline">
-        <li>Cup Dispenser</li>
-        <li>Ice</li>
-        <li>Garnish</li>
-        <li>Refrigeration</li>
-    </ul>
+<div id="features" class="features main-section container" ng-controller="FeaturesController">
+    <h2>{{ title }}</h2>
+    <div class="col-lg-3" ng-repeat="feature in features">
+        <img ng-src="">
+        <h3>{{ feature.name }}</h3>
+        <p>
+            {{ feature.description }}
+        </p>
+    </div>
 </div>
