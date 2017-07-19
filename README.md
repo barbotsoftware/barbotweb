@@ -72,17 +72,17 @@ Response:
 Request:
 ```
 {
-	"type": "command_request",
-	"command": "get_containers_for_barbot",
-	"data": {
-		"barbot_id": "barbot_1db433"
-	}
+    "type": "command_request",
+    "command": "get_containers_for_barbot",
+    "data": {
+        "barbot_id": "barbot_1db433"
+    }
 }
 ```
 Response:
 ```
 {
-	"type": "command_response",
+    "type": "command_response",
     "result": "success",
     "data": {
         "barbot_containers": [{
@@ -103,76 +103,76 @@ Response:
 Request:
 ```
 {
-	"type": "command_request",
-	"command": "get_ingredients_for_barbot",
-	"data": {
-		"barbot_id": "barbot_1db433"
-	}
+    "type": "command_request",
+    "command": "get_ingredients_for_barbot",
+    "data": {
+        "barbot_id": "barbot_1db433"
+    }
 }
 ```
 Response:
 ```
 {
-	"type": "command_response",
-	"result": "success",
-	"data": {
-		"ingredients": [{
-			"name": "Gin",
-			"id": "ingredient_1b4549"
-		}, {
-			"name": "White Rum",
-			"id": "ingredient_f8b566"
-		}, {
-			"name": "Tequila",
-			"id": "ingredient_b87666"
-		}]
-	}
+    "type": "command_response",
+    "result": "success",
+    "data": {
+        "ingredients": [{
+            "name": "Gin",
+            "id": "ingredient_1b4549"
+        }, {
+            "name": "White Rum",
+            "id": "ingredient_f8b566"
+        }, {
+            "name": "Tequila",
+            "id": "ingredient_b87666"
+        }]
+    }
 }
 ```
 ##### get_recipe_details
 Request:
 ```
 {
-	"type": "command_request",
-	"command": "get_recipe_details",
-	"data": {
-		"recipe_id": "recipe_ee1236"
-	}
+    "type": "command_request",
+    "command": "get_recipe_details",
+    "data": {
+        "recipe_id": "recipe_ee1236"
+    }
 }
 ```
 Response:
 ```
 {
-	"type": "command_response",
-	"result": "success",
-	"data": {
-		"recipe": {
-			"name": "The Sour",
-			"recipe_id": "recipe_9aa19a",
-			"img": "http:\/\/farm8.staticflickr.com\/7252\/7594170156_46bf574865_o.jpg",
-			"ingredients": [{
-				"ingredient_id": "ingredient_d300cc",
-				"quantity": 3.43
-			}, {
-				"ingredient_id": "ingredient_f8fb11",
-				"quantity": 0.86
-			}, {
-				"ingredient_id": "ingredient_8ec6eb",
-				"quantity": 1.71
-			}]
-		}
-	}
+    "type": "command_response",
+    "result": "success",
+    "data": {
+        "recipe": {
+            "name": "The Sour",
+            "recipe_id": "recipe_9aa19a",
+            "img": "http:\/\/farm8.staticflickr.com\/7252\/7594170156_46bf574865_o.jpg",
+            "ingredients": [{
+                "ingredient_id": "ingredient_d300cc",
+                "quantity": 3.43
+            }, {
+                "ingredient_id": "ingredient_f8fb11",
+                "quantity": 0.86
+            }, {
+                "ingredient_id": "ingredient_8ec6eb",
+                "quantity": 1.71
+            }]
+        }
+    }
 }
 ```
 ##### get_recipes_for_barbot
 Request:
 ```
 {
-	"type": "command_request",
-	"command": "get_recipes_for_barbot",
-	"data": {
-		"barbot_id": "barbot_1db433"
-	}
+    "type": "command_request",
+    "command": "get_recipes_for_barbot",
+    "data": {
+        "barbot_id": "barbot_1db433"
+    }
 }
 ```
 Response:
@@ -183,8 +183,8 @@ Response:
     "data": {
         "recipes": [{
             "name": "Cuba Libre",
-        	"recipe_id": "recipe_8a4d7a",
-        	"img": "http:\/\/192.168.1.41\/barbot\/public\/images\/term.jpg"
+            "recipe_id": "recipe_8a4d7a",
+            "img": "http:\/\/192.168.1.41\/barbot\/public\/images\/term.jpg"
         }]
     }
 }
@@ -193,14 +193,14 @@ Response:
 Request:
 ```
 {
-	"type": "command_request",
-	"command": "order_drink",
-	"data": {
-		"barbot_id": "barbot_1db433",
+    "type": "command_request",
+    "command": "order_drink",
+    "data": {
+        "barbot_id": "barbot_1db433",
         "recipe_id": "recipe_ee1236",
-	    "ice": 1,
-	    "garnish": 0
-	}
+        "ice": 1,
+        "garnish": 0
+    }
 }
 ```
 Response:
@@ -217,11 +217,11 @@ Response:
 Request:
 ```
 {
-	"type": "command_request",
-	"command": "pour_drink",
-	"data": {
-	    "drink_order_id": "drinkOrder_5e0f58"
-	}
+    "type": "command_request",
+    "command": "pour_drink",
+    "data": {
+        "drink_order_id": "drinkOrder_5e0f58"
+    }
 }
 ```
 Response:
