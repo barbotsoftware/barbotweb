@@ -1,0 +1,23 @@
+{
+  "name":"The Sour",
+  "recipe_id":"recipe_9aa19a",
+  "img":"http:\/\/farm8.staticflickr.com\/7252\/7594170156_46bf574865_o.jpg",
+  "ingredients":[
+    {
+      "ingredient_id":"ingredient_123450",
+      "amount":0.0
+    },
+    {
+      "ingredient_id":"ingredient_123451",
+      "amount":1.0
+    },
+    {
+      "ingredient_id":"ingredient_123452",
+      "amount":2.0
+    },
+    {
+      "ingredient_id":"ingredient_123453",
+      "amount":3.0
+    }
+  ]
+}

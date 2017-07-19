@@ -1,0 +1,11 @@
+.flexbox {
+    display: flex;
+}
+
+.hover-hand:hover {
+    cursor: pointer;
+}
+
+.main-section {
+    width: 100%;
+}

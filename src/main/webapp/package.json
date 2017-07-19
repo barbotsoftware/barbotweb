@@ -1,0 +1,37 @@
+{
+  "name": "Barbot.io",
+  "version": "0.0.1",
+  "repository": {
+    "type": "",
+    "url": ""
+  },
+  "devDependencies": {
+    "connect-livereload": "^0.5.4",
+    "del": "^2.2.0",
+    "gulp": "^3.9.1",
+    "gulp-angular-templatecache": "^1.8.0",
+    "gulp-concat": "^2.6.0",
+    "gulp-connect": "^3.1.0",
+    "gulp-debug": "^2.1.2",
+    "gulp-grunt": "^0.5.3",
+    "gulp-jshint": "^2.0.0",
+    "gulp-livereload": "^3.8.1",
+    "gulp-load-plugins": "^1.2.0",
+    "gulp-minify-html": "^1.0.6",
+    "gulp-ng-annotate": "^2.0.0",
+    "gulp-notify": "^2.2.0",
+    "gulp-open": "^1.0.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^2.2.0",
+    "gulp-shell": "^0.5.2",
+    "gulp-uglify": "^1.5.3",
+    "gulp-useref": "^3.0.8",
+    "gulp-watch": "^4.3.5",
+    "jshint": "^2.9.2",
+    "run-sequence": "^1.1.5",
+    "webdriver-manager": "~7.0.1"
+  },
+  "dependencies": {
+    "d3": "^3.5.16"
+  }
+}

@@ -1,0 +1,15 @@
+<div id="header" class="header flexbox" ng-controller="HeaderController">
+    <div class="title-div flexbox">
+        <div class="logo">
+            <a href="#">
+                <img ng-src="{{ logo.src }}" alt="logo.name" />
+            </a>
+        </div>
+        <div class="header-title">{{ title }}</div>
+    </div>
+    <div class="nav-container flexbox">
+        <div class="nav-button hover-hand" ng-repeat="link in navBarLinks">
+            <a ng-click="scrollTo(link.scrollToId)">{{ link.linkText }}</a>
+        </div>
+    </div>
+</div>
