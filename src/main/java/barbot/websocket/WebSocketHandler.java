@@ -88,7 +88,7 @@ public class WebSocketHandler extends TextWebSocketHandler {
 
             try {
                 if (command.validate()) {
-                    sendMessage(session, command.execute(), command.getJsonView());
+                    sendMessage(session, command.execute(), command.getJsonView(), msg.get(Constants.KEY_COMMAND).toString());
                 } else {
                     sendError(session, command.getError());
                 }
@@ -167,10 +167,11 @@ public class WebSocketHandler extends TextWebSocketHandler {
         }
     }
 
-    private void sendMessage(WebSocketSession session, Object message, Class<?> jsonView) {
+    private void sendMessage(WebSocketSession session, Object message, Class<?> jsonView, String command) {
         HashMap responseMap = new HashMap();
         responseMap.put(Constants.KEY_MESSAGE_TYPE, Constants.KEY_COMMAND_RESPONSE);
         responseMap.put(Constants.KEY_RESULT, Constants.KEY_SUCCESS);
+        responseMap.put(Constants.KEY_COMMAND, command);
         if (message != null) {
             responseMap.put(Constants.KEY_DATA, message);
         }

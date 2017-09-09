@@ -27,7 +27,9 @@ public class GetRecipeDetails extends BaseCommand {
         String recipeId = (String) data.get(Constants.KEY_DATA_RECIPE_ID);
 
         // Get Recipe from service
-        return recipeService.findByUid(recipeId);
+        HashMap result = new HashMap();
+        result.put("recipe", recipeService.findByUid(recipeId));
+        return result;
     }
 
     @Override

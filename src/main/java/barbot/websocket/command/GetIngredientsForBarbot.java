@@ -32,7 +32,9 @@ public class GetIngredientsForBarbot extends BarbotCommand {
         Barbot barbot = barbotService.findByUid(barbotId);
 
         // Return ingredients from service
-        return this.barbotService.getIngredients(barbot);
+        HashMap result = new HashMap();
+        result.put("ingredients", barbotService.getIngredients(barbot));
+        return result;
     }
 
     @Override

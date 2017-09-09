@@ -70,7 +70,9 @@ public class OrderDrink extends BaseCommand {
 
         publisher.publishEvent(barbotEvent);
 
-        return drinkOrder;
+        HashMap result = new HashMap();
+        result.put("drink_order", drinkOrder);
+        return result;
     }
 
     @Override

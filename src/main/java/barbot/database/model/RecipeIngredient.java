@@ -31,7 +31,7 @@ public class RecipeIngredient extends BaseEntity {
 
     @ManyToOne
     @JoinColumn(name = "ingredient_id", referencedColumnName = "id", nullable = false)
-    @JsonProperty("ingredient_id")
+    @JsonProperty("ingredient")
     @JsonView(View.Summary.class)
     private Ingredient ingredient;
 

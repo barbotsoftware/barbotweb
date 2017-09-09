@@ -62,7 +62,9 @@ public class CreateCustomRecipe extends BaseCommand {
         recipe.setRecipeIngredients(recipeIngredients);
         recipeService.create(recipe);
 
-        return recipe;
+        HashMap result = new HashMap();
+        result.put("recipe", recipe);
+        return result;
     }
 
     @Override
