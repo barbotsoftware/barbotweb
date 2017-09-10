@@ -2,16 +2,12 @@ package barbot.websocket.command;
 
 import java.util.HashMap;
 
+import barbot.database.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Component;
 
 import barbot.database.model.User;
-import barbot.database.service.BarbotContainerService;
-import barbot.database.service.BarbotService;
-import barbot.database.service.DrinkOrderService;
-import barbot.database.service.IngredientService;
-import barbot.database.service.RecipeService;
 import barbot.utils.FieldValidator;
 import barbot.utils.HelperMethods;
 
@@ -35,6 +31,9 @@ public class CommandFactory {
 
     @Autowired
     BarbotContainerService barbotContainerService;
+
+    @Autowired
+    CategoryService categoryService;
 
     @Autowired
     FieldValidator fieldValidator;
@@ -62,6 +61,10 @@ public class CommandFactory {
             return new GetContainersForBarbot(barbotService, fieldValidator, hlpr, (HashMap) args[0]);
         } else if (clazz.equals(SetContainersForBarbot.class)) {
             return new SetContainersForBarbot(barbotService, ingredientService, barbotContainerService, fieldValidator, hlpr, (HashMap) args[0]);
+        } else if (clazz.equals(GetCategories.class)) {
+            return new GetCategories(categoryService, fieldValidator, hlpr, (HashMap)args[0]);
+        } else if (clazz.equals(GetCategory.class)) {
+            return new GetCategory(categoryService, fieldValidator, hlpr, (HashMap)args[0]);
         } else if (clazz.equals(BaseCommand.class)) {
             return new BaseCommand((HashMap) args[0], hlpr, fieldValidator);
         }

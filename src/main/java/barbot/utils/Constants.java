@@ -18,6 +18,7 @@ public class Constants {
     public static final String TABLE_RECIPE = "recipe";
     public static final String TABLE_RECIPE_INGREDIENT = "recipe_ingredient";
     public static final String TABLE_USER = "user";
+    public static final String TABLE_RECIPE_CATEGORY = "recipe_category";
 
     /* Web Socket JSON Keys */
     public static final String KEY_REQUEST = "request";
@@ -42,6 +43,7 @@ public class Constants {
     public static final String KEY_DATA_NUMBER = "number";
     public static final String KEY_DATA_CURRENT_VOLUME = "current_volume";
     public static final String KEY_DATA_MAX_VOLUME = "max_volume";
+    public static final String KEY_DATA_CATEGORY_ID = "category_id";
 
     /* Web Socket Commands */
     public static final String CMD_GET_RECIPES_FOR_BARBOT = "get_recipes_for_barbot";
@@ -52,6 +54,8 @@ public class Constants {
     public static final String CMD_POUR_DRINK = "pour_drink";
     public static final String CMD_GET_CONTAINERS_FOR_BARBOT = "get_containers_for_barbot";
     public static final String CMD_SET_CONTAINERS_FOR_BARBOT = "set_containers_for_barbot";
+    public static final String CMD_GET_CATEGORIES = "get_categories";
+    public static final String CMD_GET_CATEGORY = "get_category";
 
     /* Web Socket Events */
     public static final String EVENT_DRINK_ORDERED = "drink_ordered";

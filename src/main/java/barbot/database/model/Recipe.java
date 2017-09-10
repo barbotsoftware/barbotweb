@@ -62,6 +62,14 @@ public class Recipe extends BaseEntity {
     @JsonProperty("ingredient_list")
     private Set<Ingredient> ingredients;
 
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, targetEntity = Category.class)
+    @JoinTable(name = Constants.TABLE_RECIPE_CATEGORY, schema=Constants.DB_SCHEMA,
+            joinColumns = @JoinColumn(name = "recipe_id", referencedColumnName = "id", nullable = false),
+            inverseJoinColumns = @JoinColumn(name = "category_id", referencedColumnName = "id", nullable = false))
+    @JsonView(View.Detail.class)
+    @JsonProperty("category_list")
+    private Set<Category> categories;
+
     public Recipe() {
 
     }
@@ -145,6 +153,18 @@ public class Recipe extends BaseEntity {
 
     public void setIngredients(Set<Ingredient> ingredients) {
         this.ingredients = ingredients;
+    }
+
+    public void setCustom(Boolean custom) {
+        this.custom = custom;
+    }
+
+    public Set<Category> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(Set<Category> categories) {
+        this.categories = categories;
     }
 
     @Override
