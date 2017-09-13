@@ -48,7 +48,7 @@ public class CommandFactory {
         if(clazz.equals(CreateCustomRecipe.class)) {
             return new CreateCustomRecipe(recipeService, ingredientService, fieldValidator, hlpr, (HashMap)args[0], (User)args[1]);
         } else if (clazz.equals(GetRecipesForBarbot.class)) {
-            return new GetRecipesForBarbot(barbotService, fieldValidator, hlpr, (HashMap) args[0]);
+            return new GetRecipesForBarbot(barbotService, categoryService, fieldValidator, hlpr, (HashMap) args[0]);
         } else if (clazz.equals(GetRecipeDetails.class)) {
             return new GetRecipeDetails(recipeService, fieldValidator, hlpr, (HashMap) args[0]);
         } else if (clazz.equals(GetIngredientsForBarbot.class)) {

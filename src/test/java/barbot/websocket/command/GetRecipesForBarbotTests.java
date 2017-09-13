@@ -5,6 +5,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.util.HashMap;
 import java.util.List;
 
+import barbot.database.service.CategoryService;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -21,6 +22,9 @@ public class GetRecipesForBarbotTests extends CommandTests {
 
     @Mock
     private BarbotService barbotService;
+
+    @Mock
+    private CategoryService categoryService;
 
     private Barbot barbot;
 
@@ -73,6 +77,6 @@ public class GetRecipesForBarbotTests extends CommandTests {
 
         recipes = testDataHelper.createRecipeList(listSize, null);
 
-        command = new GetRecipesForBarbot(barbotService, fieldValidator, helperMethods, msg);
+        command = new GetRecipesForBarbot(barbotService, categoryService, fieldValidator, helperMethods, msg);
     }
 }

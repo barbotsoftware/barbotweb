@@ -4,15 +4,12 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+import barbot.database.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import barbot.database.dao.BarbotDao;
-import barbot.database.model.Barbot;
-import barbot.database.model.BarbotContainer;
-import barbot.database.model.Ingredient;
-import barbot.database.model.Recipe;
 
 /**
  * Created by Naveen on 4/12/17.
@@ -42,6 +39,15 @@ public class BarbotServiceImpl implements BarbotService {
         }
 
         return barbotDao.getRecipes(barbot);
+    }
+
+    @Override
+    public List<Recipe> getRecipes(Barbot barbot, Category category, List<String> ingredientIds) {
+        if(barbot == null) {
+            throw new NullPointerException(barbot + " not found.");
+        }
+
+        return barbotDao.getRecipes(barbot, category, ingredientIds);
     }
 
     @Override
