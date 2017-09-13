@@ -28,7 +28,6 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     public Category findByUid(String id) {
-        Assert.hasLength(id, "CategoryId must not be empty");
         return categoryDao.findByUid(id);
     }
 }

@@ -39,8 +39,10 @@ public class GetRecipesForBarbot extends BarbotCommand {
         String categoryId = (String) data.get(Constants.KEY_DATA_CATEGORY_ID);
         List<String> ingredientIds = new ArrayList<>();
         ArrayList<HashMap> ingredients = (ArrayList<HashMap>)data.get("ingredients");
-        for(HashMap ingredient : ingredients) {
-            ingredientIds.add(ingredient.get(Constants.KEY_DATA_INGREDIENT_ID).toString());
+        if(ingredients != null) {
+            for (HashMap ingredient : ingredients) {
+                ingredientIds.add(ingredient.get(Constants.KEY_DATA_INGREDIENT_ID).toString());
+            }
         }
 
         Barbot barbot = this.barbotService.findByUid(barbotId);

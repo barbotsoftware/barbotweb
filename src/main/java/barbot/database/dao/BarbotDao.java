@@ -49,7 +49,7 @@ public class BarbotDao extends HibernateDaoSupport {
         for(Recipe recipe : recipes) {
             getHibernateTemplate().initialize(recipe.getIngredients());
             getHibernateTemplate().initialize(recipe.getCategories());
-            if(ingredients.containsAll(recipe.getIngredients()) && recipe.getCategories().contains(category)) {
+            if(ingredients.containsAll(recipe.getIngredients()) && (category == null || recipe.getCategories().contains(category))) {
                 recipesForBarbot.add(recipe);
             }
         }
