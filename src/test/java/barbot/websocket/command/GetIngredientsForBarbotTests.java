@@ -44,10 +44,12 @@ public class GetIngredientsForBarbotTests extends CommandTests {
 
         (Mockito.doReturn(ingredients)).when(barbotService).getIngredients(barbot);
 
-        List<Ingredient> results = (List<Ingredient>) command.execute();
+        HashMap result = (HashMap) command.execute();
 
-        assertThat(results).isNotNull();
-        assertThat(results).isEqualTo(ingredients);
+        List<Ingredient> ingredientList = (List<Ingredient>) result.get("ingredients");
+
+        assertThat(ingredientList).isNotNull();
+        assertThat(ingredientList).isEqualTo(ingredients);
     }
 
     @Test

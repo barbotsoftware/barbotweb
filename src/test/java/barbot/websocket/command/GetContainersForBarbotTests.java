@@ -46,10 +46,13 @@ public class GetContainersForBarbotTests extends CommandTests {
 
         (Mockito.doReturn(barbotContainers)).when(barbotService).getBarbotContainers(barbot);
 
-        List<BarbotContainer> results = (List<BarbotContainer>) command.execute();
+        HashMap result = (HashMap) command.execute();
 
-        assertThat(results).isNotNull();
-        assertThat(results).isEqualTo(barbotContainers);
+
+        List<BarbotContainer> containerList = (List<BarbotContainer>) result.get("containers");
+
+        assertThat(containerList).isNotNull();
+        assertThat(containerList).isEqualTo(barbotContainers);
     }
 
     @Test

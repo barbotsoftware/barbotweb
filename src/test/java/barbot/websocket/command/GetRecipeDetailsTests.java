@@ -36,10 +36,12 @@ public class GetRecipeDetailsTests extends CommandTests {
     public void testExecute() {
         (Mockito.doReturn(recipe)).when(recipeService).findByUid(recipeId);
 
-        Recipe result = (Recipe) command.execute();
+        HashMap result = (HashMap) command.execute();
 
-        assertThat(result).isNotNull();
-        assertThat(result.getUid()).isEqualTo(recipeId);
+        Recipe recipe = (Recipe) result.get("recipe");
+
+        assertThat(recipe).isNotNull();
+        assertThat(recipe.getUid()).isEqualTo(recipeId);
     }
 
     @Test

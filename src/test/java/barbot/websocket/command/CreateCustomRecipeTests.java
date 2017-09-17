@@ -44,13 +44,14 @@ public class CreateCustomRecipeTests extends CommandTests {
     public void testExecute() {
         (Mockito.doReturn(new Ingredient(ingredientId))).when(ingredientService).findByUid(ingredientId);
 
-        Recipe result = (Recipe) command.execute();
+        HashMap result = (HashMap) command.execute();
+        Recipe recipe = (Recipe) result.get("recipe");
 
-        assertThat(result.getCreatedBy()).isEqualTo(user);
-        assertThat(result.getRecipeIngredients()).isNotNull();
-        assertThat(result.getRecipeIngredients().size()).isEqualTo(1);
-        assertThat(result.getName()).isEqualTo(recipeName);
-        assertThat(result.getCustom()).isTrue();
+        assertThat(recipe.getCreatedBy()).isEqualTo(user);
+        assertThat(recipe.getRecipeIngredients()).isNotNull();
+        assertThat(recipe.getRecipeIngredients().size()).isEqualTo(1);
+        assertThat(recipe.getName()).isEqualTo(recipeName);
+        assertThat(recipe.getCustom()).isTrue();
     }
 
     @Test
