@@ -37,8 +37,6 @@ public class BarbotServiceTests extends BaseServiceTests {
 
     private List<BarbotContainer> barbotContainers;
 
-    private final int listSize = 10;
-
     @Override
     @Before
     public void setUp() {

@@ -27,8 +27,6 @@ public class RecipeDaoTests extends BaseDaoTests {
 
     private List<Recipe> recipes;
 
-    private final int recipeListSize = 10;
-
     @Override
     @Before
     public void setUp() {
@@ -74,7 +72,7 @@ public class RecipeDaoTests extends BaseDaoTests {
         List<Recipe> result = recipeDao.findAll();
 
         assertThat(result).isNotNull();
-        assertThat(result.size()).isEqualTo(recipeListSize);
+        assertThat(result.size()).isEqualTo(listSize);
     }
 
     @Test
@@ -87,6 +85,6 @@ public class RecipeDaoTests extends BaseDaoTests {
     }
 
     private void setUpTestData() {
-        recipes = testDataHelper.createRecipeList(recipeListSize, null);
+        recipes = testDataHelper.createRecipeList(listSize, null);
     }
 }

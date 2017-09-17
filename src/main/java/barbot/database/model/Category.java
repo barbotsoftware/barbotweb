@@ -1,15 +1,29 @@
 package barbot.database.model;
 
-import com.fasterxml.jackson.annotation.*;
-
-import javax.persistence.*;
 import java.util.Set;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonView;
+
+import barbot.utils.Constants;
 
 /**
  * Created by Alex on 9/10/2017.
  */
 @Entity
-@Table(name = "category")
+@Table(name = Constants.TABLE_CATEGORY, schema = Constants.DB_SCHEMA)
 public class Category extends BaseEntity {
 
     @Column(name = "uid", nullable = false)

@@ -33,8 +33,6 @@ public class UserDaoTests extends BaseDaoTests {
 
     private User user;
 
-    private final int userListSize = 5;
-
     @Override
     @Before
     public void setUp() {
@@ -118,7 +116,7 @@ public class UserDaoTests extends BaseDaoTests {
     }
 
     private void setUpTestData() {
-        users = testDataHelper.createUserList(userListSize);
+        users = testDataHelper.createUserList(listSize);
 
         user = users.get(0);
     }

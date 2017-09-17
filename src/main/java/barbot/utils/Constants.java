@@ -11,14 +11,16 @@ public class Constants {
     /* Database Table Names */
     public static final String TABLE_BARBOT = "barbot";
     public static final String TABLE_BARBOT_CONTAINER = "barbot_container";
+    public static final String TABLE_CATEGORY = "category";
     public static final String TABLE_DRINK_ORDER = "drink_order";
     public static final String TABLE_EMAIL_CAPTURE = "email_capture";
     public static final String TABLE_INGREDIENT = "ingredient";
     public static final String TABLE_MIGRATION = "migration";
     public static final String TABLE_RECIPE = "recipe";
+    public static final String TABLE_RECIPE_CATEGORY = "recipe_category";
     public static final String TABLE_RECIPE_INGREDIENT = "recipe_ingredient";
     public static final String TABLE_USER = "user";
-    public static final String TABLE_RECIPE_CATEGORY = "recipe_category";
+
 
     /* Web Socket JSON Keys */
     public static final String KEY_REQUEST = "request";

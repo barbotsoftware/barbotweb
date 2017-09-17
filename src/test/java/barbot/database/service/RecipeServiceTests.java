@@ -25,12 +25,7 @@ public class RecipeServiceTests extends BaseServiceTests {
     @Mock
     private RecipeDao recipeDao;
 
-    @Mock
-    private HelperMethods hlpr;
-
     private List<Recipe> recipes;
-
-    private final int listSize = 10;
 
     @Override
     @Before

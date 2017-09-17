@@ -37,8 +37,6 @@ public class BarbotDaoTests extends BaseDaoTests {
 
     private List<Ingredient> ingredients;
 
-    private final int listSize = 9;
-
     @Override
     @Before
     public void setUp() {

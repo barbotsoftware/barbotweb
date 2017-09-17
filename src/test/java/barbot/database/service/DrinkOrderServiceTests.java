@@ -23,9 +23,6 @@ public class DrinkOrderServiceTests extends BaseServiceTests {
     @Mock
     private DrinkOrderDao drinkOrderDao;
 
-    @Mock
-    private HelperMethods hlpr;
-
     private DrinkOrder drinkOrder;
 
     @Override

@@ -34,8 +34,6 @@ public class BarbotContainerDaoTests extends BaseDaoTests {
 
     private List<BarbotContainer> barbotContainers;
 
-    private final int listSize = 1;
-
     @Override
     @Before
     public void setUp() {
