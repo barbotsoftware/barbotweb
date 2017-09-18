@@ -4,7 +4,7 @@
         "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
     <session-factory>
-        <property name="connection.url">jdbc:mysql://localhost/barbotdb</property>
+        <property name="connection.url">jdbc:mysql://localhost:3306/barbotdb</property>
         <property name="hibernate.dialect">
             org.hibernate.dialect.MySQL5Dialect
         </property>
@@ -16,6 +16,7 @@
         <mapping class="barbot.database.model.Ingredient"/>
         <mapping class="barbot.database.model.Migration"/>
         <mapping class="barbot.database.model.Recipe"/>
+        <mapping class="barbot.database.model.RecipeCategory"/>
         <mapping class="barbot.database.model.RecipeIngredient"/>
         <mapping class="barbot.database.model.User"/>
         <!-- <property name="connection.password"/> -->

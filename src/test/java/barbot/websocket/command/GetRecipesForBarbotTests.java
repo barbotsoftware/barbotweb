@@ -41,8 +41,6 @@ public class GetRecipesForBarbotTests extends CommandTests {
 
     private List<String> ingredientIds;
 
-    private final int listSize = 9;
-
     @Override
     @Before
     public void setUp() {

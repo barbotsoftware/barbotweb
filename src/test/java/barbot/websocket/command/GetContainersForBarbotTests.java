@@ -30,8 +30,6 @@ public class GetContainersForBarbotTests extends CommandTests {
 
     private List<BarbotContainer> barbotContainers;
 
-    private final int listSize = 9;
-
     @Override
     @Before
     public void setUp() {
@@ -47,7 +45,6 @@ public class GetContainersForBarbotTests extends CommandTests {
         (Mockito.doReturn(barbotContainers)).when(barbotService).getBarbotContainers(barbot);
 
         HashMap result = (HashMap) command.execute();
-
 
         List<BarbotContainer> containerList = (List<BarbotContainer>) result.get("containers");
 
