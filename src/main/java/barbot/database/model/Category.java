@@ -1,6 +1,9 @@
 package barbot.database.model;
 
+import barbot.utils.Constants;
 import com.fasterxml.jackson.annotation.*;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -18,7 +21,8 @@ public class Category extends BaseEntity {
     private String uid;
 
     @ManyToOne
-    @JoinColumn(name = "parent_category_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "parent_category_id", referencedColumnName = "id")
+    @NotFound(action = NotFoundAction.IGNORE)
     @JsonIgnore
     private Category parentCategory;
 
@@ -33,7 +37,10 @@ public class Category extends BaseEntity {
     @JsonBackReference
     private Set<Category> categories;
 
-    @ManyToMany(mappedBy = "categories", targetEntity = Recipe.class)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, targetEntity = Recipe.class)
+    @JoinTable(name = Constants.TABLE_RECIPE_CATEGORY, schema=Constants.DB_SCHEMA,
+            joinColumns = @JoinColumn(name = "category_id", referencedColumnName = "id", nullable = false),
+            inverseJoinColumns = @JoinColumn(name = "recipe_id", referencedColumnName = "id", nullable = false))
     @JsonView(View.Detail.class)
     private Set<Recipe> recipes;
 
