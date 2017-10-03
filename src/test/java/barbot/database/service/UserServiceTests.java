@@ -23,9 +23,6 @@ public class UserServiceTests extends BaseServiceTests {
     @Mock
     private UserDao userDao;
 
-    @Mock
-    private HelperMethods hlpr;
-
     private User user;
 
     @Override

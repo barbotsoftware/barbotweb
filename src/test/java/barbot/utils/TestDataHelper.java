@@ -6,6 +6,7 @@ import java.util.List;
 
 import barbot.database.model.Barbot;
 import barbot.database.model.BarbotContainer;
+import barbot.database.model.Category;
 import barbot.database.model.DrinkOrder;
 import barbot.database.model.Ingredient;
 import barbot.database.model.Recipe;
@@ -49,6 +50,24 @@ public class TestDataHelper {
         return barbotContainers;
     }
 
+    public List<Category> createCategoryList(int listSize) {
+        List<Category> categories = new ArrayList<>();
+
+        for (int i = 0; i < listSize; i++) {
+            Category category = new Category();
+            category.setId(i);
+            category.setUid("category_xxxxx" + i);
+
+            if (i % 2 == 0 && i > 0) {
+                category.setParentCategory(categories.get(i - 1));
+            }
+
+            categories.add(category);
+        }
+
+        return categories;
+    }
+
     public List<DrinkOrder> createDrinkOrderList(int listSize) {
         List<DrinkOrder> drinkOrders = new ArrayList<>();
 
@@ -90,6 +109,18 @@ public class TestDataHelper {
         }
 
         return recipes;
+    }
+
+    public List<Category> createRootCategoryList(List<Category> categoryList) {
+        List<Category> rootCategoryList = new ArrayList<>();
+
+        for (Category c : categoryList) {
+            if (c.getParentCategory() != null) {
+                rootCategoryList.add(c);
+            }
+        }
+
+        return rootCategoryList;
     }
 
     public List<User> createUserList(int listSize) {

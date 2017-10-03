@@ -18,6 +18,7 @@ import javax.persistence.Table;
 import org.junit.Ignore;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonView;
@@ -54,6 +55,10 @@ public abstract class EntityTests {
 
     protected JsonBackReference createJsonBackReference(Class<?> cl, String fieldName) {
         return createFieldAnnotation(cl, fieldName, JsonBackReference.class);
+    }
+
+    protected JsonIgnore createJsonIgnore(Class<?> cl, String fieldName) {
+        return createFieldAnnotation(cl, fieldName, JsonIgnore.class);
     }
 
     protected JsonManagedReference createJsonManagedReference(Class<?> cl, String fieldName) {

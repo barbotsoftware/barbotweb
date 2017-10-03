@@ -14,6 +14,8 @@ public abstract class BaseServiceTests {
 
     protected TestDataHelper testDataHelper;
 
+    protected final int listSize = 10;
+
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);

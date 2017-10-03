@@ -34,7 +34,7 @@ All commands must be valid JSON and have the same basic structure:
 |get_recipes_for_barbot|barbot_id|recipes|
 |order_drink|barbot_id, recipe_id, ice, garnish|drink_order_id|
 |pour_drink|drink_order_id|success/error|
-|set_containers_for_barbot|barbot_containers|success/error|
+|set_containers_for_barbot|barbot_id, barbot_containers|success/error|
 
 #### Example Payloads:
 
@@ -152,13 +152,13 @@ Response:
             "img": "http:\/\/farm8.staticflickr.com\/7252\/7594170156_46bf574865_o.jpg",
             "ingredients": [{
                 "ingredient_id": "ingredient_d300cc",
-                "quantity": 3.43
+                "amount": 3.43
             }, {
                 "ingredient_id": "ingredient_f8fb11",
-                "quantity": 0.86
+                "amount": 0.86
             }, {
                 "ingredient_id": "ingredient_8ec6eb",
-                "quantity": 1.71
+                "amount": 1.71
             }]
         }
     }

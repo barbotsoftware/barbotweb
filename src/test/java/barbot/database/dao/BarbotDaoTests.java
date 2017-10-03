@@ -16,6 +16,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import barbot.config.TestDatabaseConfig;
 import barbot.database.model.Barbot;
 import barbot.database.model.BarbotContainer;
+import barbot.database.model.Category;
 import barbot.database.model.Ingredient;
 import barbot.database.model.Recipe;
 
@@ -37,7 +38,7 @@ public class BarbotDaoTests extends BaseDaoTests {
 
     private List<Ingredient> ingredients;
 
-    private final int listSize = 9;
+    private Category category;
 
     @Override
     @Before
@@ -93,6 +94,22 @@ public class BarbotDaoTests extends BaseDaoTests {
         assertThat(results.size()).isEqualTo(listSize);
     }
 
+//    @Test
+//    public void testGetRecipesWithCategory() {
+//        Barbot barbot = barbots.get(0);
+//
+//        (Mockito.doReturn(ingredients).when(barbotDao))
+//                .getIngredients(barbot);
+//
+//        (Mockito.doReturn(recipes).when(mockTemplate))
+//                .find("FROM Recipe WHERE custom = 0");
+//
+//        List<Recipe> results = barbotDao.getRecipes(barbot, category, null);
+//
+//        assertThat(results).isNotNull();
+//        assertThat(results.size()).isEqualTo(listSize);
+//    }
+
     @Test
     public void testGetIngredients() {
         Barbot barbot = barbots.get(0);
@@ -106,6 +123,11 @@ public class BarbotDaoTests extends BaseDaoTests {
         assertThat(results).isNotNull();
         assertThat(results.size()).isEqualTo(listSize);
     }
+
+//    @Test
+//    public void testGetIngredientsWithFilter() {
+//
+//    }
 
     @Test
     public void testGetBarbotContainers() {

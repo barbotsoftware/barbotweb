@@ -93,7 +93,7 @@ public class RecipeIngredientTests extends EntityTests {
 
         JsonProperty jp = createJsonProperty(RecipeIngredient.class, "ingredient");
 
-        assertThat(jp.value()).isEqualTo("ingredient_id");
+        assertThat(jp.value()).isEqualTo("ingredient");
 
         JsonView jv = createJsonView(RecipeIngredient.class, "ingredient");
 

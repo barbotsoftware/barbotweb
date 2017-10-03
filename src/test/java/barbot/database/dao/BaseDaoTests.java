@@ -18,6 +18,8 @@ public abstract class BaseDaoTests {
 
     protected TestDataHelper testDataHelper;
 
+    protected final int listSize = 9;
+
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);

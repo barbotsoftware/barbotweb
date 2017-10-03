@@ -27,8 +27,6 @@ public class DrinkOrderDaoTests extends BaseDaoTests {
 
     private List<DrinkOrder> drinkOrders;
 
-    private final int drinkOrderListSize = 10;
-
     @Override
     @Before
     public void setUp() {
@@ -76,6 +74,6 @@ public class DrinkOrderDaoTests extends BaseDaoTests {
     }
 
     private void setUpTestData() {
-        drinkOrders = testDataHelper.createDrinkOrderList(drinkOrderListSize);
+        drinkOrders = testDataHelper.createDrinkOrderList(listSize);
     }
 }
