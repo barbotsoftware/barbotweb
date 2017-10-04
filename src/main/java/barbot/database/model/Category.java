@@ -12,7 +12,7 @@ import java.util.Set;
  * Created by Alex on 9/10/2017.
  */
 @Entity
-@Table(name = Constants.TABLE_CATEGORY)
+@Table(name = Constants.TABLE_CATEGORY, schema = Constants.DB_SCHEMA)
 public class Category extends BaseEntity {
 
     @Column(name = "uid", nullable = false)

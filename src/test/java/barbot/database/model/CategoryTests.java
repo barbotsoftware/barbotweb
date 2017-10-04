@@ -5,22 +5,14 @@ import static barbot.utils.AssertAnnotations.assertMethod;
 import static barbot.utils.AssertAnnotations.assertType;
 import static org.assertj.core.api.Assertions.assertThat;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import org.junit.Test;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonView;
+import com.fasterxml.jackson.annotation.*;
+
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 
 /**
  * Created by Naveen on 9/17/17.
@@ -35,11 +27,12 @@ public class CategoryTests extends EntityTests {
     @Test
     public void testFieldAnnotations() {
         assertField(Category.class, "uid", Column.class, JsonProperty.class, JsonView.class);
-        assertField(Category.class, "parentCategory", ManyToOne.class, JoinColumn.class, JsonIgnore.class);
+        assertField(Category.class, "parentCategory", ManyToOne.class, JoinColumn.class, NotFound.class,
+                JsonIgnore.class);
         assertField(Category.class, "name", Column.class, JsonView.class);
         assertField(Category.class, "categories", OneToMany.class, JsonProperty.class, JsonView.class,
                 JsonManagedReference.class, JsonBackReference.class);
-        assertField(Category.class, "recipes", ManyToMany.class, JsonView.class);
+        assertField(Category.class, "recipes", ManyToMany.class, JoinTable.class, JsonView.class);
     }
 
     @Test
@@ -91,7 +84,10 @@ public class CategoryTests extends EntityTests {
 
         assertThat(jc.name()).isEqualTo("parent_category_id");
         assertThat(jc.referencedColumnName()).isEqualTo("id");
-        assertThat(jc.nullable()).isFalse();
+
+        NotFound nf = createNotFound(Category.class, "parentCategory");
+
+        assertThat(nf.action()).isEqualTo(NotFoundAction.IGNORE);
 
         JsonIgnore ji = createJsonIgnore(Category.class, "parentCategory");
 
@@ -137,8 +133,19 @@ public class CategoryTests extends EntityTests {
     public void testRecipes() {
         ManyToMany manyToMany = createManyToMany(Category.class, "recipes");
 
-        assertThat(manyToMany.mappedBy()).isEqualTo("categories");
+        assertThat(manyToMany.fetch()).isEqualTo(FetchType.EAGER);
+        assertThat(manyToMany.cascade()).contains(CascadeType.ALL);
         assertThat(manyToMany.targetEntity()).isEqualTo(Recipe.class);
+
+        JoinTable jt = createJoinTable(Category.class, "recipes");
+
+        JoinColumn joinColumn = createJoinColumn(RecipeCategory.class, "category");
+        JoinColumn inverseJoinColumn = createJoinColumn(RecipeCategory.class, "recipe");
+
+        assertThat(jt.name()).isEqualTo("recipe_category");
+        assertThat(jt.schema()).isEqualTo("barbotdb");
+        assertThat(jt.joinColumns()).contains(joinColumn);
+        assertThat(jt.inverseJoinColumns()).contains(inverseJoinColumn);
 
         JsonView jsonView = createJsonView(Category.class, "recipes");
 

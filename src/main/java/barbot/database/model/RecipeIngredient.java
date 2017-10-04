@@ -9,8 +9,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonView;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import barbot.utils.Constants;
 
@@ -29,7 +32,9 @@ public class RecipeIngredient extends BaseEntity {
 
     @ManyToOne
     @JoinColumn(name = "ingredient_id", referencedColumnName = "id", nullable = false)
-    @JsonProperty("ingredient")
+    @JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="ingredient_id")
+    @JsonIdentityReference(alwaysAsId=true)
+    @JsonProperty("ingredient_id")
     @JsonView(View.Summary.class)
     private Ingredient ingredient;
 

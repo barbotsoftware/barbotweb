@@ -19,9 +19,13 @@ import org.junit.Ignore;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonView;
+
+import org.hibernate.annotations.NotFound;
 
 /**
  * Created by Naveen on 5/28/17.
@@ -61,6 +65,14 @@ public abstract class EntityTests {
         return createFieldAnnotation(cl, fieldName, JsonIgnore.class);
     }
 
+    protected JsonIdentityInfo createJsonIdentityInfo(Class<?> cl, String fieldName) {
+        return createFieldAnnotation(cl, fieldName, JsonIdentityInfo.class);
+    }
+
+    protected JsonIdentityReference createJsonIdentityReference(Class<?> cl, String fieldName) {
+        return createFieldAnnotation(cl, fieldName, JsonIdentityReference.class);
+    }
+
     protected JsonManagedReference createJsonManagedReference(Class<?> cl, String fieldName) {
         return createFieldAnnotation(cl, fieldName, JsonManagedReference.class);
     }
@@ -79,6 +91,10 @@ public abstract class EntityTests {
 
     protected ManyToMany createManyToMany(Class<?> cl, String fieldName) {
         return createFieldAnnotation(cl, fieldName, ManyToMany.class);
+    }
+
+    protected NotFound createNotFound(Class<?> cl, String fieldName) {
+        return createFieldAnnotation(cl, fieldName, NotFound.class);
     }
 
     protected OneToMany createOneToMany(Class<?> cl, String fieldName) {

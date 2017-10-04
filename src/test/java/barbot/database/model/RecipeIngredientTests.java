@@ -14,8 +14,11 @@ import javax.persistence.Table;
 import org.junit.Test;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonView;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 /**
  * Created by Naveen on 5/29/17.
@@ -32,7 +35,7 @@ public class RecipeIngredientTests extends EntityTests {
         assertField(RecipeIngredient.class, "recipe", ManyToOne.class, JoinColumn.class, JsonView.class,
                 JsonBackReference.class);
         assertField(RecipeIngredient.class, "ingredient", ManyToOne.class, JoinColumn.class, JsonProperty.class,
-                JsonView.class);
+                JsonView.class, JsonIdentityInfo.class, JsonIdentityReference.class);
         assertField(RecipeIngredient.class, "amount", Column.class, JsonView.class);
     }
 
@@ -91,9 +94,18 @@ public class RecipeIngredientTests extends EntityTests {
         assertThat(jc.referencedColumnName()).isEqualTo("id");
         assertThat(jc.nullable()).isFalse();
 
+        JsonIdentityInfo jii = createJsonIdentityInfo(RecipeIngredient.class, "ingredient");
+
+        assertThat(jii.generator()).isEqualTo(ObjectIdGenerators.PropertyGenerator.class);
+        assertThat(jii.property()).isEqualTo("ingredient_id");
+
+        JsonIdentityReference jir = createJsonIdentityReference(RecipeIngredient.class, "ingredient");
+
+        assertThat(jir.alwaysAsId()).isTrue();
+
         JsonProperty jp = createJsonProperty(RecipeIngredient.class, "ingredient");
 
-        assertThat(jp.value()).isEqualTo("ingredient");
+        assertThat(jp.value()).isEqualTo("ingredient_id");
 
         JsonView jv = createJsonView(RecipeIngredient.class, "ingredient");
 
