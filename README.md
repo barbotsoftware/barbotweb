@@ -29,6 +29,8 @@ All commands must be valid JSON and have the same basic structure:
 | -------------    |-------------| -----  | 
 |create_custom_recipe|recipe|recipe|
 |get_containers_for_barbot|barbot_id|barbot_containers|
+|get_categories|-|categories
+|get_category|category_id|category
 |get_ingredients_for_barbot|barbot_id|ingredients|
 |get_recipe_details|recipe_id|recipe|
 |get_recipes_for_barbot|barbot_id|recipes|
@@ -127,6 +129,84 @@ Response:
             "id": "ingredient_b87666"
         }]
     }
+}
+```
+##### get_categories
+Request:
+```
+{
+    "type": "command_request",
+    "command": "get_categories",
+    "data": {
+    }
+}
+```
+Response:
+```
+{
+    "result": "success",
+    "data": {
+        "categories": [{
+            "name": "Cocktail Color",
+            "recipes": [],
+            "category_id": "97F0F9",
+            "sub_categories": [{
+                "name": "Blue Cocktails",
+                "recipes": [],
+                "category_id": "BE95CB",
+                "sub_categories": []
+            }, {
+                "name": "Orange Cocktails",
+                "recipes": [],
+                "category_id": "2F96E6",
+                "sub_categories": []
+            }]
+        }, {
+            "name": "Base Ingredient",
+            "recipes": [],
+            "category_id": "ED0167",
+            "sub_categories": [{
+                "name": "Rum",
+                "recipes": [],
+                "category_id": "35A6E3",
+                "sub_categories": []
+            }, {
+                "name": "Tequila",
+                "recipes": [],
+                "category_id": "7275C6",
+                "sub_categories": []
+            }]
+        }]
+    },
+  "type": "command_response",
+  "command": "get_categories"
+}
+```
+##### get_category
+Request:
+```
+{
+    "type": "command_request",
+    "command": "get_category",
+    "data": {
+      "category_id": "A7F3A7"
+    }
+}
+```
+Response:
+``` 
+{
+    "result": "success",
+    "data": {
+        "category": {
+            "name": "Popular",
+            "recipes": [],
+            "category_id": "A7F3A7",
+            "sub_categories": []
+        }
+    },
+    "type": "command_response",
+    "command": "get_category"
 }
 ```
 ##### get_recipe_details

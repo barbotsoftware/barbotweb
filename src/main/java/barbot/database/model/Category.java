@@ -23,7 +23,7 @@ public class Category extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "parent_category_id", referencedColumnName = "id")
     @NotFound(action = NotFoundAction.IGNORE)
-    @JsonIgnore
+    @JsonBackReference
     private Category parentCategory;
 
     @Column(name = "name", nullable = false)
@@ -34,7 +34,6 @@ public class Category extends BaseEntity {
     @JsonProperty("sub_categories")
     @JsonView(View.Summary.class)
     @JsonManagedReference
-    @JsonBackReference
     private Set<Category> categories;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, targetEntity = Recipe.class)

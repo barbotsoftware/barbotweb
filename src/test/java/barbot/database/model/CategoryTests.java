@@ -28,10 +28,10 @@ public class CategoryTests extends EntityTests {
     public void testFieldAnnotations() {
         assertField(Category.class, "uid", Column.class, JsonProperty.class, JsonView.class);
         assertField(Category.class, "parentCategory", ManyToOne.class, JoinColumn.class, NotFound.class,
-                JsonIgnore.class);
+                JsonBackReference.class);
         assertField(Category.class, "name", Column.class, JsonView.class);
         assertField(Category.class, "categories", OneToMany.class, JsonProperty.class, JsonView.class,
-                JsonManagedReference.class, JsonBackReference.class);
+                JsonManagedReference.class);
         assertField(Category.class, "recipes", ManyToMany.class, JoinTable.class, JsonView.class);
     }
 
@@ -89,9 +89,9 @@ public class CategoryTests extends EntityTests {
 
         assertThat(nf.action()).isEqualTo(NotFoundAction.IGNORE);
 
-        JsonIgnore ji = createJsonIgnore(Category.class, "parentCategory");
+        JsonBackReference jsonBackReference = createJsonBackReference(Category.class, "parentCategory");
 
-        assertThat(ji).isNotNull();
+        assertThat(jsonBackReference).isNotNull();
     }
 
     @Test
@@ -123,10 +123,6 @@ public class CategoryTests extends EntityTests {
         JsonManagedReference jsonManagedReference = createJsonManagedReference(Category.class, "categories");
 
         assertThat(jsonManagedReference).isNotNull();
-
-        JsonBackReference jsonBackReference = createJsonBackReference(Category.class, "categories");
-
-        assertThat(jsonBackReference).isNotNull();
     }
 
     @Test
