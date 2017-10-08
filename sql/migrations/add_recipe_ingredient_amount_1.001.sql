@@ -13,7 +13,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `do_current_update_script`(
 BEGIN
   DECLARE count_rows INT;
   START TRANSACTION;
-  SET count_rows = (SELECT count(*) FROM `migration` m WHERE m.version = `version`);
+  SET count_rows = (SELECT count(*) FROM `migration` m WHERE m.version = `version` COLLATE utf8_unicode_ci);
   IF count_rows = 0 THEN
 
     ALTER TABLE `recipe_ingredient`
@@ -29,6 +29,6 @@ BEGIN
 END//
 DELIMITER ;
 
-CALL `do_current_update_script`('add_recipe_ingredient_amount_5_2_2017', '1.001', '2017-05-02');
+CALL `do_current_update_script`('add_recipe_ingredient_amount', '1.001', '2017-05-02');
 
 -- END OF UPDATE SCRIPT --

@@ -1,5 +1,5 @@
 -- START OF UPDATE SCRIPT --
--- Adds password column to barbot table.
+-- [DESCRIPTION]
 
 DROP PROCEDURE IF EXISTS `do_current_update_script`;
 
@@ -13,13 +13,12 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `do_current_update_script`(
 BEGIN
   DECLARE count_rows INT;
   START TRANSACTION;
-  SET count_rows = (SELECT count(*) FROM `migration` m WHERE m.version = `version`);
+  SET count_rows = (SELECT count(*) FROM `migration` m WHERE m.version = `version` COLLATE utf8_unicode_ci);
   IF count_rows = 0 THEN
 
-    ALTER TABLE barbotdb.barbot ADD password VARCHAR(255) DEFAULT '' NOT NULL;
-    ALTER TABLE barbotdb.barbot
-      MODIFY COLUMN password VARCHAR(255) NOT NULL DEFAULT '' AFTER name;
-
+    ALTER TABLE barbotdb.recipe_category
+    MODIFY COLUMN id int(10) AUTO_INCREMENT;
+    
     INSERT INTO `migration`(migration,version,created_at,run_at)
     VALUES(migration,version,created_at,NOW());
   END IF;
@@ -27,6 +26,6 @@ BEGIN
 END//
 DELIMITER ;
 
-CALL `do_current_update_script`('add_barbot_password', '1.002', '2017-05-18');
+CALL `do_current_update_script`('auto_increment_recipe_category', '1.006', '2017-10-08');
 
 -- END OF UPDATE SCRIPT --

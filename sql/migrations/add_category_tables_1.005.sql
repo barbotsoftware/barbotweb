@@ -13,7 +13,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `do_current_update_script`(
 BEGIN
   DECLARE count_rows INT;
   START TRANSACTION;
-  SET count_rows = (SELECT count(*) FROM `migration` m WHERE m.version = `version`);
+  SET count_rows = (SELECT count(*) FROM `migration` m WHERE m.version = `version` COLLATE utf8_unicode_ci);
   IF count_rows = 0 THEN
 
     CREATE TABLE barbotdb.category
@@ -56,6 +56,6 @@ BEGIN
 END//
 DELIMITER ;
 
-CALL `do_current_update_script`('add_category_tables_9_10_2017', '1.005', '2017-09-10');
+CALL `do_current_update_script`('add_category_tables', '1.005', '2017-09-10');
 
 -- END OF UPDATE SCRIPT --
