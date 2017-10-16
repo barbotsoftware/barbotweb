@@ -40,7 +40,7 @@ public class SetContainersForBarbot extends BaseCommand {
         String barbotId = (String) data.get(Constants.KEY_DATA_BARBOT_ID);
         Barbot barbot = this.barbotService.findByUid(barbotId);
 
-        ArrayList<HashMap> barbotContainers = (ArrayList<HashMap>) data.get(Constants.KEY_DATA_BARBOT_CONTAINERS);
+        ArrayList<HashMap> barbotContainers = (ArrayList<HashMap>) data.get(Constants.KEY_DATA_CONTAINERS);
 
         for (HashMap barbotContainer : barbotContainers) {
 
@@ -86,8 +86,10 @@ public class SetContainersForBarbot extends BaseCommand {
             return false;
         }
 
-        if(!data.containsKey("barbot_containers") || !data.get("barbot_containers").getClass().equals(ArrayList.class))  {
-            error.put("barbot_containers.notFound", hlpr.getMessage(Constants.ERROR_MSG_PREFIX + "barbot_containers.notFound"));
+        if(!data.containsKey(Constants.KEY_DATA_CONTAINERS) || !data.get(Constants.KEY_DATA_CONTAINERS).getClass()
+                .equals(ArrayList.class))  {
+            error.put(Constants.KEY_DATA_CONTAINERS + ".notFound", hlpr.getMessage(Constants.ERROR_MSG_PREFIX +
+                    Constants.KEY_DATA_CONTAINERS + ".notFound"));
             return false;
         }
 

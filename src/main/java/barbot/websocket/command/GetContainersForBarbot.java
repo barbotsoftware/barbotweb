@@ -33,7 +33,7 @@ public class GetContainersForBarbot extends BarbotCommand {
 
         // Return barbot containers from service
         HashMap result = new HashMap();
-        result.put("containers", this.barbotService.getBarbotContainers(barbot));
+        result.put(Constants.KEY_DATA_CONTAINERS, this.barbotService.getBarbotContainers(barbot));
         return result;
     }
 

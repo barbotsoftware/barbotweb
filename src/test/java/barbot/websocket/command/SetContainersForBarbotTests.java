@@ -92,7 +92,7 @@ public class SetContainersForBarbotTests extends CommandTests {
 
         HashMap data = new HashMap<>();
         data.put("barbot_id", barbotId);
-        data.put("barbot_containers", barbotContainers);
+        data.put("containers", barbotContainers);
 
         msg.put("data", data);
 
