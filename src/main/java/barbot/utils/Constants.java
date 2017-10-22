@@ -41,6 +41,7 @@ public class Constants {
     public static final String KEY_DATA_DRINK_ORDER_ID = "drink_order_id";
     public static final String KEY_DATA_ICE = "ice";
     public static final String KEY_DATA_GARNISH = "garnish";
+    public static final String KEY_DATA_CONTAINER = "container";
     public static final String KEY_DATA_CONTAINERS = "containers";
     public static final String KEY_DATA_NUMBER = "number";
     public static final String KEY_DATA_CURRENT_VOLUME = "current_volume";
@@ -58,6 +59,7 @@ public class Constants {
     public static final String CMD_SET_CONTAINERS_FOR_BARBOT = "set_containers_for_barbot";
     public static final String CMD_GET_CATEGORIES = "get_categories";
     public static final String CMD_GET_CATEGORY = "get_category";
+    public static final String CMD_UPDATE_CONTAINER = "update_container";
 
     /* Web Socket Events */
     public static final String EVENT_DRINK_ORDERED = "drink_ordered";

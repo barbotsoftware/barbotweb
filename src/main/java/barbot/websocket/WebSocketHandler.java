@@ -122,6 +122,9 @@ public class WebSocketHandler extends TextWebSocketHandler {
             case Constants.CMD_GET_CATEGORY:
                 command = commandFactory.create(GetCategory.class, msg);
                 break;
+            case Constants.CMD_UPDATE_CONTAINER:
+                command = commandFactory.create(UpdateContainer.class, msg);
+                break;
             default:
                 command = commandFactory.create(BaseCommand.class, msg);
                 sendError(session, Constants.ERROR_MSG_COMMAND_NOT_RECOGNIZED);
