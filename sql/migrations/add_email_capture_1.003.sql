@@ -13,7 +13,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `do_current_update_script`(
 BEGIN
   DECLARE count_rows INT;
   START TRANSACTION;
-  SET count_rows = (SELECT count(*) FROM `migration` m WHERE m.version = `version` COLLATE utf8_unicode_ci);
+  SET count_rows = (SELECT count(*) FROM `migration` m WHERE m.version = `version`);
   IF count_rows = 0 THEN
 
     CREATE TABLE email_capture
