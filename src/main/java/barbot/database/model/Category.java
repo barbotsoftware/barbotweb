@@ -30,6 +30,11 @@ public class Category extends BaseEntity {
     @JsonView(View.Summary.class)
     private String name;
 
+    @Column(name = "image_url", nullable = false)
+    @JsonProperty("img")
+    @JsonView(View.Summary.class)
+    private String imageUrl;
+
     @OneToMany(mappedBy = "parentCategory", fetch = FetchType.EAGER)
     @JsonProperty("sub_categories")
     @JsonView(View.Summary.class)
@@ -67,6 +72,14 @@ public class Category extends BaseEntity {
         this.name = name;
     }
 
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
     public Set<Category> getCategories() {
         return categories;
     }
@@ -93,6 +106,7 @@ public class Category extends BaseEntity {
         if (id != null ? !id.equals(category.id) : category.id != null) return false;
         if (uid != null ? !uid.equals(category.uid) : category.uid != null) return false;
         if (name != null ? !name.equals(category.name) : category.name != null) return false;
+        if (imageUrl != null ? !imageUrl.equals(category.imageUrl) : category.imageUrl != null) return false;
         if (createdAt != null ? !createdAt.equals(category.createdAt) : category.createdAt != null) return false;
         if (updatedAt != null ? !updatedAt.equals(category.updatedAt) : category.updatedAt != null) return false;
         if (deletedAt != null ? !deletedAt.equals(category.deletedAt) : category.deletedAt != null) return false;
@@ -105,6 +119,7 @@ public class Category extends BaseEntity {
         int result = id != null ? id.hashCode() : 0;
         result = 31 * result + (uid != null ? uid.hashCode() : 0);
         result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (imageUrl != null ? imageUrl.hashCode() : 0);
         result = 31 * result + (createdAt != null ? createdAt.hashCode() : 0);
         result = 31 * result + (updatedAt != null ? updatedAt.hashCode() : 0);
         result = 31 * result + (deletedAt != null ? deletedAt.hashCode() : 0);

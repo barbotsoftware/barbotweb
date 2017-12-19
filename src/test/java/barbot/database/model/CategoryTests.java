@@ -30,6 +30,7 @@ public class CategoryTests extends EntityTests {
         assertField(Category.class, "parentCategory", ManyToOne.class, JoinColumn.class, NotFound.class,
                 JsonBackReference.class);
         assertField(Category.class, "name", Column.class, JsonView.class);
+        assertField(Category.class, "imageUrl", Column.class, JsonProperty.class, JsonView.class);
         assertField(Category.class, "categories", OneToMany.class, JsonProperty.class, JsonView.class,
                 JsonManagedReference.class);
         assertField(Category.class, "recipes", ManyToMany.class, JoinTable.class, JsonView.class);
@@ -40,6 +41,7 @@ public class CategoryTests extends EntityTests {
         assertMethod(Category.class, "getUid");
         assertMethod(Category.class, "getParentCategory");
         assertMethod(Category.class, "getName");
+        assertMethod(Category.class, "getImageUrl");
         assertMethod(Category.class, "getCategories");
         assertMethod(Category.class, "getRecipes");
     }
@@ -103,6 +105,22 @@ public class CategoryTests extends EntityTests {
         JsonView jsonView = createJsonView(Category.class, "name");
 
         assertThat(jsonView.value()).contains(View.Summary.class);
+    }
+
+    @Test
+    public void testImageUrl() {
+        Column c = createColumn(Category.class, "imageUrl");
+
+        assertThat(c.name()).isEqualTo("image_url");
+        assertThat(c.nullable()).isFalse();
+
+        JsonProperty jp = createJsonProperty(Category.class, "imageUrl");
+
+        assertThat(jp.value()).isEqualTo("img");
+
+        JsonView jv = createJsonView(Category.class, "imageUrl");
+
+        assertThat(jv.value()).contains(View.Summary.class);
     }
 
     @Test
