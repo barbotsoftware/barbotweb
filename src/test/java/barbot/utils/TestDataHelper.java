@@ -27,6 +27,8 @@ public class TestDataHelper {
             Barbot barbot = new Barbot();
             barbot.setId(i);
             barbot.setUid("barbot_xxxxx" + i);
+            barbot.setName("barbot" + i);
+            barbot.setPassword("password");
             barbots.add(barbot);
         }
 

@@ -70,6 +70,20 @@ public class BarbotServiceTests extends BaseServiceTests {
     }
 
     @Test
+    public void testFindByNameAndPassword() {
+        String name = barbot.getName();
+        String password = barbot.getPassword();
+
+        (Mockito.doReturn(barbot)).when(barbotDao).findByNameAndPassword(name, password);
+
+        Barbot result = barbotService.findByNameAndPassword(name, password);
+
+        assertThat(result).isNotNull();
+        assertThat(result.getName()).isEqualTo(result.getName());
+        assertThat(result.getPassword()).isEqualTo(result.getPassword());
+    }
+
+    @Test
     public void testGetRecipes() {
         (Mockito.doReturn(recipes)).when(barbotDao).getRecipes(barbot);
 
@@ -104,6 +118,8 @@ public class BarbotServiceTests extends BaseServiceTests {
         // Barbot
         barbot = new Barbot("barbot_123456");
         barbot.setId(1);
+        barbot.setName("barbot1");
+        barbot.setPassword("password");
 
         List<Barbot> barbots = new ArrayList<>();
         barbots.add(barbot);

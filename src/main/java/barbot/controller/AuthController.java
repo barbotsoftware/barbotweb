@@ -8,14 +8,17 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+//import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import barbot.database.dao.MainDao;
+import barbot.database.model.Barbot;
 import barbot.database.model.EmailCapture;
 import barbot.database.model.User;
+import barbot.database.service.BarbotService;
 import barbot.database.service.UserService;
 import barbot.utils.FieldValidator;
 import barbot.utils.Routes;
@@ -31,6 +34,9 @@ public class AuthController extends BaseController {
 
     @Autowired
     BCryptPasswordEncoder passwordEncoder;
+
+    @Autowired
+    BarbotService barbotService;
 
     @Autowired
     UserService userService;
@@ -57,6 +63,41 @@ public class AuthController extends BaseController {
         }
 
         return success(null);
+    }
+
+    //@CrossOrigin(origins = "http://localhost:3000")
+    @ResponseBody
+    @RequestMapping(path = Routes.LOGIN, method = RequestMethod.POST)
+    public Map login(HttpServletRequest request) {
+        HashMap fieldsToValidate = new HashMap();
+        fieldsToValidate.put("type", "required");
+        fieldsToValidate.put("username", "required");
+        fieldsToValidate.put("password", "required");
+
+        if(validator.validate(request.getParameterMap(), fieldsToValidate)) {
+            String type = request.getParameter("type");
+            String username = request.getParameter("username");
+            String password = request.getParameter("password");
+
+            if (type.equals("user")) {
+                User user = userService.findByUsernameAndPassword(username, password);
+
+                if (user != null) {
+                    return success(null);
+                }
+            } else if (type.equals("barbot")) {
+                Barbot barbot = barbotService.findByNameAndPassword(username, password);
+
+                if (barbot != null) {
+                    return success(null);
+                }
+            }
+
+        } else {
+            return error(validator.getErrors());
+        }
+
+        return error(null);
     }
 
     @ResponseBody

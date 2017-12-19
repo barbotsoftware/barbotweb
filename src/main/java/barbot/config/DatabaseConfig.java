@@ -103,6 +103,7 @@ public class DatabaseConfig {
     public BarbotDao barbotDao() {
         BarbotDao barbotDao = new BarbotDao();
         barbotDao.setSessionFactory(sessionFactory().getObject());
+        barbotDao.setPasswordEncoder(passwordEncoder());
         return barbotDao;
     }
 

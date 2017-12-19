@@ -2,6 +2,7 @@ package barbot.database.dao;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
@@ -10,6 +11,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -30,6 +32,8 @@ public class BarbotDaoTests extends BaseDaoTests {
 
     private BarbotDao barbotDao;
 
+    private BCryptPasswordEncoder passwordEncoder;
+
     private List<Barbot> barbots;
 
     private List<BarbotContainer> barbotContainers;
@@ -45,8 +49,11 @@ public class BarbotDaoTests extends BaseDaoTests {
     public void setUp() {
         super.setUp();
 
+        passwordEncoder = new BCryptPasswordEncoder();
+
         barbotDao = new BarbotDao();
         barbotDao.setHibernateTemplate(mockTemplate);
+        barbotDao.setPasswordEncoder(passwordEncoder);
 
         setUpTestData();
     }
@@ -75,6 +82,44 @@ public class BarbotDaoTests extends BaseDaoTests {
 
         assertThat(result).isNotNull();
         assertThat(result.getId()).isEqualTo(id);
+    }
+
+    @Test
+    public void testFindByName() {
+        Barbot barbot = barbots.get(0);
+        String name = barbots.get(0).getName();
+
+        List<Barbot> results = new ArrayList<>();
+        results.add(barbot);
+
+        (Mockito.doReturn(results).when(mockTemplate))
+                .find("FROM Barbot WHERE name = ?", name);
+
+        Barbot result = barbotDao.findByName(name);
+
+        assertThat(result).isNotNull();
+        assertThat(result.getName()).isEqualTo(name);
+    }
+
+    @Test
+    public void testFindByNameAndPassword() {
+        Barbot barbot = barbots.get(0);
+        String name = barbot.getName();
+        String password = barbot.getPassword();
+
+        barbot.setPassword(passwordEncoder.encode(barbot.getPassword()));
+
+        List<Barbot> results = new ArrayList<>();
+        results.add(barbot);
+
+        (Mockito.doReturn(results).when(mockTemplate))
+                .find("FROM Barbot WHERE name = ?", name);
+
+        Barbot result = barbotDao.findByNameAndPassword(name, password);
+
+        assertThat(result).isNotNull();
+        assertThat(result.getName()).isEqualTo(name);
+        assertThat(result.getPassword()).isEqualTo(barbot.getPassword());
     }
 
     @Test

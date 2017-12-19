@@ -12,6 +12,8 @@ public interface BarbotService {
 
     Barbot findByUid(String uid);
 
+    Barbot findByNameAndPassword(String name, String password);
+
     List<Recipe> getRecipes(Barbot barbot);
 
     List<Recipe> getRecipes(Barbot barbot, Category category, List<String> ingredientIds);

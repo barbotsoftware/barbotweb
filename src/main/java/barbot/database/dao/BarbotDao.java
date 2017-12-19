@@ -7,6 +7,7 @@ import javax.transaction.Transactional;
 
 import barbot.database.model.*;
 import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 /**
@@ -16,6 +17,12 @@ import org.springframework.stereotype.Component;
 @Transactional
 public class BarbotDao extends HibernateDaoSupport {
 
+    private BCryptPasswordEncoder passwordEncoder;
+
+    public void setPasswordEncoder(BCryptPasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
+    }
+
     public Barbot findByUid(String barbotId) {
         List list = getHibernateTemplate().find("FROM Barbot WHERE uid = ?", barbotId);
 
@@ -24,6 +31,24 @@ public class BarbotDao extends HibernateDaoSupport {
 
     public Barbot findById(int barbotId) {
         return getHibernateTemplate().get(Barbot.class, barbotId);
+    }
+
+    public Barbot findByName(String name) {
+        List list = getHibernateTemplate().find("FROM Barbot WHERE name = ?", name);
+
+        return !list.isEmpty() ? (Barbot) list.get(0) : null;
+    }
+
+    public Barbot findByNameAndPassword(String name, String password) {
+        Barbot barbot = findByName(name);
+
+        if (barbot != null) {
+            if (passwordEncoder.matches(password, barbot.getPassword())) {
+                return barbot;
+            }
+        }
+
+        return null;
     }
 
     public List<Recipe> getRecipes(Barbot barbot) {

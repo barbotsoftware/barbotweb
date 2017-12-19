@@ -33,6 +33,13 @@ public class BarbotServiceImpl implements BarbotService {
     }
 
     @Override
+    public Barbot findByNameAndPassword(String name, String password) {
+        Assert.hasLength(name, "Name must not be empty");
+        Assert.hasLength(password, "Password must not be empty");
+        return barbotDao.findByNameAndPassword(name, password);
+    }
+
+    @Override
     public List<Recipe> getRecipes(Barbot barbot) {
         if (barbot == null) {
             throw new NullPointerException(barbot + " not found.");
