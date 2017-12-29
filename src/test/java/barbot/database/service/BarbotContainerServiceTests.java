@@ -2,6 +2,8 @@ package barbot.database.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.math.BigDecimal;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
@@ -74,7 +76,9 @@ public class BarbotContainerServiceTests extends BaseServiceTests {
         barbot.setId(1);
 
         // BarbotContainers
-        barbotContainer = new BarbotContainer(barbot, null, 1, 48, 48);
+        barbotContainer = new BarbotContainer(barbot, null, 1,
+                new BigDecimal(48.0),
+                new BigDecimal(48.0));
         barbotContainer.setId(1);
     }
 }

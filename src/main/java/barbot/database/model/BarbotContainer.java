@@ -1,5 +1,7 @@
 package barbot.database.model;
 
+import java.math.BigDecimal;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -40,22 +42,22 @@ public class BarbotContainer extends BaseEntity {
     @Column(name = "current_volume", nullable = false)
     @JsonProperty("current_volume")
     @JsonView(View.Summary.class)
-    private Integer currentVolume;
+    private BigDecimal currentVolume;
 
     @Column(name = "max_volume", nullable = false)
     @JsonProperty("max_volume")
     @JsonView(View.Summary.class)
-    private Integer maxVolume;
+    private BigDecimal maxVolume;
 
     public BarbotContainer() {
 
     }
 
-    public BarbotContainer(Integer number, Integer maxVolume) {
+    public BarbotContainer(Integer number, BigDecimal maxVolume) {
         this(null, null, number, null, maxVolume);
     }
 
-    public BarbotContainer(Barbot barbot, Ingredient ingredient, Integer number, Integer currentVolume, Integer maxVolume) {
+    public BarbotContainer(Barbot barbot, Ingredient ingredient, Integer number, BigDecimal currentVolume, BigDecimal maxVolume) {
         this.barbot = barbot;
         this.ingredient = ingredient;
         this.number = number;
@@ -83,19 +85,19 @@ public class BarbotContainer extends BaseEntity {
         this.number = number;
     }
 
-    public Integer getCurrentVolume() {
+    public BigDecimal getCurrentVolume() {
         return currentVolume;
     }
 
-    public void setCurrentVolume(Integer currentVolume) {
+    public void setCurrentVolume(BigDecimal currentVolume) {
         this.currentVolume = currentVolume;
     }
 
-    public Integer getMaxVolume() {
+    public BigDecimal getMaxVolume() {
         return maxVolume;
     }
 
-    public void setMaxVolume(Integer maxVolume) {
+    public void setMaxVolume(BigDecimal maxVolume) {
         this.maxVolume = maxVolume;
     }
 

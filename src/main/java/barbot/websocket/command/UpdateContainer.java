@@ -1,5 +1,6 @@
 package barbot.websocket.command;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 
 import barbot.database.model.Barbot;
@@ -58,11 +59,11 @@ public class UpdateContainer extends BaseCommand {
         bbc.setIngredient(ingredient);
 
         // Get Volumes
-        int currentVolume = (int) barbotContainer.get(Constants.KEY_DATA_CURRENT_VOLUME);
-        int maxVolume = (int) barbotContainer.get(Constants.KEY_DATA_MAX_VOLUME);
+        BigDecimal currentVolume = new BigDecimal((double)barbotContainer.get(Constants.KEY_DATA_CURRENT_VOLUME));
+        BigDecimal maxVolume = new BigDecimal((double)barbotContainer.get(Constants.KEY_DATA_MAX_VOLUME));
 
         // Reduce currentVolume if greater than maxVolume
-        if (currentVolume > maxVolume) {
+        if (currentVolume.compareTo(maxVolume) == 1) {
             currentVolume = maxVolume;
         }
 

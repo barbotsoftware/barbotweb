@@ -2,6 +2,7 @@ package barbot.websocket.command;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -79,15 +80,17 @@ public class SetContainersForBarbotTests extends CommandTests {
         ingredient = new Ingredient("ingredient_123456", "Vodka");
         ingredient.setId(1);
 
-        barbotContainer = new BarbotContainer(barbot, ingredient, 1, 48, 48);
+        barbotContainer = new BarbotContainer(barbot, ingredient, 1,
+                new BigDecimal(48.0),
+                new BigDecimal(48.0));
         barbotContainer.setId(1);
 
         barbotContainers = new ArrayList<>();
         HashMap bbc = new HashMap<>();
         bbc.put("number", barbotContainer.getNumber());
         bbc.put("ingredient_id", ingredient.getUid());
-        bbc.put("current_volume", barbotContainer.getCurrentVolume());
-        bbc.put("max_volume", barbotContainer.getMaxVolume());
+        bbc.put("current_volume", 48.0);
+        bbc.put("max_volume", 48.0);
         barbotContainers.add(bbc);
 
         HashMap data = new HashMap<>();
