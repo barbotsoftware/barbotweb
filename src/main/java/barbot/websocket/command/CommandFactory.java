@@ -36,6 +36,9 @@ public class CommandFactory {
     CategoryService categoryService;
 
     @Autowired
+    GarnishService garnishService;
+
+    @Autowired
     FieldValidator fieldValidator;
 
     @Autowired
@@ -45,7 +48,7 @@ public class CommandFactory {
     private ApplicationEventPublisher publisher;
 
     public Command create(Class clazz, Object... args) {
-        if(clazz.equals(CreateCustomRecipe.class)) {
+        if (clazz.equals(CreateCustomRecipe.class)) {
             return new CreateCustomRecipe(recipeService, ingredientService, fieldValidator, hlpr, (HashMap)args[0], (User)args[1]);
         } else if (clazz.equals(GetRecipesForBarbot.class)) {
             return new GetRecipesForBarbot(barbotService, categoryService, fieldValidator, hlpr, (HashMap) args[0]);
@@ -68,7 +71,9 @@ public class CommandFactory {
         } else if (clazz.equals(BaseCommand.class)) {
             return new BaseCommand((HashMap) args[0], hlpr, fieldValidator);
         } else if (clazz.equals(UpdateContainer.class)) {
-            return new UpdateContainer(barbotService, ingredientService, barbotContainerService, fieldValidator, hlpr, (HashMap)args[0]);
+            return new UpdateContainer(barbotService, ingredientService, barbotContainerService, fieldValidator, hlpr, (HashMap) args[0]);
+        } else if (clazz.equals(UpdateGarnish.class)) {
+            return new UpdateGarnish(garnishService, barbotService, fieldValidator, hlpr, (HashMap)args[0]);
         } else if (clazz.equals(GetGarnishesForBarbot.class)) {
             return new GetGarnishesForBarbot(barbotService, fieldValidator, hlpr, (HashMap) args[0]);
         }

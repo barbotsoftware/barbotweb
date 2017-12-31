@@ -127,4 +127,11 @@ public class DatabaseConfig {
         garnishDao.setSessionFactory(sessionFactory().getObject());
         return garnishDao;
     }
+
+    @Bean
+    public BarbotGarnishDao barbotGarnishDao() {
+        BarbotGarnishDao barbotGarnishDao = new BarbotGarnishDao();
+        barbotGarnishDao.setSessionFactory(sessionFactory().getObject());
+        return barbotGarnishDao;
+    }
 }

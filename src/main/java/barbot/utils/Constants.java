@@ -46,24 +46,27 @@ public class Constants {
     public static final String KEY_DATA_GARNISHES = "garnishes";
     public static final String KEY_DATA_CONTAINER = "container";
     public static final String KEY_DATA_CONTAINERS = "containers";
+    public static final String KEY_DATA_OPTION_NUMBER = "option_number";
+    public static final String KEY_DATA_QUANTITY = "quantity";
     public static final String KEY_DATA_NUMBER = "number";
     public static final String KEY_DATA_CURRENT_VOLUME = "current_volume";
     public static final String KEY_DATA_MAX_VOLUME = "max_volume";
     public static final String KEY_DATA_CATEGORY_ID = "category_id";
 
     /* Web Socket Commands */
-    public static final String CMD_GET_RECIPES_FOR_BARBOT = "get_recipes_for_barbot";
-    public static final String CMD_GET_RECIPE_DETAILS = "get_recipe_details";
-    public static final String CMD_GET_INGREDIENTS_FOR_BARBOT = "get_ingredients_for_barbot";
     public static final String CMD_CREATE_CUSTOM_RECIPE = "create_custom_recipe";
-    public static final String CMD_ORDER_DRINK = "order_drink";
-    public static final String CMD_POUR_DRINK = "pour_drink";
-    public static final String CMD_GET_CONTAINERS_FOR_BARBOT = "get_containers_for_barbot";
-    public static final String CMD_SET_CONTAINERS_FOR_BARBOT = "set_containers_for_barbot";
     public static final String CMD_GET_CATEGORIES = "get_categories";
     public static final String CMD_GET_CATEGORY = "get_category";
-    public static final String CMD_UPDATE_CONTAINER = "update_container";
+    public static final String CMD_GET_CONTAINERS_FOR_BARBOT = "get_containers_for_barbot";
     public static final String CMD_GET_GARNISHES_FOR_BARBOT = "get_garnishes_for_barbot";
+    public static final String CMD_GET_INGREDIENTS_FOR_BARBOT = "get_ingredients_for_barbot";
+    public static final String CMD_GET_RECIPE_DETAILS = "get_recipe_details";
+    public static final String CMD_GET_RECIPES_FOR_BARBOT = "get_recipes_for_barbot";
+    public static final String CMD_ORDER_DRINK = "order_drink";
+    public static final String CMD_POUR_DRINK = "pour_drink";
+    public static final String CMD_SET_CONTAINERS_FOR_BARBOT = "set_containers_for_barbot";
+    public static final String CMD_UPDATE_CONTAINER = "update_container";
+    public static final String CMD_UPDATE_GARNISH = "update_garnish";
 
     /* Web Socket Events */
     public static final String EVENT_DRINK_ORDERED = "drink_ordered";

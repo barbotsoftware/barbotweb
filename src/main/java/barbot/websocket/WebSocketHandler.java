@@ -125,6 +125,9 @@ public class WebSocketHandler extends TextWebSocketHandler {
             case Constants.CMD_UPDATE_CONTAINER:
                 command = commandFactory.create(UpdateContainer.class, msg);
                 break;
+            case Constants.CMD_UPDATE_GARNISH:
+                command = commandFactory.create(UpdateGarnish.class, msg);
+                break;
             case Constants.CMD_GET_GARNISHES_FOR_BARBOT:
                 command = commandFactory.create(GetGarnishesForBarbot.class, msg);
                 break;

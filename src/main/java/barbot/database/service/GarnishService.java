@@ -1,5 +1,7 @@
 package barbot.database.service;
 
+import barbot.database.model.Barbot;
+import barbot.database.model.BarbotGarnish;
 import barbot.database.model.Garnish;
 
 /**
@@ -7,4 +9,8 @@ import barbot.database.model.Garnish;
  */
 public interface GarnishService {
     Garnish findByUid(String garnishId);
+
+    BarbotGarnish findByBarbotAndOptionNumber(Barbot barbot, int optionNumber);
+
+    void update(BarbotGarnish garnish);
 }
