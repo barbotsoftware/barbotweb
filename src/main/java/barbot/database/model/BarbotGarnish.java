@@ -36,6 +36,7 @@ public class BarbotGarnish extends BaseEntity {
     private Garnish garnish;
 
     @Column(name = "option_number")
+    @JsonProperty("option_number")
     @JsonView(View.Summary.class)
     private Integer optionNumber;
 
