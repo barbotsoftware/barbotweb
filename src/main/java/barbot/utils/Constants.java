@@ -11,9 +11,11 @@ public class Constants {
     /* Database Table Names */
     public static final String TABLE_BARBOT = "barbot";
     public static final String TABLE_BARBOT_CONTAINER = "barbot_container";
+    public static final String TABLE_BARBOT_GARNISH = "barbot_garnish";
     public static final String TABLE_CATEGORY = "category";
     public static final String TABLE_DRINK_ORDER = "drink_order";
     public static final String TABLE_EMAIL_CAPTURE = "email_capture";
+    public static final String TABLE_GARNISH = "garnish";
     public static final String TABLE_INGREDIENT = "ingredient";
     public static final String TABLE_MIGRATION = "migration";
     public static final String TABLE_RECIPE = "recipe";
@@ -41,6 +43,7 @@ public class Constants {
     public static final String KEY_DATA_DRINK_ORDER_ID = "drink_order_id";
     public static final String KEY_DATA_ICE = "ice";
     public static final String KEY_DATA_GARNISH = "garnish";
+    public static final String KEY_DATA_GARNISHES = "garnishes";
     public static final String KEY_DATA_CONTAINER = "container";
     public static final String KEY_DATA_CONTAINERS = "containers";
     public static final String KEY_DATA_NUMBER = "number";
@@ -60,6 +63,7 @@ public class Constants {
     public static final String CMD_GET_CATEGORIES = "get_categories";
     public static final String CMD_GET_CATEGORY = "get_category";
     public static final String CMD_UPDATE_CONTAINER = "update_container";
+    public static final String CMD_GET_GARNISHES_FOR_BARBOT = "get_garnishes_for_barbot";
 
     /* Web Socket Events */
     public static final String EVENT_DRINK_ORDERED = "drink_ordered";

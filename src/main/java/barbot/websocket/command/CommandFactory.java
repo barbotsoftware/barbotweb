@@ -69,6 +69,8 @@ public class CommandFactory {
             return new BaseCommand((HashMap) args[0], hlpr, fieldValidator);
         } else if (clazz.equals(UpdateContainer.class)) {
             return new UpdateContainer(barbotService, ingredientService, barbotContainerService, fieldValidator, hlpr, (HashMap)args[0]);
+        } else if (clazz.equals(GetGarnishesForBarbot.class)) {
+            return new GetGarnishesForBarbot(barbotService, fieldValidator, hlpr, (HashMap) args[0]);
         }
 
         return null;

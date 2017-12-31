@@ -1,13 +1,20 @@
 package barbot.database.model;
 
+import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonView;
 
@@ -40,6 +47,12 @@ public class Barbot extends BaseEntity {
 
     @OneToMany(mappedBy = "barbot")
     private Set<DrinkOrder> drinkOrders;
+
+    @OneToMany(mappedBy = "barbot", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JsonView(View.Summary.class)
+    @JsonProperty("garnishes")
+    @JsonManagedReference
+    private Set<BarbotGarnish> garnishes = new HashSet<BarbotGarnish>();
 
     public Barbot() {
 
@@ -100,6 +113,14 @@ public class Barbot extends BaseEntity {
 
     public void setDrinkOrders(Set<DrinkOrder> drinkOrders) {
         this.drinkOrders = drinkOrders;
+    }
+
+    public Set<BarbotGarnish> getGarnishes() {
+        return garnishes;
+    }
+
+    public void setGarnishes(Set<BarbotGarnish> garnishes) {
+        this.garnishes = garnishes;
     }
 
     @Override

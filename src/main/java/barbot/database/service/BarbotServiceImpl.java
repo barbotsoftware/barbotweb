@@ -41,37 +41,42 @@ public class BarbotServiceImpl implements BarbotService {
 
     @Override
     public List<Recipe> getRecipes(Barbot barbot) {
-        if (barbot == null) {
-            throw new NullPointerException(barbot + " not found.");
-        }
+        validateBarbot(barbot);
 
         return barbotDao.getRecipes(barbot);
     }
 
     @Override
     public List<Recipe> getRecipes(Barbot barbot, Category category, List<String> ingredientIds) {
-        if(barbot == null) {
-            throw new NullPointerException(barbot + " not found.");
-        }
+        validateBarbot(barbot);
 
         return barbotDao.getRecipes(barbot, category, ingredientIds);
     }
 
     @Override
     public List<Ingredient> getIngredients(Barbot barbot) {
-        if (barbot == null) {
-            throw new NullPointerException(barbot + " not found.");
-        }
+        validateBarbot(barbot);
 
         return barbotDao.getIngredients(barbot);
     }
 
     @Override
     public List<BarbotContainer> getBarbotContainers(Barbot barbot) {
+        validateBarbot(barbot);
+
+        return barbotDao.getBarbotContainers(barbot);
+    }
+
+    @Override
+    public List<BarbotGarnish> getGarnishes(Barbot barbot) {
+        validateBarbot(barbot);
+
+        return barbotDao.getGarnishes(barbot);
+    }
+
+    private void validateBarbot(Barbot barbot) {
         if (barbot == null) {
             throw new NullPointerException(barbot + " not found.");
         }
-
-        return barbotDao.getBarbotContainers(barbot);
     }
 }

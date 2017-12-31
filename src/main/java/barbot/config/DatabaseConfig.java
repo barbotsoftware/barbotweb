@@ -120,4 +120,11 @@ public class DatabaseConfig {
         categoryDao.setSessionFactory(sessionFactory().getObject());
         return categoryDao;
     }
+
+    @Bean
+    public GarnishDao garnishDao() {
+        GarnishDao garnishDao = new GarnishDao();
+        garnishDao.setSessionFactory(sessionFactory().getObject());
+        return garnishDao;
+    }
 }

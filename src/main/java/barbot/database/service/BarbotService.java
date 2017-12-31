@@ -21,4 +21,6 @@ public interface BarbotService {
     List<Ingredient> getIngredients(Barbot barbot);
 
     List<BarbotContainer> getBarbotContainers(Barbot barbot);
+
+    List<BarbotGarnish> getGarnishes(Barbot barbot);
 }

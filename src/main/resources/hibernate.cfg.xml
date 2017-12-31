@@ -11,8 +11,10 @@
         <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
         <mapping class="barbot.database.model.Barbot"/>
         <mapping class="barbot.database.model.BarbotContainer"/>
+        <mapping class="barbot.database.model.BarbotGarnish"/>
         <mapping class="barbot.database.model.Category"/>
         <mapping class="barbot.database.model.DrinkOrder"/>
+        <mapping class="barbot.database.model.Garnish"/>
         <mapping class="barbot.database.model.Ingredient"/>
         <mapping class="barbot.database.model.Migration"/>
         <mapping class="barbot.database.model.Recipe"/>
