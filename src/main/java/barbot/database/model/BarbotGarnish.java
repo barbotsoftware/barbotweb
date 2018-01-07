@@ -55,6 +55,22 @@ public class BarbotGarnish extends BaseEntity {
         this.quantity = quantity;
     }
 
+    public Barbot getBarbot() {
+        return barbot;
+    }
+
+    public void setBarbot(Barbot barbot) {
+        this.barbot = barbot;
+    }
+
+    public Garnish getGarnish() {
+        return garnish;
+    }
+
+    public void setGarnish(Garnish garnish) {
+        this.garnish = garnish;
+    }
+
     public Integer getOptionNumber() {
         return optionNumber;
     }

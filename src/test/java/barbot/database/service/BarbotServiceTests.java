@@ -15,6 +15,7 @@ import org.mockito.Mockito;
 import barbot.database.dao.BarbotDao;
 import barbot.database.model.Barbot;
 import barbot.database.model.BarbotContainer;
+import barbot.database.model.BarbotGarnish;
 import barbot.database.model.Ingredient;
 import barbot.database.model.Recipe;
 
@@ -36,6 +37,8 @@ public class BarbotServiceTests extends BaseServiceTests {
     private List<Ingredient> ingredients;
 
     private List<BarbotContainer> barbotContainers;
+
+    private List<BarbotGarnish> barbotGarnishes;
 
     @Override
     @Before
@@ -113,6 +116,16 @@ public class BarbotServiceTests extends BaseServiceTests {
         assertThat(results.size()).isEqualTo(listSize);
     }
 
+    @Test
+    public void testGetGarnishes() {
+        (Mockito.doReturn(barbotGarnishes)).when(barbotDao).getGarnishes(barbot);
+
+        List<BarbotGarnish> results = barbotService.getGarnishes(barbot);
+
+        assertThat(results).isNotNull();
+        assertThat(results.size()).isEqualTo(listSize);
+    }
+
     private void setUpTestData() {
 
         // Barbot
@@ -136,5 +149,11 @@ public class BarbotServiceTests extends BaseServiceTests {
 
         // Set BarbotContainers to first Barbot
         barbot.setBarbotContainers(new HashSet<>(barbotContainers));
+
+        // BarbotGarnishes
+        barbotGarnishes = testDataHelper.createBarbotGarnishList(listSize, barbots);
+
+        // Set BarbotGarnishes to first Barbot
+        barbot.setGarnishes(new HashSet<>(barbotGarnishes));
     }
 }

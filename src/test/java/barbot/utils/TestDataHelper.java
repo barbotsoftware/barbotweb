@@ -6,8 +6,10 @@ import java.util.List;
 
 import barbot.database.model.Barbot;
 import barbot.database.model.BarbotContainer;
+import barbot.database.model.BarbotGarnish;
 import barbot.database.model.Category;
 import barbot.database.model.DrinkOrder;
+import barbot.database.model.Garnish;
 import barbot.database.model.Ingredient;
 import barbot.database.model.Recipe;
 import barbot.database.model.User;
@@ -52,6 +54,19 @@ public class TestDataHelper {
         return barbotContainers;
     }
 
+    public List<BarbotGarnish> createBarbotGarnishList(int listSize,
+                                                       List<Barbot> barbots) {
+        List<BarbotGarnish> barbotGarnishes = new ArrayList<>();
+
+        for (int i = 0; i < listSize; i++) {
+            BarbotGarnish garnish = new BarbotGarnish(barbots.get(0), new Garnish(), i, i);
+            garnish.setId(i);
+            barbotGarnishes.add(garnish);
+        }
+
+        return barbotGarnishes;
+    }
+
     public List<Category> createCategoryList(int listSize) {
         List<Category> categories = new ArrayList<>();
 
@@ -81,6 +96,18 @@ public class TestDataHelper {
         }
 
         return drinkOrders;
+    }
+
+    public List<Garnish> createGarnishList(int listSize) {
+        List<Garnish> garnishes = new ArrayList<>();
+
+        for (int i = 0; i < listSize; i++) {
+            Garnish garnish = new Garnish("garnish_" + i, "Garnish " + i);
+            garnish.setId(i);
+            garnishes.add(garnish);
+        }
+
+        return garnishes;
     }
 
     public List<Ingredient> createIngredientList(int listSize) {

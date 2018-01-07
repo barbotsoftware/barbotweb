@@ -18,6 +18,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import barbot.config.TestDatabaseConfig;
 import barbot.database.model.Barbot;
 import barbot.database.model.BarbotContainer;
+import barbot.database.model.BarbotGarnish;
 import barbot.database.model.Category;
 import barbot.database.model.Ingredient;
 import barbot.database.model.Recipe;
@@ -37,6 +38,8 @@ public class BarbotDaoTests extends BaseDaoTests {
     private List<Barbot> barbots;
 
     private List<BarbotContainer> barbotContainers;
+
+    private List<BarbotGarnish> barbotGarnishes;
 
     private List<Recipe> recipes;
 
@@ -188,6 +191,20 @@ public class BarbotDaoTests extends BaseDaoTests {
         assertThat(results.size()).isEqualTo(listSize);
     }
 
+    @Test
+    public void testGetGarnishes() {
+        Barbot barbot = barbots.get(0);
+        int id = barbot.getId();
+
+        (Mockito.doReturn(barbot).when(mockTemplate))
+            .get(Barbot.class, id);
+
+        List<BarbotGarnish> results = barbotDao.getGarnishes(barbot);
+
+        assertThat(results).isNotNull();
+        assertThat(results.size()).isEqualTo(listSize);
+    }
+
     private void setUpTestData() {
 
         // Barbots
@@ -202,6 +219,11 @@ public class BarbotDaoTests extends BaseDaoTests {
 
         // Set BarbotContainers to first Barbot
         barbots.get(0).setBarbotContainers(new HashSet<>(barbotContainers));
+
+        // BarbotGarnishes
+        barbotGarnishes = testDataHelper.createBarbotGarnishList(listSize, barbots);
+
+        barbots.get(0).setGarnishes(new HashSet<>(barbotGarnishes));
 
         // Recipes
         recipes = testDataHelper.createRecipeList(listSize, ingredients);
