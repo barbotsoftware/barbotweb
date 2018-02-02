@@ -131,6 +131,9 @@ public class WebSocketHandler extends TextWebSocketHandler {
             case Constants.CMD_GET_GARNISHES_FOR_BARBOT:
                 command = commandFactory.create(GetGarnishesForBarbot.class, msg);
                 break;
+            case Constants.CMD_CREATE_RECIPES:
+                command = commandFactory.create(CreateRecipes.class, msg, getUser(session));
+                break;
             default:
                 command = commandFactory.create(BaseCommand.class, msg);
                 sendError(session, Constants.ERROR_MSG_COMMAND_NOT_RECOGNIZED);

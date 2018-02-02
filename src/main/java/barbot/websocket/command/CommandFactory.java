@@ -76,6 +76,8 @@ public class CommandFactory {
             return new UpdateGarnish(garnishService, barbotService, fieldValidator, hlpr, (HashMap)args[0]);
         } else if (clazz.equals(GetGarnishesForBarbot.class)) {
             return new GetGarnishesForBarbot(barbotService, fieldValidator, hlpr, (HashMap) args[0]);
+        } else if (clazz.equals(CreateRecipes.class)) {
+            return new CreateRecipes(recipeService, barbotService, fieldValidator, hlpr, (HashMap)args[0], (User)args[1]);
         }
 
         return null;

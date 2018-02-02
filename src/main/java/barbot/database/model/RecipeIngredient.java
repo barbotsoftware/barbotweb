@@ -87,6 +87,9 @@ public class RecipeIngredient extends BaseEntity {
         if (createdAt != null ? !createdAt.equals(that.createdAt) : that.createdAt != null) return false;
         if (updatedAt != null ? !updatedAt.equals(that.updatedAt) : that.updatedAt != null) return false;
         if (deletedAt != null ? !deletedAt.equals(that.deletedAt) : that.deletedAt != null) return false;
+        if (recipe != null ? !recipe.equals(that.recipe) : that.recipe != null) return false;
+        if (ingredient != null ? !ingredient.equals(that.ingredient) : that.ingredient != null) return false;
+        if (amount != null ? !amount.equals(that.amount) : that.amount != null) return false;
 
         return true;
     }
@@ -97,6 +100,9 @@ public class RecipeIngredient extends BaseEntity {
         result = 31 * result + (createdAt != null ? createdAt.hashCode() : 0);
         result = 31 * result + (updatedAt != null ? updatedAt.hashCode() : 0);
         result = 31 * result + (deletedAt != null ? deletedAt.hashCode() : 0);
+        result = 31 * result + (recipe != null ? recipe.hashCode() : 0);
+        result = 31 * result + (ingredient != null ? ingredient.hashCode() : 0);
+        result = 31 * result + (amount != null ? amount.hashCode() : 0);
         return result;
     }
 }
