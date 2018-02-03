@@ -14,6 +14,7 @@ import barbot.database.model.RecipeIngredient;
 import barbot.database.model.User;
 import barbot.database.model.View;
 import barbot.database.service.BarbotService;
+import barbot.database.service.IngredientService;
 import barbot.database.service.RecipeService;
 import barbot.utils.Constants;
 import barbot.utils.FieldValidator;
@@ -25,31 +26,20 @@ import barbot.utils.HelperMethods;
 public class CreateRecipes extends BaseCommand {
     private RecipeService recipeService;
 
-    private BarbotService barbotService;
+    private IngredientService ingredientService;
 
     private User user;
 
-    public CreateRecipes(RecipeService recipeService, BarbotService barbotService, FieldValidator validator, HelperMethods hlpr, HashMap msg, User user) {
+    public CreateRecipes(RecipeService recipeService, IngredientService ingredientService, FieldValidator validator, HelperMethods hlpr, HashMap msg, User user) {
         super(msg, hlpr, validator);
         this.user = user;
         this.recipeService = recipeService;
-        this.barbotService = barbotService;
+        this.ingredientService = ingredientService;
         setJsonView(View.Summary.class);
     }
 
     @Override
     public Object execute() {
-        String barbotId = (String) data.get(Constants.KEY_DATA_BARBOT_ID);
-        Barbot barbot = barbotService.findByUid(barbotId);
-
-        // Map Ingredients for quick retrieval by name
-        List<Ingredient> ingredientsInBarbot = barbotService.getIngredients(barbot);
-        HashMap ingredientMap = new HashMap<>();
-
-        for (Ingredient i : ingredientsInBarbot) {
-            ingredientMap.put(i.getName(), i);
-        }
-
         ArrayList<HashMap> recipes = (ArrayList<HashMap>) data.get(Constants.KEY_DATA_RECIPES);
 
         // Add all recipes
@@ -66,7 +56,7 @@ public class CreateRecipes extends BaseCommand {
             // Add ingredients
             for (HashMap ingredient : ingredients) {
                 String name = (String) ingredient.get("name");
-                Ingredient addIngredient = (Ingredient) ingredientMap.get(name);
+                Ingredient addIngredient = ingredientService.findByName(name);
 
                 if (addIngredient != null) {
                     double amount;
@@ -94,14 +84,6 @@ public class CreateRecipes extends BaseCommand {
     public boolean validate() {
         if(!super.validate())
             return false;
-
-        HashMap fieldsToValidate = new HashMap();
-        fieldsToValidate.put(Constants.KEY_DATA_BARBOT_ID, "required|exists:barbot");
-
-        if(!fieldValidator.validate((HashMap)message.get(Constants.KEY_DATA), fieldsToValidate)) {
-            error = fieldValidator.getErrors();
-            return false;
-        }
 
         if(!data.containsKey(Constants.KEY_DATA_RECIPES))  {
             error.put(Constants.KEY_DATA_RECIPES + ".notFound", hlpr.getMessage(Constants.ERROR_MSG_PREFIX +
