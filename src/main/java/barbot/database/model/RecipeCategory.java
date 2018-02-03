@@ -53,6 +53,8 @@ public class RecipeCategory extends BaseEntity {
         if (createdAt != null ? !createdAt.equals(that.createdAt) : that.createdAt != null) return false;
         if (updatedAt != null ? !updatedAt.equals(that.updatedAt) : that.updatedAt != null) return false;
         if (deletedAt != null ? !deletedAt.equals(that.deletedAt) : that.deletedAt != null) return false;
+        if (recipe != null ? !recipe.equals(that.recipe) : that.recipe != null) return false;
+        if (category != null ? !category.equals(that.category) : that.category != null) return false;
 
         return true;
     }
@@ -63,6 +65,8 @@ public class RecipeCategory extends BaseEntity {
         result = 31 * result + (createdAt != null ? createdAt.hashCode() : 0);
         result = 31 * result + (updatedAt != null ? updatedAt.hashCode() : 0);
         result = 31 * result + (deletedAt != null ? deletedAt.hashCode() : 0);
+        result = 31 * result + (recipe != null ? recipe.hashCode() : 0);
+        result = 31 * result + (category != null ? category.hashCode() : 0);
         return result;
     }
 }

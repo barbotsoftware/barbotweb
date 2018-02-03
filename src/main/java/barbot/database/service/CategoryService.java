@@ -12,4 +12,5 @@ public interface CategoryService {
     List<Category> findAll();
     List<Category> findAllRoots();
     Category findByUid(String id);
+    void create(Category category);
 }

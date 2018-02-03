@@ -134,6 +134,9 @@ public class WebSocketHandler extends TextWebSocketHandler {
             case Constants.CMD_CREATE_RECIPES:
                 command = commandFactory.create(CreateRecipes.class, msg, getUser(session));
                 break;
+            case Constants.CMD_CREATE_CATEGORIES:
+                command = commandFactory.create(CreateCategories.class, msg);
+                break;
             default:
                 command = commandFactory.create(BaseCommand.class, msg);
                 sendError(session, Constants.ERROR_MSG_COMMAND_NOT_RECOGNIZED);

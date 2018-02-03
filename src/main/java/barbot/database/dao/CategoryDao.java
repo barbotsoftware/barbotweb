@@ -37,4 +37,8 @@ public class CategoryDao extends HibernateDaoSupport{
 
         return category;
     }
+
+    public void save(Category category) {
+        getHibernateTemplate().save(category);
+    }
 }

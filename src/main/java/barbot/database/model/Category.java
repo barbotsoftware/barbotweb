@@ -6,6 +6,8 @@ import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 
 import javax.persistence.*;
+
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -47,6 +49,10 @@ public class Category extends BaseEntity {
             inverseJoinColumns = @JoinColumn(name = "recipe_id", referencedColumnName = "id", nullable = false))
     @JsonView(View.Detail.class)
     private Set<Recipe> recipes;
+
+    @OneToMany(mappedBy = "category", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JsonIgnore
+    private Set<RecipeCategory> recipeCategories = new HashSet<RecipeCategory>();
 
     public String getUid() {
         return uid;
@@ -94,6 +100,14 @@ public class Category extends BaseEntity {
 
     public void setRecipes(Set<Recipe> recipes) {
         this.recipes = recipes;
+    }
+
+    public Set<RecipeCategory> getRecipeCategories() {
+        return recipeCategories;
+    }
+
+    public void setRecipeCategories(Set<RecipeCategory> recipeCategories) {
+        this.recipeCategories = recipeCategories;
     }
 
     @Override

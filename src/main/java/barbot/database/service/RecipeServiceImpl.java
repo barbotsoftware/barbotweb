@@ -31,7 +31,7 @@ public class RecipeServiceImpl implements RecipeService {
     @Transactional
     public void create(Recipe recipe) {
         if(StringUtils.isEmpty(recipe.getUid())) {
-            recipe.setUid(Constants.RECIPE_UID_PREFIX + hlpr.generateUid());
+            recipe.setUid(hlpr.generateUid());
         }
 
         recipeDao.save(recipe);
@@ -42,6 +42,13 @@ public class RecipeServiceImpl implements RecipeService {
     public Recipe findByUid(String recipeId) {
         Assert.hasLength(recipeId, "RecipeId must not be empty");
         return recipeDao.findByUid(recipeId);
+    }
+
+    @Override
+    @Transactional
+    public Recipe findByName(String name) {
+        Assert.hasLength(name, "Name must not be empty");
+        return recipeDao.findByName(name);
     }
 
     @Override

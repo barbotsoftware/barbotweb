@@ -22,6 +22,12 @@ public class RecipeDao extends HibernateDaoSupport {
         return !list.isEmpty() ? (Recipe) list.get(0) : null;
     }
 
+    public Recipe findByName(String name) {
+        List list = getHibernateTemplate().find("FROM Recipe WHERE name = ?", name);
+
+        return !list.isEmpty() ? (Recipe) list.get(0) : null;
+    }
+
     public Recipe findById(int id) {
         return getHibernateTemplate().get(Recipe.class, id);
     }

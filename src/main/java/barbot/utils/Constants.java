@@ -53,9 +53,11 @@ public class Constants {
     public static final String KEY_DATA_MAX_VOLUME = "max_volume";
     public static final String KEY_DATA_CATEGORY_ID = "category_id";
     public static final String KEY_DATA_RECIPES = "recipes";
+    public static final String KEY_DATA_CATEGORIES = "categories";
 
     /* Web Socket Commands */
     public static final String CMD_CREATE_CUSTOM_RECIPE = "create_custom_recipe";
+    public static final String CMD_CREATE_CATEGORIES = "create_categories";
     public static final String CMD_CREATE_RECIPES = "create_recipes";
     public static final String CMD_GET_CATEGORIES = "get_categories";
     public static final String CMD_GET_CATEGORY = "get_category";
