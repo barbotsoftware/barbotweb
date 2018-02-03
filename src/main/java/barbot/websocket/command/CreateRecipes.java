@@ -69,9 +69,15 @@ public class CreateRecipes extends BaseCommand {
                 Ingredient addIngredient = (Ingredient) ingredientMap.get(name);
 
                 if (addIngredient != null) {
+                    double amount;
+                    if (ingredient.get("amount").getClass().equals(Integer.class)) {
+                        amount = (double)((Integer)ingredient.get("amount")).intValue();
+                    } else {
+                        amount = (double)ingredient.get("amount");
+                    }
                     RecipeIngredient recipeIngredient = new RecipeIngredient(newRecipe,
                                                             addIngredient,
-                                                            BigDecimal.valueOf((double)ingredient.get("amount")));
+                                                            BigDecimal.valueOf(amount));
                     recipeIngredients.add(recipeIngredient);
                 }
             }
