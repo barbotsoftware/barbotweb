@@ -50,10 +50,6 @@ public class Category extends BaseEntity {
     @JsonView(View.Detail.class)
     private Set<Recipe> recipes;
 
-    @OneToMany(mappedBy = "category", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JsonIgnore
-    private Set<RecipeCategory> recipeCategories = new HashSet<RecipeCategory>();
-
     public String getUid() {
         return uid;
     }
@@ -100,14 +96,6 @@ public class Category extends BaseEntity {
 
     public void setRecipes(Set<Recipe> recipes) {
         this.recipes = recipes;
-    }
-
-    public Set<RecipeCategory> getRecipeCategories() {
-        return recipeCategories;
-    }
-
-    public void setRecipeCategories(Set<RecipeCategory> recipeCategories) {
-        this.recipeCategories = recipeCategories;
     }
 
     @Override

@@ -46,6 +46,7 @@ public class CreateCategories extends BaseCommand {
                 newCategory.setParentCategory(parentCategory);
             }
 
+            /*
             ArrayList<String> recipes = (ArrayList<String>)category.get("recipes");
             Set recipeCategories = new HashSet();
 
@@ -62,6 +63,7 @@ public class CreateCategories extends BaseCommand {
             }
 
             newCategory.setRecipeCategories(recipeCategories);
+            */
             categoryService.create(newCategory);
         }
 
