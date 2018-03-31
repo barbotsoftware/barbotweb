@@ -25,4 +25,11 @@ public class IngredientServiceImpl implements IngredientService {
         Assert.hasLength(ingredientId, "IngredientId must not be empty");
         return ingredientDao.findByUid(ingredientId);
     }
+
+    @Override
+    @Transactional
+    public Ingredient findByName(String name) {
+        Assert.hasLength(name, "Name must not be empty");
+        return ingredientDao.findByName(name);
+    }
 }

@@ -29,7 +29,7 @@ public class DrinkOrderServiceImpl implements DrinkOrderService {
     @Override
     public void create(DrinkOrder drinkOrder) {
         if(StringUtils.isEmpty(drinkOrder.getUid())) {
-            drinkOrder.setUid(Constants.DRINK_ORDER_UID_PREFIX + hlpr.generateUid());
+            drinkOrder.setUid(hlpr.generateUid());
         }
 
         drinkOrderDao.save(drinkOrder);

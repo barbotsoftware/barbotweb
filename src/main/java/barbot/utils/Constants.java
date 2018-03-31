@@ -11,13 +11,18 @@ public class Constants {
     /* Database Table Names */
     public static final String TABLE_BARBOT = "barbot";
     public static final String TABLE_BARBOT_CONTAINER = "barbot_container";
+    public static final String TABLE_BARBOT_GARNISH = "barbot_garnish";
+    public static final String TABLE_CATEGORY = "category";
     public static final String TABLE_DRINK_ORDER = "drink_order";
     public static final String TABLE_EMAIL_CAPTURE = "email_capture";
+    public static final String TABLE_GARNISH = "garnish";
     public static final String TABLE_INGREDIENT = "ingredient";
     public static final String TABLE_MIGRATION = "migration";
     public static final String TABLE_RECIPE = "recipe";
+    public static final String TABLE_RECIPE_CATEGORY = "recipe_category";
     public static final String TABLE_RECIPE_INGREDIENT = "recipe_ingredient";
     public static final String TABLE_USER = "user";
+
 
     /* Web Socket JSON Keys */
     public static final String KEY_REQUEST = "request";
@@ -38,20 +43,34 @@ public class Constants {
     public static final String KEY_DATA_DRINK_ORDER_ID = "drink_order_id";
     public static final String KEY_DATA_ICE = "ice";
     public static final String KEY_DATA_GARNISH = "garnish";
-    public static final String KEY_DATA_BARBOT_CONTAINERS = "barbot_containers";
+    public static final String KEY_DATA_GARNISHES = "garnishes";
+    public static final String KEY_DATA_CONTAINER = "container";
+    public static final String KEY_DATA_CONTAINERS = "containers";
+    public static final String KEY_DATA_OPTION_NUMBER = "option_number";
+    public static final String KEY_DATA_QUANTITY = "quantity";
     public static final String KEY_DATA_NUMBER = "number";
     public static final String KEY_DATA_CURRENT_VOLUME = "current_volume";
     public static final String KEY_DATA_MAX_VOLUME = "max_volume";
+    public static final String KEY_DATA_CATEGORY_ID = "category_id";
+    public static final String KEY_DATA_RECIPES = "recipes";
+    public static final String KEY_DATA_CATEGORIES = "categories";
 
     /* Web Socket Commands */
-    public static final String CMD_GET_RECIPES_FOR_BARBOT = "get_recipes_for_barbot";
-    public static final String CMD_GET_RECIPE_DETAILS = "get_recipe_details";
-    public static final String CMD_GET_INGREDIENTS_FOR_BARBOT = "get_ingredients_for_barbot";
     public static final String CMD_CREATE_CUSTOM_RECIPE = "create_custom_recipe";
+    public static final String CMD_CREATE_CATEGORIES = "create_categories";
+    public static final String CMD_CREATE_RECIPES = "create_recipes";
+    public static final String CMD_GET_CATEGORIES = "get_categories";
+    public static final String CMD_GET_CATEGORY = "get_category";
+    public static final String CMD_GET_CONTAINERS_FOR_BARBOT = "get_containers_for_barbot";
+    public static final String CMD_GET_GARNISHES_FOR_BARBOT = "get_garnishes_for_barbot";
+    public static final String CMD_GET_INGREDIENTS_FOR_BARBOT = "get_ingredients_for_barbot";
+    public static final String CMD_GET_RECIPE_DETAILS = "get_recipe_details";
+    public static final String CMD_GET_RECIPES_FOR_BARBOT = "get_recipes_for_barbot";
     public static final String CMD_ORDER_DRINK = "order_drink";
     public static final String CMD_POUR_DRINK = "pour_drink";
-    public static final String CMD_GET_CONTAINERS_FOR_BARBOT = "get_containers_for_barbot";
     public static final String CMD_SET_CONTAINERS_FOR_BARBOT = "set_containers_for_barbot";
+    public static final String CMD_UPDATE_CONTAINER = "update_container";
+    public static final String CMD_UPDATE_GARNISH = "update_garnish";
 
     /* Web Socket Events */
     public static final String EVENT_DRINK_ORDERED = "drink_ordered";

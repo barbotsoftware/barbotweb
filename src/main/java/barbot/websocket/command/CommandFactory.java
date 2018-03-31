@@ -2,16 +2,12 @@ package barbot.websocket.command;
 
 import java.util.HashMap;
 
+import barbot.database.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Component;
 
 import barbot.database.model.User;
-import barbot.database.service.BarbotContainerService;
-import barbot.database.service.BarbotService;
-import barbot.database.service.DrinkOrderService;
-import barbot.database.service.IngredientService;
-import barbot.database.service.RecipeService;
 import barbot.utils.FieldValidator;
 import barbot.utils.HelperMethods;
 
@@ -37,6 +33,12 @@ public class CommandFactory {
     BarbotContainerService barbotContainerService;
 
     @Autowired
+    CategoryService categoryService;
+
+    @Autowired
+    GarnishService garnishService;
+
+    @Autowired
     FieldValidator fieldValidator;
 
     @Autowired
@@ -46,10 +48,10 @@ public class CommandFactory {
     private ApplicationEventPublisher publisher;
 
     public Command create(Class clazz, Object... args) {
-        if(clazz.equals(CreateCustomRecipe.class)) {
+        if (clazz.equals(CreateCustomRecipe.class)) {
             return new CreateCustomRecipe(recipeService, ingredientService, fieldValidator, hlpr, (HashMap)args[0], (User)args[1]);
         } else if (clazz.equals(GetRecipesForBarbot.class)) {
-            return new GetRecipesForBarbot(barbotService, fieldValidator, hlpr, (HashMap) args[0]);
+            return new GetRecipesForBarbot(barbotService, categoryService, fieldValidator, hlpr, (HashMap) args[0]);
         } else if (clazz.equals(GetRecipeDetails.class)) {
             return new GetRecipeDetails(recipeService, fieldValidator, hlpr, (HashMap) args[0]);
         } else if (clazz.equals(GetIngredientsForBarbot.class)) {
@@ -62,8 +64,22 @@ public class CommandFactory {
             return new GetContainersForBarbot(barbotService, fieldValidator, hlpr, (HashMap) args[0]);
         } else if (clazz.equals(SetContainersForBarbot.class)) {
             return new SetContainersForBarbot(barbotService, ingredientService, barbotContainerService, fieldValidator, hlpr, (HashMap) args[0]);
+        } else if (clazz.equals(GetCategories.class)) {
+            return new GetCategories(categoryService, fieldValidator, hlpr, (HashMap)args[0]);
+        } else if (clazz.equals(GetCategory.class)) {
+            return new GetCategory(categoryService, fieldValidator, hlpr, (HashMap)args[0]);
         } else if (clazz.equals(BaseCommand.class)) {
             return new BaseCommand((HashMap) args[0], hlpr, fieldValidator);
+        } else if (clazz.equals(UpdateContainer.class)) {
+            return new UpdateContainer(barbotService, ingredientService, barbotContainerService, fieldValidator, hlpr, (HashMap) args[0]);
+        } else if (clazz.equals(UpdateGarnish.class)) {
+            return new UpdateGarnish(garnishService, barbotService, fieldValidator, hlpr, (HashMap)args[0]);
+        } else if (clazz.equals(GetGarnishesForBarbot.class)) {
+            return new GetGarnishesForBarbot(barbotService, fieldValidator, hlpr, (HashMap) args[0]);
+        } else if (clazz.equals(CreateRecipes.class)) {
+            return new CreateRecipes(recipeService, ingredientService, fieldValidator, hlpr, (HashMap)args[0], (User)args[1]);
+        } else if (clazz.equals(CreateCategories.class)) {
+            return new CreateCategories(categoryService, recipeService, fieldValidator, hlpr, (HashMap)args[0]);
         }
 
         return null;

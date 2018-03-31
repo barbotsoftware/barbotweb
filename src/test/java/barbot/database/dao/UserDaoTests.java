@@ -33,8 +33,6 @@ public class UserDaoTests extends BaseDaoTests {
 
     private User user;
 
-    private final int userListSize = 5;
-
     @Override
     @Before
     public void setUp() {
@@ -89,6 +87,26 @@ public class UserDaoTests extends BaseDaoTests {
     }
 
     @Test
+    public void testFindByUsernameAndPassword() {
+        String username = user.getUsername();
+        String password = user.getPassword();
+
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+
+        List<User> results = new ArrayList<>();
+        results.add(user);
+
+        (Mockito.doReturn(results).when(mockTemplate))
+                .find("FROM User WHERE name = ?", username);
+
+        User result = userDao.findByUsernameAndPassword(username, password);
+
+        assertThat(result).isNotNull();
+        assertThat(result.getUsername()).isEqualTo(username);
+        assertThat(result.getPassword()).isEqualTo(user.getPassword());
+    }
+
+    @Test
     public void testFindByEmailAndPassword() {
         String email = user.getEmail();
         String password = user.getPassword();
@@ -118,7 +136,7 @@ public class UserDaoTests extends BaseDaoTests {
     }
 
     private void setUpTestData() {
-        users = testDataHelper.createUserList(userListSize);
+        users = testDataHelper.createUserList(listSize);
 
         user = users.get(0);
     }

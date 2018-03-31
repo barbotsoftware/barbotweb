@@ -30,6 +30,8 @@ public abstract class CommandTests {
 
     protected HashMap fieldsToValidate;
 
+    protected final int listSize = 9;
+
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);

@@ -5,14 +5,17 @@ import static barbot.utils.AssertAnnotations.assertMethod;
 import static barbot.utils.AssertAnnotations.assertType;
 import static org.assertj.core.api.Assertions.assertThat;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.junit.Test;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonView;
 
@@ -34,6 +37,8 @@ public class BarbotTests extends EntityTests {
         assertField(Barbot.class, "password", Column.class, JsonIgnore.class);
         assertField(Barbot.class, "barbotContainers", OneToMany.class);
         assertField(Barbot.class, "drinkOrders", OneToMany.class);
+        assertField(Barbot.class, "garnishes", OneToMany.class, JsonView.class, JsonProperty.class,
+                JsonManagedReference.class);
     }
 
     @Test
@@ -44,6 +49,7 @@ public class BarbotTests extends EntityTests {
         assertMethod(Barbot.class, "getPassword");
         assertMethod(Barbot.class, "getBarbotContainers");
         assertMethod(Barbot.class, "getDrinkOrders");
+        assertMethod(Barbot.class, "getGarnishes");
     }
 
     @Test
@@ -115,4 +121,24 @@ public class BarbotTests extends EntityTests {
         assertThat(otm.mappedBy()).isEqualTo("barbot");
     }
 
+    @Test
+    public void testGarnishes() {
+        OneToMany otm = createOneToMany(Barbot.class, "garnishes");
+
+        assertThat(otm.mappedBy()).isEqualTo("barbot");
+        assertThat(otm.fetch()).isEqualTo(FetchType.EAGER);
+        assertThat(otm.cascade()).contains(CascadeType.ALL);
+
+        JsonView jv = createJsonView(Barbot.class, "garnishes");
+
+        assertThat(jv.value()).contains(View.Summary.class);
+
+        JsonProperty jp = createJsonProperty(Barbot.class, "garnishes");
+
+        assertThat(jp.value()).isEqualTo("garnishes");
+
+        JsonManagedReference jmr = createJsonManagedReference(Barbot.class, "garnishes");
+
+        assertThat(jmr).isNotNull();
+    }
 }

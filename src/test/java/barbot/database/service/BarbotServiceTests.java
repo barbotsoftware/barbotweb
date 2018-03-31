@@ -15,6 +15,7 @@ import org.mockito.Mockito;
 import barbot.database.dao.BarbotDao;
 import barbot.database.model.Barbot;
 import barbot.database.model.BarbotContainer;
+import barbot.database.model.BarbotGarnish;
 import barbot.database.model.Ingredient;
 import barbot.database.model.Recipe;
 
@@ -37,7 +38,7 @@ public class BarbotServiceTests extends BaseServiceTests {
 
     private List<BarbotContainer> barbotContainers;
 
-    private final int listSize = 10;
+    private List<BarbotGarnish> barbotGarnishes;
 
     @Override
     @Before
@@ -72,6 +73,20 @@ public class BarbotServiceTests extends BaseServiceTests {
     }
 
     @Test
+    public void testFindByNameAndPassword() {
+        String name = barbot.getName();
+        String password = barbot.getPassword();
+
+        (Mockito.doReturn(barbot)).when(barbotDao).findByNameAndPassword(name, password);
+
+        Barbot result = barbotService.findByNameAndPassword(name, password);
+
+        assertThat(result).isNotNull();
+        assertThat(result.getName()).isEqualTo(result.getName());
+        assertThat(result.getPassword()).isEqualTo(result.getPassword());
+    }
+
+    @Test
     public void testGetRecipes() {
         (Mockito.doReturn(recipes)).when(barbotDao).getRecipes(barbot);
 
@@ -101,11 +116,23 @@ public class BarbotServiceTests extends BaseServiceTests {
         assertThat(results.size()).isEqualTo(listSize);
     }
 
+    @Test
+    public void testGetGarnishes() {
+        (Mockito.doReturn(barbotGarnishes)).when(barbotDao).getGarnishes(barbot);
+
+        List<BarbotGarnish> results = barbotService.getGarnishes(barbot);
+
+        assertThat(results).isNotNull();
+        assertThat(results.size()).isEqualTo(listSize);
+    }
+
     private void setUpTestData() {
 
         // Barbot
         barbot = new Barbot("barbot_123456");
         barbot.setId(1);
+        barbot.setName("barbot1");
+        barbot.setPassword("password");
 
         List<Barbot> barbots = new ArrayList<>();
         barbots.add(barbot);
@@ -122,5 +149,11 @@ public class BarbotServiceTests extends BaseServiceTests {
 
         // Set BarbotContainers to first Barbot
         barbot.setBarbotContainers(new HashSet<>(barbotContainers));
+
+        // BarbotGarnishes
+        barbotGarnishes = testDataHelper.createBarbotGarnishList(listSize, barbots);
+
+        // Set BarbotGarnishes to first Barbot
+        barbot.setGarnishes(new HashSet<>(barbotGarnishes));
     }
 }

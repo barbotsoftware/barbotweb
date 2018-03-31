@@ -7,4 +7,5 @@ import barbot.database.model.Ingredient;
  */
 public interface IngredientService {
     Ingredient findByUid(String ingredientId);
+    Ingredient findByName(String name);
 }

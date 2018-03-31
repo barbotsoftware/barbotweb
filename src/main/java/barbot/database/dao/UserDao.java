@@ -39,6 +39,18 @@ public class UserDao extends HibernateDaoSupport {
         return !list.isEmpty() ? (User) list.get(0) : null;
     }
 
+    public User findByUsernameAndPassword(String username, String password) {
+        User user = findByName(username);
+
+        if (user != null) {
+            if (passwordEncoder.matches(password, user.getPassword())) {
+                return user;
+            }
+        }
+
+        return null;
+    }
+
     public User findByEmailAndPassword(String email, String password) {
         List list = getHibernateTemplate().find("FROM User WHERE email = ?", email);
 

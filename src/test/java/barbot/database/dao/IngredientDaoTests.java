@@ -27,8 +27,6 @@ public class IngredientDaoTests extends BaseDaoTests {
 
     private List<Ingredient> ingredients;
 
-    private final int ingredientListSize = 10;
-
     @Override
     @Before
     public void setUp() {
@@ -67,6 +65,6 @@ public class IngredientDaoTests extends BaseDaoTests {
     }
 
     private void setUpTestData() {
-        ingredients = testDataHelper.createIngredientList(ingredientListSize);
+        ingredients = testDataHelper.createIngredientList(listSize);
     }
 }

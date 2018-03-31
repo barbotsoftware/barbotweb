@@ -1,5 +1,6 @@
 package barbot.websocket.command;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -40,7 +41,7 @@ public class SetContainersForBarbot extends BaseCommand {
         String barbotId = (String) data.get(Constants.KEY_DATA_BARBOT_ID);
         Barbot barbot = this.barbotService.findByUid(barbotId);
 
-        ArrayList<HashMap> barbotContainers = (ArrayList<HashMap>) data.get(Constants.KEY_DATA_BARBOT_CONTAINERS);
+        ArrayList<HashMap> barbotContainers = (ArrayList<HashMap>) data.get(Constants.KEY_DATA_CONTAINERS);
 
         for (HashMap barbotContainer : barbotContainers) {
 
@@ -56,11 +57,11 @@ public class SetContainersForBarbot extends BaseCommand {
             bbc.setIngredient(ingredient);
 
             // Get Volumes
-            int currentVolume = (int) barbotContainer.get(Constants.KEY_DATA_CURRENT_VOLUME);
-            int maxVolume = (int) barbotContainer.get(Constants.KEY_DATA_MAX_VOLUME);
+            BigDecimal currentVolume = new BigDecimal((double)barbotContainer.get(Constants.KEY_DATA_CURRENT_VOLUME));
+            BigDecimal maxVolume = new BigDecimal((double)barbotContainer.get(Constants.KEY_DATA_MAX_VOLUME));
 
             // Reduce currentVolume if greater than maxVolume
-            if (currentVolume > maxVolume) {
+            if (currentVolume.compareTo(maxVolume) == 1) {
                 currentVolume = maxVolume;
             }
 
@@ -86,8 +87,10 @@ public class SetContainersForBarbot extends BaseCommand {
             return false;
         }
 
-        if(!data.containsKey("barbot_containers") || !data.get("barbot_containers").getClass().equals(ArrayList.class))  {
-            error.put("barbot_containers.notFound", hlpr.getMessage(Constants.ERROR_MSG_PREFIX + "barbot_containers.notFound"));
+        if(!data.containsKey(Constants.KEY_DATA_CONTAINERS) || !data.get(Constants.KEY_DATA_CONTAINERS).getClass()
+                .equals(ArrayList.class))  {
+            error.put(Constants.KEY_DATA_CONTAINERS + ".notFound", hlpr.getMessage(Constants.ERROR_MSG_PREFIX +
+                    Constants.KEY_DATA_CONTAINERS + ".notFound"));
             return false;
         }
 

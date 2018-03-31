@@ -29,6 +29,6 @@ BEGIN
 END//
 DELIMITER ;
 
-CALL `do_current_update_script`('add_recipe_ingredient_amount_5_2_2017', '1.001', '2017-05-02');
+CALL `do_current_update_script`('add_recipe_ingredient_amount', '1.001', '2017-05-02');
 
 -- END OF UPDATE SCRIPT --

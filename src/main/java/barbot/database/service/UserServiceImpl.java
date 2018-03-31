@@ -43,6 +43,13 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
+    public User findByUsernameAndPassword(String username, String password) {
+        Assert.hasLength(username, "Username must not be empty");
+        Assert.hasLength(password, "Password must not be empty");
+        return userDao.findByUsernameAndPassword(username, password);
+    }
+
+    @Override
     public User findByEmailAndPassword(String email, String password) {
         Assert.hasLength(email, "Email must not be empty");
         Assert.hasLength(password, "Password must not be empty");

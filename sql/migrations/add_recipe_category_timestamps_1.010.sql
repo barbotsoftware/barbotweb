@@ -1,5 +1,5 @@
 -- START OF UPDATE SCRIPT --
--- Drops barbot_io_device, barbot_io_device_type and barbot_pump tables.
+-- Add timestamp fields to recipe_category table
 
 DROP PROCEDURE IF EXISTS `do_current_update_script`;
 
@@ -16,9 +16,10 @@ BEGIN
   SET count_rows = (SELECT count(*) FROM `migration` m WHERE m.version = `version`);
   IF count_rows = 0 THEN
 
-    DROP TABLE `barbot_pump`;
-    DROP TABLE `barbot_io_device`;
-    DROP TABLE `barbot_io_device_type`;
+    -- MIGRATION SCRIPT
+	ALTER TABLE barbotdb.recipe_category ADD created_at TIMESTAMP DEFAULT '0000-00-00 00:00:00' NOT NULL;
+    ALTER TABLE barbotdb.recipe_category ADD deleted_at TIMESTAMP DEFAULT '0000-00-00 00:00:00' NOT NULL;
+    ALTER TABLE barbotdb.recipe_category ADD updated_at TIMESTAMP DEFAULT '0000-00-00 00:00:00' NOT NULL;
 
     INSERT INTO `migration`(migration,version,created_at,run_at)
     VALUES(migration,version,created_at,NOW());
@@ -27,6 +28,6 @@ BEGIN
 END//
 DELIMITER ;
 
-CALL `do_current_update_script`('drop_io_device_pump_6_6_2017', '1.004', '2017-06-06');
+CALL `do_current_update_script`('add_recipe_category_timestamps', '1.010', '2018-02-02');
 
 -- END OF UPDATE SCRIPT --

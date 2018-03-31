@@ -25,4 +25,10 @@ public class IngredientDao extends HibernateDaoSupport {
     public Ingredient findById(int id) {
         return getHibernateTemplate().get(Ingredient.class, id);
     }
+
+    public Ingredient findByName(String name) {
+        List list = getHibernateTemplate().find("FROM Ingredient WHERE name = ?", name);
+
+        return !list.isEmpty() ? (Ingredient) list.get(0) : null;
+    }
 }

@@ -19,6 +19,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import barbot.utils.Constants;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 
 /**
  * Created by Naveen on 3/27/17.
@@ -38,6 +40,7 @@ public class Recipe extends BaseEntity {
 
     @ManyToOne
     @JoinColumn(name = "created_by", referencedColumnName = "id", nullable = false)
+    @NotFound(action = NotFoundAction.IGNORE)
     private User createdBy;
 
     @Column(name = "custom", nullable = false)
@@ -61,6 +64,11 @@ public class Recipe extends BaseEntity {
     @JsonView(View.Detail.class)
     @JsonProperty("ingredient_list")
     private Set<Ingredient> ingredients;
+
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL,  mappedBy = "recipes", targetEntity = Category.class)
+    @JsonView(View.Detail.class)
+    @JsonProperty("category_list")
+    private Set<Category> categories;
 
     public Recipe() {
 
@@ -145,6 +153,18 @@ public class Recipe extends BaseEntity {
 
     public void setIngredients(Set<Ingredient> ingredients) {
         this.ingredients = ingredients;
+    }
+
+    public void setCustom(Boolean custom) {
+        this.custom = custom;
+    }
+
+    public Set<Category> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(Set<Category> categories) {
+        this.categories = categories;
     }
 
     @Override

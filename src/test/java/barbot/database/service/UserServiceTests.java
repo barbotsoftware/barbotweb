@@ -23,9 +23,6 @@ public class UserServiceTests extends BaseServiceTests {
     @Mock
     private UserDao userDao;
 
-    @Mock
-    private HelperMethods hlpr;
-
     private User user;
 
     @Override
@@ -58,6 +55,20 @@ public class UserServiceTests extends BaseServiceTests {
 
         assertThat(result).isNotNull();
         assertThat(result.getName()).isEqualTo(name);
+    }
+
+    @Test
+    public void testFindByUsernameAndPassword() {
+        String username = user.getUsername();
+        String password = user.getPassword();
+
+        (Mockito.doReturn(user)).when(userDao).findByUsernameAndPassword(username, password);
+
+        User result = userService.findByUsernameAndPassword(username, password);
+
+        assertThat(result).isNotNull();
+        assertThat(result.getUsername()).isEqualTo(result.getUsername());
+        assertThat(result.getPassword()).isEqualTo(result.getPassword());
     }
 
     @Test

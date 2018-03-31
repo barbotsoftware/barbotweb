@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import barbot.websocket.command.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.EventListener;
 import org.springframework.security.core.context.SecurityContext;
@@ -26,17 +27,6 @@ import barbot.database.model.View;
 import barbot.event.BarbotEvent;
 import barbot.utils.Constants;
 import barbot.utils.HelperMethods;
-import barbot.websocket.command.BaseCommand;
-import barbot.websocket.command.Command;
-import barbot.websocket.command.CommandFactory;
-import barbot.websocket.command.CreateCustomRecipe;
-import barbot.websocket.command.GetContainersForBarbot;
-import barbot.websocket.command.GetIngredientsForBarbot;
-import barbot.websocket.command.GetRecipeDetails;
-import barbot.websocket.command.GetRecipesForBarbot;
-import barbot.websocket.command.OrderDrink;
-import barbot.websocket.command.PourDrink;
-import barbot.websocket.command.SetContainersForBarbot;
 
 /**
  * Created by alexh on 4/6/2017.
@@ -88,7 +78,7 @@ public class WebSocketHandler extends TextWebSocketHandler {
 
             try {
                 if (command.validate()) {
-                    sendMessage(session, command.execute(), command.getJsonView());
+                    sendMessage(session, command.execute(), command.getJsonView(), msg.get(Constants.KEY_COMMAND).toString());
                 } else {
                     sendError(session, command.getError());
                 }
@@ -125,6 +115,27 @@ public class WebSocketHandler extends TextWebSocketHandler {
                 break;
             case Constants.CMD_SET_CONTAINERS_FOR_BARBOT:
                 command = commandFactory.create(SetContainersForBarbot.class, msg);
+                break;
+            case Constants.CMD_GET_CATEGORIES:
+                command = commandFactory.create(GetCategories.class, msg);
+                break;
+            case Constants.CMD_GET_CATEGORY:
+                command = commandFactory.create(GetCategory.class, msg);
+                break;
+            case Constants.CMD_UPDATE_CONTAINER:
+                command = commandFactory.create(UpdateContainer.class, msg);
+                break;
+            case Constants.CMD_UPDATE_GARNISH:
+                command = commandFactory.create(UpdateGarnish.class, msg);
+                break;
+            case Constants.CMD_GET_GARNISHES_FOR_BARBOT:
+                command = commandFactory.create(GetGarnishesForBarbot.class, msg);
+                break;
+            case Constants.CMD_CREATE_RECIPES:
+                command = commandFactory.create(CreateRecipes.class, msg, getUser(session));
+                break;
+            case Constants.CMD_CREATE_CATEGORIES:
+                command = commandFactory.create(CreateCategories.class, msg);
                 break;
             default:
                 command = commandFactory.create(BaseCommand.class, msg);
@@ -167,10 +178,11 @@ public class WebSocketHandler extends TextWebSocketHandler {
         }
     }
 
-    private void sendMessage(WebSocketSession session, Object message, Class<?> jsonView) {
+    private void sendMessage(WebSocketSession session, Object message, Class<?> jsonView, String command) {
         HashMap responseMap = new HashMap();
         responseMap.put(Constants.KEY_MESSAGE_TYPE, Constants.KEY_COMMAND_RESPONSE);
         responseMap.put(Constants.KEY_RESULT, Constants.KEY_SUCCESS);
+        responseMap.put(Constants.KEY_COMMAND, command);
         if (message != null) {
             responseMap.put(Constants.KEY_DATA, message);
         }

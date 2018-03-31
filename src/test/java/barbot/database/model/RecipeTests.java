@@ -22,6 +22,9 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonView;
 
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
+
 /**
  * Created by Naveen on 5/29/17.
  */
@@ -36,13 +39,14 @@ public class RecipeTests extends EntityTests {
     public void testFieldAnnotations() {
         assertField(Recipe.class, "uid", Column.class, JsonProperty.class, JsonView.class);
         assertField(Recipe.class, "name", Column.class, JsonView.class);
-        assertField(Recipe.class, "createdBy", ManyToOne.class, JoinColumn.class);
+        assertField(Recipe.class, "createdBy", ManyToOne.class, JoinColumn.class, NotFound.class);
         assertField(Recipe.class, "custom", Column.class);
         assertField(Recipe.class, "imageUrl", Column.class, JsonProperty.class, JsonView.class);
         assertField(Recipe.class, "recipeIngredients", OneToMany.class, JsonView.class, JsonProperty.class,
                 JsonManagedReference.class);
         assertField(Recipe.class, "ingredients", ManyToMany.class, JoinTable.class, JsonView.class,
                 JsonProperty.class);
+        assertField(Recipe.class, "categories", ManyToMany.class, JsonView.class, JsonProperty.class);
     }
 
     @Test
@@ -54,6 +58,7 @@ public class RecipeTests extends EntityTests {
         assertMethod(Recipe.class, "getImageUrl");
         assertMethod(Recipe.class, "getRecipeIngredients");
         assertMethod(Recipe.class, "getIngredients");
+        assertMethod(Recipe.class, "getCategories");
     }
 
     @Test
@@ -110,6 +115,10 @@ public class RecipeTests extends EntityTests {
         assertThat(jc.name()).isEqualTo("created_by");
         assertThat(jc.referencedColumnName()).isEqualTo("id");
         assertThat(jc.nullable()).isFalse();
+
+        NotFound nf = createNotFound(Recipe.class, "createdBy");
+
+        assertThat(nf.action()).isEqualTo(NotFoundAction.IGNORE);
     }
 
     @Test
@@ -182,5 +191,22 @@ public class RecipeTests extends EntityTests {
         JsonProperty jp = createJsonProperty(Recipe.class, "ingredients");
 
         assertThat(jp.value()).isEqualTo("ingredient_list");
+    }
+
+    @Test
+    public void testCategories() {
+        ManyToMany mtm = createManyToMany(Recipe.class, "categories");
+
+        assertThat(mtm.fetch()).isEqualTo(FetchType.LAZY);
+        assertThat(mtm.cascade()).contains(CascadeType.ALL);
+        assertThat(mtm.targetEntity()).isEqualTo(Category.class);
+
+        JsonView jv = createJsonView(Recipe.class, "categories");
+
+        assertThat(jv.value()).contains(View.Detail.class);
+
+        JsonProperty jp = createJsonProperty(Recipe.class, "categories");
+
+        assertThat(jp.value()).isEqualTo("category_list");
     }
 }

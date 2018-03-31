@@ -4,6 +4,7 @@ import java.util.Properties;
 
 import javax.sql.DataSource;
 
+import barbot.database.dao.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,14 +12,6 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-
-import barbot.database.dao.BarbotContainerDao;
-import barbot.database.dao.BarbotDao;
-import barbot.database.dao.DrinkOrderDao;
-import barbot.database.dao.IngredientDao;
-import barbot.database.dao.MainDao;
-import barbot.database.dao.RecipeDao;
-import barbot.database.dao.UserDao;
 
 /**
  * Created by alexh on 3/25/2017.
@@ -110,6 +103,7 @@ public class DatabaseConfig {
     public BarbotDao barbotDao() {
         BarbotDao barbotDao = new BarbotDao();
         barbotDao.setSessionFactory(sessionFactory().getObject());
+        barbotDao.setPasswordEncoder(passwordEncoder());
         return barbotDao;
     }
 
@@ -118,5 +112,26 @@ public class DatabaseConfig {
         BarbotContainerDao barbotContainerDao = new BarbotContainerDao();
         barbotContainerDao.setSessionFactory(sessionFactory().getObject());
         return barbotContainerDao;
+    }
+
+    @Bean
+    public CategoryDao categoryDao() {
+        CategoryDao categoryDao = new CategoryDao();
+        categoryDao.setSessionFactory(sessionFactory().getObject());
+        return categoryDao;
+    }
+
+    @Bean
+    public GarnishDao garnishDao() {
+        GarnishDao garnishDao = new GarnishDao();
+        garnishDao.setSessionFactory(sessionFactory().getObject());
+        return garnishDao;
+    }
+
+    @Bean
+    public BarbotGarnishDao barbotGarnishDao() {
+        BarbotGarnishDao barbotGarnishDao = new BarbotGarnishDao();
+        barbotGarnishDao.setSessionFactory(sessionFactory().getObject());
+        return barbotGarnishDao;
     }
 }

@@ -55,10 +55,12 @@ public class OrderDrinkTests extends CommandTests {
         (Mockito.doReturn(barbot)).when(barbotService).findByUid(barbotId);
         (Mockito.doReturn(recipe)).when(recipeService).findByUid(recipeId);
 
-        DrinkOrder result = (DrinkOrder) command.execute();
+        HashMap result = (HashMap) command.execute();
 
-        assertThat(result).isNotNull();
-        assertThat(result).isEqualTo(drinkOrder);
+        DrinkOrder order = (DrinkOrder) result.get("drink_order");
+
+        assertThat(order).isNotNull();
+        assertThat(order).isEqualTo(drinkOrder);
     }
 
     @Test

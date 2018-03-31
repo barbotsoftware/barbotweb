@@ -1,20 +1,21 @@
 package barbot.database.model;
 
 import java.math.BigDecimal;
-import java.sql.Timestamp;
 
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import barbot.utils.Constants;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonView;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
+import barbot.utils.Constants;
 
 /**
  * Created by Naveen on 3/27/17.
@@ -31,6 +32,8 @@ public class RecipeIngredient extends BaseEntity {
 
     @ManyToOne
     @JoinColumn(name = "ingredient_id", referencedColumnName = "id", nullable = false)
+    @JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="ingredient_id")
+    @JsonIdentityReference(alwaysAsId=true)
     @JsonProperty("ingredient_id")
     @JsonView(View.Summary.class)
     private Ingredient ingredient;
@@ -81,6 +84,12 @@ public class RecipeIngredient extends BaseEntity {
         RecipeIngredient that = (RecipeIngredient) o;
 
         if (id != null ? !id.equals(that.id) : that.id != null) return false;
+        if (createdAt != null ? !createdAt.equals(that.createdAt) : that.createdAt != null) return false;
+        if (updatedAt != null ? !updatedAt.equals(that.updatedAt) : that.updatedAt != null) return false;
+        if (deletedAt != null ? !deletedAt.equals(that.deletedAt) : that.deletedAt != null) return false;
+        if (recipe != null ? !recipe.equals(that.recipe) : that.recipe != null) return false;
+        if (ingredient != null ? !ingredient.equals(that.ingredient) : that.ingredient != null) return false;
+        if (amount != null ? !amount.equals(that.amount) : that.amount != null) return false;
 
         return true;
     }
@@ -88,6 +97,12 @@ public class RecipeIngredient extends BaseEntity {
     @Override
     public int hashCode() {
         int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (createdAt != null ? createdAt.hashCode() : 0);
+        result = 31 * result + (updatedAt != null ? updatedAt.hashCode() : 0);
+        result = 31 * result + (deletedAt != null ? deletedAt.hashCode() : 0);
+        result = 31 * result + (recipe != null ? recipe.hashCode() : 0);
+        result = 31 * result + (ingredient != null ? ingredient.hashCode() : 0);
+        result = 31 * result + (amount != null ? amount.hashCode() : 0);
         return result;
     }
 }
